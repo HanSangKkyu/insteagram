@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "592058806830",
+    "firebase_url": "https://insteagram-91a09.firebaseio.com",
+    "project_id": "insteagram-91a09",
+    "storage_bucket": "insteagram-91a09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592058806830:android:8d63f06bff93848f",
+        "android_client_info": {
+          "package_name": "com.example.ten.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592058806830-mf8r0cer6uaj4beh5iqji7htk7er79tc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "592058806830-mf8r0cer6uaj4beh5iqji7htk7er79tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC71feuoVGQaqb9hGJb0rT8HJU_WOUmnmE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

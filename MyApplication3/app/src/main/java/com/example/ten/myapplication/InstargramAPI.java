@@ -21,6 +21,8 @@ public class InstargramAPI extends AppCompatActivity {
 
     TextView tv;
     ArrayList<String> imgUrlList;
+    ArrayList<String> UrlList;
+    ArrayList<String> hashtagList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +42,83 @@ public class InstargramAPI extends AppCompatActivity {
 //                    }
 //                });
         imgUrlList = new ArrayList<>();
+        UrlList = new ArrayList<>();
+        hashtagList = new ArrayList<>();
 
+//        Ion.with(this)
+//                .load("https://www.instagram.com/explore/tags/%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98/?hl=ko")
+//                .asString(Charsets.UTF_8) // .asString()
+//                .setCallback(new FutureCallback<String>() {
+//                    @Override
+//                    public void onCompleted(Exception e, String result) {
+//                        tv.setText(String.valueOf(result));
+//
+//
+//                        // 최신글의 이미지를 가져온다.
+//                        String nowString = String.valueOf(result);
+//                        for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+//                            int flag = 0;
+//                            int start = nowString.indexOf("display_url");
+//                            int end = 0;
+//                            for (int j = start; ; j++) {
+//                                if (nowString.charAt(j) == '\"') {
+//                                    if (flag == 1) {
+//                                        start = j + 1;
+//                                    } else if (flag == 2) {
+//                                        end = j;
+//                                        String img = nowString.substring(start, end);
+//                                        imgUrlList.add(img);
+//                                        Log.v("asdf", img + "");
+//                                        nowString = nowString.substring(end + 1, nowString.length());
+//                                        break;
+//                                    }
+//                                    flag++;
+//                                }
+//                            }
+//                        }
+//
+//                        // 최신글의 url을 가져온다.
+//                        String nowString1 = String.valueOf(result);
+//                        for (int i = 0; nowString1.indexOf("shortcode") != -1; i++) {
+//                            int flag = 0;
+//                            int start = nowString1.indexOf("shortcode");
+//                            int end = 0;
+//                            for (int j = start; ; j++) {
+//                                if (nowString1.charAt(j) == '\"') {
+//                                    if (flag == 1) {
+//                                        start = j + 1;
+//                                    } else if (flag == 2) {
+//                                        end = j;
+//                                        String img = nowString1.substring(start, end);
+//                                        UrlList.add(img);
+//                                        Log.v("asdf", img + "");
+//                                        nowString1 = nowString1.substring(end + 1, nowString1.length());
+//                                        break;
+//                                    }
+//                                    flag++;
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
+
+
+        // 해시태그 가져오기
         Ion.with(this)
-                .load("https://www.instagram.com/explore/tags/%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98/?hl=ko")
+                .load("https://www.instagram.com/p/BjeYic0nI_B/?hl=ko&tagged=%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98")
                 .asString(Charsets.UTF_8) // .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
                     public void onCompleted(Exception e, String result) {
-                        tv.setText(String.valueOf(result));
+
+                        String findStr = "hashtags\" content=\"";
+                        int findStrLen = result.indexOf(findStr);
 
 
-
-                        // 최신글의 이미지를 가져온다.
-                        String nowString = String.valueOf(result);
-                        for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                        String nowString = result;
+                        for (int i = 0; nowString.indexOf(findStr) != -1; i++) {
                             int flag = 0;
-                            int start = nowString.indexOf("display_url");
+                            int start = nowString.indexOf(findStr);
                             int end = 0;
                             for (int j = start; ; j++) {
                                 if (nowString.charAt(j) == '\"') {
@@ -63,9 +126,9 @@ public class InstargramAPI extends AppCompatActivity {
                                         start = j + 1;
                                     } else if (flag == 2) {
                                         end = j;
-                                        String img = nowString.substring(start, end);
-                                        imgUrlList.add(img);
-                                        Log.v("asdf", img + "");
+                                        String tag = nowString.substring(start, end);
+                                        hashtagList.add(tag);
+                                        Log.v("asdf", tag + "");
                                         nowString = nowString.substring(end + 1, nowString.length());
                                         break;
                                     }
@@ -73,11 +136,8 @@ public class InstargramAPI extends AppCompatActivity {
                                 }
                             }
                         }
+
                     }
                 });
-
-
     }
-
-
 }

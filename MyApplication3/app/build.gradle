@@ -19,7 +19,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/libDaumMapAndroid.jar')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -27,4 +29,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.koushikdutta.ion:ion:2.+'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation files('libs/libDaumMapAndroid.jar')
 }

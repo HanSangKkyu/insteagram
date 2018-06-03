@@ -1,9 +1,12 @@
 package com.example.ten.myapplication;
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.nhn.android.maps.NMapActivity;
@@ -143,6 +146,13 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
     @Override
     public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0, NMapOverlayItem arg1, Rect arg2) {
         return new NMapCalloutBasicOverlay(arg0, arg1, arg2);
+    }
+
+    public void BtnClick(View view) {
+        //Btn을 누르면 네이버 지도앱으로 이동.
+        String url ="https://m.map.naver.com/directions/";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }
 

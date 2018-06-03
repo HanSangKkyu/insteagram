@@ -24,8 +24,12 @@
         </activity>
         <activity android:name=".ShowMapActivity" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".LoginActivity" />
         <activity android:name=".JoinActivity"></activity>
+=======
+        <activity android:name=".InstargramAPI"></activity>
+>>>>>>> 8cf27347bc01576cf55d52060e93013e856b4a92
 =======
         <activity android:name=".InstargramAPI"></activity>
 >>>>>>> 8cf27347bc01576cf55d52060e93013e856b4a92

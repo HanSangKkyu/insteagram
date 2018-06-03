@@ -1,16 +1,38 @@
 package com.example.ten.myapplication;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 import com.nhn.android.maps.NMapActivity;
+import com.nhn.android.maps.NMapController;
+import com.nhn.android.maps.NMapOverlay;
+import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.NMapView;
+import com.nhn.android.maps.maplib.NGeoPoint;
+import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
+import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-public class ShowMapActivity extends NMapActivity {
+public class ShowMapActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener{
 
-    private NMapView mMapView;// 지도 화면 View
+
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
+    private final String  TAG = "MainActivity";
+
     private ViewGroup mapLayout;
+
+    private NMapController mMapController=null;
+    private NMapView mMapView;
+
+    private NMapResourceProvider nMapResourceProvider;
+    private NMapOverlayManager mapOverlayManager;
+    NMapPOIdataOverlay.OnStateChangeListener onPOldataStateChangeListener=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +41,6 @@ public class ShowMapActivity extends NMapActivity {
         setContentView(R.layout.activity_show_map);
         init();
 
-        // java code
 
     }
     public void init(){
@@ -31,12 +52,97 @@ public class ShowMapActivity extends NMapActivity {
         mMapView.setEnabled(true);
         mMapView.setFocusable(true);
         mMapView.setFocusableInTouchMode(true);
-        mMapView.setScalingFactor(1.5f);
+        mMapView.setScalingFactor(1.7f);
         mMapView.requestFocus();
 
         mapLayout.addView(mMapView);
+        nMapResourceProvider=new NMapViewerResourceProvider(this);
+        mapOverlayManager=new NMapOverlayManager(this, mMapView, nMapResourceProvider);
 
+        int markId=NMapPOIflagType.PIN;
+        NMapPOIdata nMapPOIdata=new NMapPOIdata(1, nMapResourceProvider);
+        nMapPOIdata.beginPOIdata(1);
 
+        nMapPOIdata.addPOIitem(127.0630205, 37.5091300, "Pizza777-111", markId, 0);
+        nMapPOIdata.endPOIdata();
+
+        NMapPOIdataOverlay poIdataOverlay=mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
+
+        poIdataOverlay.showAllPOIdata(0);
+        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
+        mMapView.setScalingFactor(1.7f);
+
+        mMapController = mMapView.getMapController();
+        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
+
+        //Default Data
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //setMarker();
+            }
+        }, 5000);
+    }
+
+    @Override
+    public void onMapInitHandler(NMapView nMapView, NMapError nMapError) {
 
     }
+
+    @Override
+    public void onMapCenterChange(NMapView nMapView, NGeoPoint nGeoPoint) {
+
+    }
+
+    @Override
+    public void onMapCenterChangeFine(NMapView nMapView) {
+
+    }
+
+    @Override
+    public void onZoomLevelChange(NMapView nMapView, int i) {
+
+    }
+
+    @Override
+    public void onAnimationStateChange(NMapView nMapView, int i, int i1) {
+
+    }
+
+    @Override
+    public void onLongPress(NMapView nMapView, MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public void onLongPressCanceled(NMapView nMapView) {
+
+    }
+
+    @Override
+    public void onTouchDown(NMapView nMapView, MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public void onTouchUp(NMapView nMapView, MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public void onScroll(NMapView nMapView, MotionEvent motionEvent, MotionEvent motionEvent1) {
+
+    }
+
+    @Override
+    public void onSingleTapUp(NMapView nMapView, MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0, NMapOverlayItem arg1, Rect arg2) {
+        return new NMapCalloutBasicOverlay(arg0, arg1, arg2);
+    }
 }
+

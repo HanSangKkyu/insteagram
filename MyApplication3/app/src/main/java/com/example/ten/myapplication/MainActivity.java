@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ClickBtn(View view) {
-        switch (view.getId()) {
+        switch (view.getId()){
             case R.id.joinBtn:
                 //혜진
                 Intent intent1 = new Intent(this, LoginActivity.class);
@@ -23,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.ApiBtn:
                 //혜지&상규
-                startActivity(new Intent(this, InstargramAPI.class));
                 break;
             case R.id.MapBtn:
-                Intent intent = new Intent(this, ShowMapActivity.class);
+                Intent intent=new Intent(this, ShowMapActivity.class);
                 startActivity(intent);
                 //열
                 break;

@@ -19,14 +19,13 @@ android {
 }
 
 dependencies {
-    implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation files('libs/libDaumMapAndroid.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     implementation 'com.google.firebase:firebase-core:12.0.1'
@@ -42,5 +41,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation files('libs/libDaumMapAndroid.jar')
 >>>>>>> 8cf27347bc01576cf55d52060e93013e856b4a92
+=======
+    implementation 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'com.google.firebase:firebase-database:12.0.1'
+
+>>>>>>> parent of 388e4df... Merge branch 'master' of https://github.com/HanSangKkyu/insteagram
 }
 apply plugin: 'com.google.gms.google-services'

@@ -27,6 +27,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity android:name=".LoginActivity" />
         <activity android:name=".JoinActivity"></activity>
 =======
@@ -35,6 +36,10 @@
 =======
         <activity android:name=".InstargramAPI"></activity>
 >>>>>>> 8cf27347bc01576cf55d52060e93013e856b4a92
+=======
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".JoinActivity"></activity>
+>>>>>>> parent of 388e4df... Merge branch 'master' of https://github.com/HanSangKkyu/insteagram
 =======
         <activity android:name=".LoginActivity" />
         <activity android:name=".JoinActivity"></activity>

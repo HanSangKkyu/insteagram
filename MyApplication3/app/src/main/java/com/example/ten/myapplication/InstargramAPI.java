@@ -44,7 +44,7 @@ public class InstargramAPI extends AppCompatActivity {
 //                    }
 //                });
         imgUrlList = new ArrayList<>();
-        urlList = new ArrayList<>();
+        urlList = new ArrayList<>();  /////
         hashtagList = new ArrayList<>();
         lsitView = (ListView) findViewById(R.id.listView);
         dataList = new ArrayList<>();

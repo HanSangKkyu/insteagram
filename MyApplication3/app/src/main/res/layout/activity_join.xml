@@ -53,11 +53,65 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <GridLayout
+        android:rowCount="3"
+        android:columnCount="3"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/flower"
+            android:text="플라워 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/cat"
+            android:text="고양이 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/dog"
+            android:text="강아지 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/roofTop"
+            android:text="루프탑 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/character"
+            android:text="캐릭터 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/cheap"
+            android:text="저렴한 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/fortune"
+            android:text="사주 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/book"
+            android:text="북 카페"
+            android:onClick="checkPreference"/>
+
+        <Button
+            android:id="@+id/dessert"
+            android:text="디저트 카페"
+            android:onClick="checkPreference"/>
+
+    </GridLayout>
+
     <Button
         android:id="@+id/joinButton"
-        android:text="회원가입"
+        android:text="회원가입 완료"
         android:onClick="join"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 

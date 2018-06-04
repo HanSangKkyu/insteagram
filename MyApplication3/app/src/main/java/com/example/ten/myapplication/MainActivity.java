@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.joinBtn:
                 //혜진
+                Intent intent1 = new Intent(this, LoginActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ApiBtn:
                 //혜지&상규

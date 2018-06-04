@@ -24,6 +24,9 @@
         </activity>
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".InstargramAPI"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".JoinActivity"></activity>
+
     </application>
 
 </manifest>

@@ -12,6 +12,8 @@
     <TextView
         android:id="@+id/shortcode"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/cardview_dark_background"
+        />
 
 </LinearLayout>

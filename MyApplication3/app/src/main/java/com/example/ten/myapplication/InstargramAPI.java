@@ -1,22 +1,16 @@
 package com.example.ten.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class InstargramAPI extends AppCompatActivity {
 
@@ -26,11 +20,13 @@ public class InstargramAPI extends AppCompatActivity {
     ArrayList<Data> dataList;
     ListView lsitView;
     Adapter adapter;
+    String[] hashtag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instargram_api);
+        makeFile();
         //    https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=4796908241.9ab492e.4cf6b822cecd43b0a415442780d05d6b
         //    https://api.instagram.com/v1/tags/{tag-name}?access_token=ACCESS-TOKEN
 
@@ -111,43 +107,14 @@ public class InstargramAPI extends AppCompatActivity {
                         lsitView.setAdapter(adapter);
                     }
                 });
-
-
-        // 해시태그 가져오기
-//        Ion.with(this)
-//                .load("https://www.instagram.com/p/BjeYic0nI_B/?hl=ko&tagged=%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98")
-//                .asString(Charsets.UTF_8) // .asString()
-//                .setCallback(new FutureCallback<String>() {
-//                    @Override
-//                    public void onCompleted(Exception e, String result) {
-//
-//                        String findStr = "hashtags\" content=\"";
-//                        int findStrLen = result.indexOf(findStr);
-//
-//
-//                        String nowString = result;
-//                        for (int i = 0; nowString.indexOf(findStr) != -1; i++) {
-//                            int flag = 0;
-//                            int start = nowString.indexOf(findStr);
-//                            int end = 0;
-//                            for (int j = start; ; j++) {
-//                                if (nowString.charAt(j) == '\"') {
-//                                    if (flag == 1) {
-//                                        start = j + 1;
-//                                    } else if (flag == 2) {
-//                                        end = j;
-//                                        String tag = nowString.substring(start, end);
-//                                        hashtagList.add(tag);
-//                                        Log.v("asdf", tag + "");
-//                                        nowString = nowString.substring(end + 1, nowString.length());
-//                                        break;
-//                                    }
-//                                    flag++;
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//                });
+    }
+    public void makeFile(){
+        String hash="";
+        Scanner scan=new Scanner(getResources().openRawResource(R.raw.hash));
+        while(scan.hasNextLine()){
+            hash+=scan.nextLine();
+        }
+        hashtag=hash.split(" ");
+        //Toast.makeText(this, hashtag[1], Toast.LENGTH_SHORT).show();;
     }
 }

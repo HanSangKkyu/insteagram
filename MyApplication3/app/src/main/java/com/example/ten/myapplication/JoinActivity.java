@@ -156,13 +156,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[0]) { // 체크 되었으면
                     check[0] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.flower)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.flower)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) { // 현재 세개 미만 선택되었을 때만
                         check[0] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.flower)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.flower)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -173,13 +173,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[1]) { // 체크 되었으면
                     check[1] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.cat)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.cat)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[1] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.cat)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.cat)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -190,13 +190,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[2]) { // 체크 되었으면
                     check[2] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.dog)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.dog)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[2] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.dog)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.dog)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -207,13 +207,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[3]) { // 체크 되었으면
                     check[3] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.roofTop)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.roofTop)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[3] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.roofTop)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.roofTop)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -224,13 +224,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[4]) { // 체크 되었으면
                     check[4] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.character)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.character)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[4] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.character)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.character)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -241,13 +241,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[5]) { // 체크 되었으면
                     check[5] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.cheap)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.cheap)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[5] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.cheap)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.cheap)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -258,13 +258,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[6]) { // 체크 되었으면
                     check[6] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.fortune)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.fortune)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[6] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.fortune)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.fortune)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -275,13 +275,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[7]) { // 체크 되었으면
                     check[7] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.book)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.book)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[7] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.book)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.book)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();
@@ -292,13 +292,13 @@ public class JoinActivity extends AppCompatActivity {
                 if(check[8]) { // 체크 되었으면
                     check[8] = false; // 체크 풀기
                     count--;
-                    ((Button) findViewById(R.id.dessert)).setBackgroundColor(Color.LTGRAY);
+                    ((Button) findViewById(R.id.dessert)).setBackgroundResource(R.drawable.btnnormal);
                 }
                 else { // 체크 안 되었으면
                     if(count < 3) {
                         check[8] = true; // 체크하기
                         count++;
-                        ((Button) findViewById(R.id.dessert)).setBackgroundColor(Color.DKGRAY);
+                        ((Button) findViewById(R.id.dessert)).setBackgroundResource(R.drawable.btnclick);
                     }
                     else
                         Toast.makeText(this, "3개까지만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show();

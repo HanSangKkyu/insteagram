@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.koushikdutta.async.future.FutureCallback;
@@ -17,6 +16,7 @@ import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Adapter extends ArrayAdapter<Data> {
@@ -52,7 +52,7 @@ public class Adapter extends ArrayAdapter<Data> {
 
             // 해시태그 가져오기
             Ion.with(getContext())
-                    .load("https://www.instagram.com/p/" + p.getShortcode() + "/?hl=ko&tagged=%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98")
+                    .load("https://www.instagram.com/p/" + p.getShortcode() + "/?tagged=%ED%94%8C%EB%9D%BC%EC%9B%8C%EC%B9%B4%ED%8E%98")
                     .asString(Charsets.UTF_8) // .asString()
                     .setCallback(new FutureCallback<String>() {
                         @Override
@@ -74,6 +74,7 @@ public class Adapter extends ArrayAdapter<Data> {
                                         } else if (flag == 2) {
                                             end = j;
                                             String tag = nowString.substring(start, end);
+                                            //filtering(tag);
                                             tagSet += tag + " ";
                                             try {
                                                 p.getHashtag().add(tag);
@@ -87,12 +88,25 @@ public class Adapter extends ArrayAdapter<Data> {
                                     }
                                 }
                             }
-                            shortcode.append("\n" + tagSet);
+                           String r=filtering(tagSet);
+                            shortcode.append("\n" + r);
 
                         }
                     });
         }
         return v;
 
+    }
+    public String filtering(String tagSet){
+        String[] str=tagSet.split(" ");
+        Log.d("HashTag", str[0]);
+        for(int i=0;i<str.length;i++) {
+            for (int j = 0; j < InstargramAPI.hashtag.length; j++) {
+                if (InstargramAPI.hashtag[j].equals(str[i])) {
+                    str[i]="";
+                }
+            }
+        }
+        return Arrays.toString(str).toString();
     }
 }

@@ -22,7 +22,7 @@ public class InstargramAPI extends AppCompatActivity {
     ArrayList<Data> dataList;
     ListView lsitView;
     Adapter adapter;
-    String[] hashtag;
+    static String[] hashtag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class InstargramAPI extends AppCompatActivity {
         dataList = new ArrayList<>();
 
         Ion.with(this)
-                .load("https://www.instagram.com/explore/tags/%EC%9B%A8%EB%94%A9%EC%B9%B4%ED%8E%98/?hl=ko")
+                .load("https://www.instagram.com/explore/tags/%ED%94%8C%EB%9D%BC%EC%9B%8C%EC%B9%B4%ED%8E%98/?hl=ko")
                 .asString(Charsets.UTF_8) // .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override

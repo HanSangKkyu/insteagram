@@ -11,13 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SlidingView sv = new SlidingView(this);
-        View v1 = View.inflate(this, R.layout.activity_main, null);
-        View v2 = View.inflate(this, R.layout.layout2, null);
-        sv.addView(v1);
-        sv.addView(v2);
-        setContentView(sv);
-
     }
 
     public void ClickBtn(View view) {

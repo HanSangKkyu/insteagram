@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="layout2"
+        android:text="layout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

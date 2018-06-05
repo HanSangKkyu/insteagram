@@ -64,7 +64,7 @@ public class SlidingView extends ViewGroup {
 
     private void init() {
         mWallpaper = BitmapFactory.decodeResource(getResources(),
-                R.drawable.titlepic); // 배경화면 불러오기
+                R.drawable.background); // 배경화면 불러오기
         mPaint = new Paint();
         mScroller = new Scroller(getContext()); // 스크롤러 클래스 생성
         mLastPoint = new PointF();

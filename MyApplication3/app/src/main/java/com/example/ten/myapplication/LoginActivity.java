@@ -71,9 +71,15 @@ public class LoginActivity extends AppCompatActivity {
                         if(inputPW.equals(userPW)) {
                             // 비밀번호 똑같아
                             Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            String m_pref = dataSnapshot.child(inputID).child("preferences").getValue().toString();
+
+                            User user = new User(inputID, inputPW, m_pref);
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
+                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                            intent.putExtra("user", user);
+                            startActivity(intent);
                         }
                         else {
                             // 비밀번호 틀렸어

@@ -1,6 +1,8 @@
 package com.example.ten.myapplication;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     String id;
     String pw;
     String preferences;
@@ -8,7 +10,10 @@ public class User {
     public User() {
 
     }
-
+//    public User(String id, String pw){
+//        this.id = id;
+//        this.pw = pw;
+//    }
     public User(String id, String pw, String preferences) {
         this.id = id;
         this.pw = pw;

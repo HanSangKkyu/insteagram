@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 public class JoinActivity extends AppCompatActivity {
@@ -143,7 +144,12 @@ public class JoinActivity extends AppCompatActivity {
             Toast.makeText(this, "회원 가입 완료", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(this, LoginActivity.class);
+            //intent.putExtra("user", user);
             startActivity(intent);
+
+//            Intent i = new Intent(this, InstargramAPI.class);
+//            i.putExtra("pref", pref);
+//            startActivity(i);
         }
     }
 

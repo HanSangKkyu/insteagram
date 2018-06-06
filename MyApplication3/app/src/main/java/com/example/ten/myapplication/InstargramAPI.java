@@ -1,5 +1,6 @@
 package com.example.ten.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,14 +30,6 @@ public class InstargramAPI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instargram_api);
 
-        SlidingView sv = new SlidingView(this);
-        View v1 = View.inflate(this, R.layout.activity_instargram_api, null);
-        View v2 = View.inflate(this, R.layout.layout2, null);
-        View v3 = View.inflate(this, R.layout.layout3, null);
-        sv.addView(v1);
-        sv.addView(v2);
-        sv.addView(v3);
-        setContentView(sv);
         makeFile();
         //    https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=4796908241.9ab492e.4cf6b822cecd43b0a415442780d05d6b
         //    https://api.instagram.com/v1/tags/{tag-name}?access_token=ACCESS-TOKEN

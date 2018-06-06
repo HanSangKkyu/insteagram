@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void instaLogin(View v){
+    public void instaLogin(View v) {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
@@ -122,19 +122,19 @@ public class LoginActivity extends AppCompatActivity {
         inputID = editID.getText().toString();
         inputPW = editPW.getText().toString();
 
-        Toast.makeText(this, inputID+", "+inputPW, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, inputID + ", " + inputPW, Toast.LENGTH_SHORT).show();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
 
-                while(child.hasNext()) {
-                    if(child.next().getKey().equals(inputID)) {
+                while (child.hasNext()) {
+                    if (child.next().getKey().equals(inputID)) {
                         // 아이디 존재
                         String userPW = dataSnapshot.child(inputID).child("pw").getValue().toString();
 
-                        if(inputPW.equals(userPW)) {
+                        if (inputPW.equals(userPW)) {
                             // 비밀번호 똑같아
                             Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                             String m_pref = dataSnapshot.child(inputID).child("preferences").getValue().toString();
@@ -143,19 +143,18 @@ public class LoginActivity extends AppCompatActivity {
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
-<<<<<<< HEAD
+//<<<<<<< HEAD
                             Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                             intent.putExtra("user", user);
                             startActivity(intent);
-=======
+//=======
                             Intent i = new Intent(LoginActivity.this, ShowMapActivity.class);
                             i.putExtra("curUser", inputID);
                             startActivity(i);
                             finish();
 
->>>>>>> 2f6d8d3d73a25a11dd1792d711d7fa5d2a64f83c
-                        }
-                        else {
+//>>>>>>> 2f6d8d3d73a25a11dd1792d711d7fa5d2a64f83c
+                        } else {
                             // 비밀번호 틀렸어
                             Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             editID.setText("");
@@ -164,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 }
-               // Toast.makeText(LoginActivity.this, "로그인 정보를 확인하세요.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(LoginActivity.this, "로그인 정보를 확인하세요.", Toast.LENGTH_SHORT).show();
             }
 
             @Override

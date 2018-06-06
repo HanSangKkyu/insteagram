@@ -8,7 +8,13 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapOverlay;
@@ -21,6 +27,8 @@ import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
+
+import java.util.ArrayList;
 
 public class ShowMapActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener{
 
@@ -36,6 +44,15 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
     private NMapResourceProvider nMapResourceProvider;
     private NMapOverlayManager mapOverlayManager;
     NMapPOIdataOverlay.OnStateChangeListener onPOldataStateChangeListener=null;
+
+    EditText editReview;
+    RatingBar ratingBar;
+    String curUser;
+    ListView reviewList;
+    ArrayList<ReviewData> reviews;
+    ReviewAdapter reviewAdapter;
+
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +103,21 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
                 //setMarker();
             }
         }, 5000);
+
+
+        editReview = (EditText) findViewById(R.id.editReview);
+        ratingBar = (RatingBar) findViewById(R.id.rating);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("reviews");
+
+        // 현재 로그인한 유저
+        Intent intent = getIntent();
+        curUser = intent.getStringExtra("curUser");
+
+        reviewList = (ListView) findViewById(R.id.reviewList);
+        reviews = new ArrayList<>();
+        reviewAdapter = new ReviewAdapter();
+        reviewList.setAdapter(reviewAdapter);
     }
 
     @Override
@@ -153,6 +185,23 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
         String url ="https://m.map.naver.com/directions/";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
+    }
+
+    public void registerReview(View view) {
+
+        String review = editReview.getText().toString();
+        double rating = ratingBar.getRating();
+
+        if(review == null) {
+            // 내용 없으면 거르기
+            Toast.makeText(this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            ReviewData reviewData = new ReviewData(curUser, rating, review);
+            databaseReference.child("위도+경도").push().setValue(reviewData);
+            Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -8,16 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {
@@ -29,7 +26,6 @@ public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {
         super(context, resource, objects);
         mData = objects;
         this.context = context;
-
 
 
     }

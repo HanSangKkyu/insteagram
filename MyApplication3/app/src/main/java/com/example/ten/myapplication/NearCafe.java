@@ -1,11 +1,14 @@
 package com.example.ten.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
@@ -23,6 +26,16 @@ public class NearCafe extends AppCompatActivity {
     NearCafeAdapter nearCafeAdapter;
     ArrayList<NearCafeData> nearCafeDataList;
 
+    private final int PERMISSIONS_ACCESS_FINE_LOCATION = 1000;
+    private final int PERMISSIONS_ACCESS_COARSE_LOCATION = 1001;
+    private boolean isAccessFineLocation = false;
+    private boolean isAccessCoarseLocation = false;
+    private boolean isPermission = false;
+
+    // GPSTracker class
+    private GpsInfo gps;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +47,31 @@ public class NearCafe extends AppCompatActivity {
         name = new ArrayList<>();
         id = new ArrayList<>();
 
+        if (!isPermission) {
+            callPermission();
+            //return;
+        }
 
-        String x = "126.92867389999999";
-        String y = "37.5085523";
+        gps = new GpsInfo(NearCafe.this);
+        // GPS 사용유무 가져오기
+        double latitude=0.0;
+        double longitude=0.0;
+        if (gps.isGetLocation()) {
+
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+            Toast.makeText(
+                    getApplicationContext(),
+                    "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude,
+                    Toast.LENGTH_LONG).show();
+        } else {
+            // GPS 를 사용할수 없으므로
+            gps.showSettingsAlert();
+        }
+
+        String x = longitude+"";
+        String y = latitude+"";
 
 
         Ion.with(this)
@@ -107,4 +142,46 @@ public class NearCafe extends AppCompatActivity {
                 });
     }
 //    https://m.store.naver.com/restaurants/38672904
+    //권한요청
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSIONS_ACCESS_FINE_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            isAccessFineLocation = true;
+
+        } else if (requestCode == PERMISSIONS_ACCESS_COARSE_LOCATION
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            isAccessCoarseLocation = true;
+        }
+
+        if (isAccessFineLocation && isAccessCoarseLocation) {
+            isPermission = true;
+        }
+    }
+
+    // 전화번호 권한 요청
+    private void callPermission() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_ACCESS_FINE_LOCATION);
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    PERMISSIONS_ACCESS_COARSE_LOCATION);
+        } else {
+            isPermission = true;
+        }
+    }
 }

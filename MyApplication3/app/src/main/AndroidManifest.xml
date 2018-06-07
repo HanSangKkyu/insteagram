@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ten.myapplication">
 
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 반드시 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 위치정보활용시 추가 -->
@@ -56,7 +60,8 @@
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NearCafe"></activity>
+        <activity android:name=".NearCafe" />
+        <activity android:name=".GpsActivity"></activity>
     </application>
 
 </manifest>

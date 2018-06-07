@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.facebook.android:facebook-login:[4,5)'
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    implementation 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.android.support:design:26.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -59,6 +59,5 @@ public class ReviewAdapter extends BaseAdapter {
         review.setText(listViewItem.getReview());
 
         return view;
-
     }
 }

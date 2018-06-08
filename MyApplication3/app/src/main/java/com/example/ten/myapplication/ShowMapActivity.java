@@ -13,6 +13,9 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nhn.android.maps.NMapActivity;
@@ -31,7 +34,6 @@ import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 import java.util.ArrayList;
 
 public class ShowMapActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener{
-
 
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
     private final String  TAG = "MainActivity";
@@ -60,9 +62,8 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
 
         setContentView(R.layout.activity_show_map);
         init();
-
-
     }
+
     public void init(){
         mapLayout = findViewById(R.id.map_view);
 
@@ -118,6 +119,34 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
         reviews = new ArrayList<>();
         reviewAdapter = new ReviewAdapter();
         reviewList.setAdapter(reviewAdapter);
+
+        databaseReference.child("위도+경도").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

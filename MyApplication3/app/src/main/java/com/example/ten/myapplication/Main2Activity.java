@@ -409,7 +409,6 @@ public class Main2Activity extends AppCompatActivity {
                                 listView.setAdapter(adapter);
                             }
                         });
-
             }
 
             return rootView;

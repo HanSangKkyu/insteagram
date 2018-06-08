@@ -64,7 +64,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDRHGcri4BMajbBPPCTqXo9zlGSOqV4i84" />
+            android:value="AIzaSyCPCmZjU3661Sex0D_jZVtOwUhfGlnxRlk" />
 
         <activity android:name=".ChangePrefActivity"></activity>
         <activity android:name=".GpsActivity"></activity>

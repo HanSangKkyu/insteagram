@@ -51,9 +51,10 @@ public class ReviewAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView id = (TextView) view.findViewById(R.id.r_id) ;
-        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.r_rating) ;
-        TextView review = (TextView) view.findViewById(R.id.r_review) ;
+        TextView id = (TextView) view.findViewById(R.id.r_id);
+        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.r_rating);
+        TextView review = (TextView) view.findViewById(R.id.r_review);
+        TextView date = (TextView) view.findViewById(R.id.r_date);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         // ReviewData listViewItem = list.get(i);
@@ -62,6 +63,7 @@ public class ReviewAdapter extends BaseAdapter {
         id.setText(reviews.get(i).getId());
         ratingBar.setRating((float) reviews.get(i).getRating());
         review.setText(reviews.get(i).getReview());
+        date.setText(reviews.get(i).getDate());
 
         return view;
     }

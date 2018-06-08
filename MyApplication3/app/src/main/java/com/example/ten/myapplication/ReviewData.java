@@ -5,15 +5,26 @@ public class ReviewData {
     String id;
     double rating;
     String review;
+    String date;
 
     public ReviewData() {
 
     }
 
-    public ReviewData(String id, double rating, String review) {
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public ReviewData(String id, double rating, String review, String date) {
         this.id = id;
         this.rating = rating;
         this.review = review;
+        this.date = date;
+
     }
 
     public double getRating() {

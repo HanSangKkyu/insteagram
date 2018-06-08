@@ -1,23 +1,26 @@
 package com.example.ten.myapplication;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +29,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.util.Charsets;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main2Activity extends AppCompatActivity {
     int m_prefSize; //관심사 개수
@@ -61,14 +69,12 @@ public class Main2Activity extends AppCompatActivity {
     public void init(){
         rDatabase = FirebaseDatabase.getInstance().getReference("users");
         Intent intent = getIntent();
-        User user = (User) intent.getSerializableExtra("user");
+        final User user = (User) intent.getSerializableExtra("user");
         m_pref = user.getPreferences();
         m_pref = m_pref.substring(0, m_pref.length()-1);
         m_data = m_pref.split(" ");
         m_prefSize = m_data.length;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -80,12 +86,16 @@ public class Main2Activity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Change preferences", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), ChangePrefActivity.class);
+                intent.putExtra("users", user);
+                startActivity(intent);
             }
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,13 +143,24 @@ public class Main2Activity extends AppCompatActivity {
             fragment.setArguments(args);
             return fragment;
         }
-
+        //여기가 layout 부분
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
+
             View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            if(sectionNumber == 1){
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+            }else if(sectionNumber == 2){
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+            }else if(sectionNumber == 3){
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+            }
+
             return rootView;
         }
     }

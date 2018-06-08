@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ten.myapplication">
 
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 반드시 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -66,8 +64,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCPCmZjU3661Sex0D_jZVtOwUhfGlnxRlk" />
 
-        <activity android:name=".ChangePrefActivity"></activity>
-        <activity android:name=".GpsActivity"></activity>
-   </application>
+        <activity android:name=".ChangePrefActivity" />
+        <activity android:name=".GpsActivity" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+    </application>
 
 </manifest>

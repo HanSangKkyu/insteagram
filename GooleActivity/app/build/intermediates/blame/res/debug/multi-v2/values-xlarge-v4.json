@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\USER\\Documents\\GitHub\\insteagram\\GooleActivity\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\USER\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\a9ef762e3c21e9a5ffc905c9c6bdf5c7\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,126,197,267,337,405",
+                        "endColumns": "70,70,69,69,67,67",
+                        "endOffsets": "121,192,262,332,400,468"
+                    }
+                }
+            ]
+        }
+    ]
+}

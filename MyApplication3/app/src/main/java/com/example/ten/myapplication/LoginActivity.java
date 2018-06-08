@@ -82,9 +82,21 @@ public class LoginActivity extends AppCompatActivity {
                             setResult(RESULT_OK);
                             // 로그인 성공시 할 일 아래에 쓰면 됨
                             Toast.makeText(LoginActivity.this, "페이스북 로그인 성공", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(LoginActivity.this, Main2Activity.class);
-                            startActivity(i);
-                            finish();
+
+                            // Firebase에 저장된 아이디 (이메일)인지 확인한다
+
+                            // 있으면
+                            // curUser = 이메일 로 설정하고
+                            // Main2Activity 로 넘어가
+
+                            // 없으면
+                            // 선호 카페 선택하는 페이지 (만들어야 함)로 이동해서
+                            // 선택하게 한 다음에 정보를 Firebase에 저장해야겠네요.
+                            // 그리고 그 다음에 Main2Activity로 이동하기
+
+//                            Intent i = new Intent(LoginActivity.this, Main2Activity.class);
+//                            startActivity(i);
+//                            finish();
                         }
                     }
                 });

@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             setResult(RESULT_OK);
                             // 로그인 성공시 할 일 아래에 쓰면 됨
                             Toast.makeText(LoginActivity.this, "페이스북 로그인 성공", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(LoginActivity.this, ShowMapActivity.class);
+                            Intent i = new Intent(LoginActivity.this, Main2Activity.class);
                             startActivity(i);
                             finish();
                         }

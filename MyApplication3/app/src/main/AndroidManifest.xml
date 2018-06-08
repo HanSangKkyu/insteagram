@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ten.myapplication">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 반드시 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -59,6 +61,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NearCafe" />
+<<<<<<< HEAD
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -66,6 +69,9 @@
 
         <activity android:name=".GoogleGpsActivity" />
         <activity android:name=".ChangePrefActivity"></activity>
+=======
+        <activity android:name=".GpsActivity"></activity>
+>>>>>>> c9f327b24495da3fadb81d4359f918a4725e0d7a
     </application>
 
 </manifest>

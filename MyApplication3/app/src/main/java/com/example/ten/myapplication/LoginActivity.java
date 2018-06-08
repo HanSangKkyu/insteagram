@@ -143,8 +143,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
-                            Intent intent = new Intent(getApplicationContext(), ShowMapActivity.class);
-                            intent.putExtra("user", inputID);
+                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                            intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         else {

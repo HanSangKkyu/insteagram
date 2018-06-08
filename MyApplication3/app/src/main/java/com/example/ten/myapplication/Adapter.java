@@ -22,12 +22,14 @@ import java.util.List;
 public class Adapter extends ArrayAdapter<Data> {
     List<Data> mData;
     Context context;
+    String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
 
 
-    public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects) {
+    public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
         super(context, resource, objects);
         mData = objects;
         this.context = context;
+        this.search = search;
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class Adapter extends ArrayAdapter<Data> {
 
             // 해시태그 가져오기
             Ion.with(getContext())
-                    .load("https://www.instagram.com/p/" + p.getShortcode() + "/?tagged=%ED%94%8C%EB%9D%BC%EC%9B%8C%EC%B9%B4%ED%8E%98")
+                    .load("https://www.instagram.com/p/" + p.getShortcode() + "/?tagged=" + search)
                     .asString(Charsets.UTF_8) // .asString()
                     .setCallback(new FutureCallback<String>() {
                         @Override
@@ -88,8 +90,8 @@ public class Adapter extends ArrayAdapter<Data> {
                                     }
                                 }
                             }
-                           String r=filtering_first(tagSet);
-                            shortcode.append("\n" + r);
+                            String r = filtering_first(tagSet);
+                            shortcode.setText("\n" + r);
 
                         }
                     });
@@ -97,19 +99,24 @@ public class Adapter extends ArrayAdapter<Data> {
         return v;
 
     }
-    public String filtering_first(String tagSet){
-        String[] str=tagSet.split(" ");
+
+    public String filtering_first(String tagSet) {
+        if (tagSet == "") {
+            return "";
+        }
+        String[] str = tagSet.split(" ");
         Log.d("HashTag", str[0]);
-        for(int i=0;i<str.length;i++) {
-            for (int j = 0; j < InstargramAPI.hashtag.length; j++) {
-                if (InstargramAPI.hashtag[j].equals(str[i])) {
-                    str[i]="";
+        for (int i = 0; i < str.length; i++) {
+            for (int j = 0; j < Main2Activity.PlaceholderFragment.hashtag1.length; j++) {
+                if (Main2Activity.PlaceholderFragment.hashtag1[j].equals(str[i])) {
+                    str[i] = "";
                 }
             }
         }
         return Arrays.toString(str).toString();
     }
-    public String filtering_two(String tagSet){
+
+    public String filtering_two(String tagSet) {
         /*2차필터링-준비단계
         1. 단어에서 조사나 어미 등 불용어를 제거하는 과정 필요
         2. 어구를 추출하고 추출하여 나온 어구중 가장 길이가 긴 어구는 뺄 것

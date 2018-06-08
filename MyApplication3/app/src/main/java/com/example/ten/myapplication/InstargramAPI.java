@@ -107,7 +107,7 @@ public class InstargramAPI extends AppCompatActivity {
                             Data data = new Data(imgUrlList.get(i), urlList.get(i));
                             dataList.add(data);
                         }
-                        adapter = new Adapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, dataList);
+                   //     adapter = new Adapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, dataList);
                         lsitView.setAdapter(adapter);
                     }
                 });

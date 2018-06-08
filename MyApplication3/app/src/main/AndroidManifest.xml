@@ -66,7 +66,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDRHGcri4BMajbBPPCTqXo9zlGSOqV4i84" />
 
-        <activity android:name=".GoogleGpsActivity" />
         <activity android:name=".ChangePrefActivity"></activity>
         <activity android:name=".GpsActivity"></activity>
    </application>

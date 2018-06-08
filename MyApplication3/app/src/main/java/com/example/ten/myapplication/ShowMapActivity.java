@@ -203,5 +203,10 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
             Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void GoGPS(View view) {
+        Intent intent=new Intent(this, NearCafe.class);
+        startActivity(intent);
+    }
 }
 

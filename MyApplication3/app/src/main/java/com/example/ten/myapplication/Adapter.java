@@ -88,7 +88,7 @@ public class Adapter extends ArrayAdapter<Data> {
                                     }
                                 }
                             }
-                           String r=filtering(tagSet);
+                           String r=filtering_first(tagSet);
                             shortcode.append("\n" + r);
 
                         }
@@ -97,7 +97,7 @@ public class Adapter extends ArrayAdapter<Data> {
         return v;
 
     }
-    public String filtering(String tagSet){
+    public String filtering_first(String tagSet){
         String[] str=tagSet.split(" ");
         Log.d("HashTag", str[0]);
         for(int i=0;i<str.length;i++) {
@@ -108,5 +108,13 @@ public class Adapter extends ArrayAdapter<Data> {
             }
         }
         return Arrays.toString(str).toString();
+    }
+    public String filtering_two(String tagSet){
+        /*2차필터링-준비단계
+        1. 단어에서 조사나 어미 등 불용어를 제거하는 과정 필요
+        2. 어구를 추출하고 추출하여 나온 어구중 가장 길이가 긴 어구는 뺄 것
+        *
+        * */
+        return null;
     }
 }

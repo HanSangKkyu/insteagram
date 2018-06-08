@@ -13,11 +13,11 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapOverlay;
@@ -113,34 +113,21 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
 
         // 현재 로그인한 유저
         Intent intent = getIntent();
-        curUser = intent.getStringExtra("curUser");
+        curUser = intent.getStringExtra("user");
 
         reviewList = (ListView) findViewById(R.id.reviewList);
         reviews = new ArrayList<>();
-        reviewAdapter = new ReviewAdapter();
-        reviewList.setAdapter(reviewAdapter);
 
-        databaseReference.child("위도+경도").addChildEventListener(new ChildEventListener() {
+        databaseReference.child("cafe1").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ReviewData reviewData = dataSnapshot.getValue(ReviewData.class);
-                reviews.add(reviewData);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                reviews.clear();
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ReviewData data = snapshot.getValue(ReviewData.class);
+                    reviews.add(data);
+                }
                 reviewAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -148,6 +135,9 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
 
             }
         });
+
+        reviewAdapter = new ReviewAdapter(getApplicationContext(), reviews);
+        reviewList.setAdapter(reviewAdapter);
 
     }
 
@@ -230,7 +220,8 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
         }
         else {
             ReviewData reviewData = new ReviewData(curUser, rating, review);
-            databaseReference.child("위도+경도").push().setValue(reviewData);
+            databaseReference.child("cafe1").push().setValue(reviewData);
+            editReview.setText("");
             Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }

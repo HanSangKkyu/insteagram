@@ -12,25 +12,31 @@ import java.util.ArrayList;
 
 public class ReviewAdapter extends BaseAdapter {
 
-    ArrayList<ReviewData> list= new ArrayList<ReviewData>();
+    ArrayList<ReviewData> reviews;
+    Context context;
 
-    public ReviewAdapter() {
-
+    public ReviewAdapter(Context context, ArrayList<ReviewData> reviews) {
+        this.context = context;
+        this.reviews = reviews;
     }
+
+//    public ReviewAdapter() {
+//
+//    }
 
     @Override
     public int getCount() {
-        return list.size();
+        return reviews.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return reviews.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -50,12 +56,12 @@ public class ReviewAdapter extends BaseAdapter {
         TextView review = (TextView) view.findViewById(R.id.r_review) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ReviewData listViewItem = list.get(i);
+        // ReviewData listViewItem = list.get(i);
 
         // 아이템 내 각 위젯에 데이터 반영
-        id.setText(listViewItem.getId());
-        ratingBar.setRating((float) listViewItem.getRating());
-        review.setText(listViewItem.getReview());
+        id.setText(reviews.get(i).getId());
+        ratingBar.setRating((float) reviews.get(i).getRating());
+        review.setText(reviews.get(i).getReview());
 
         return view;
     }

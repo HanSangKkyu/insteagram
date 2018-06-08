@@ -516,7 +516,7 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return m_prefSize;
+            return m_prefSize+1;
         }
 
         @Nullable
@@ -526,6 +526,8 @@ public class Main2Activity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         return m_data[0];
+                    case 1:
+                        return "집 앞 카페";
                 }
             } else if (m_prefSize == 2) {
                 switch (position) {
@@ -533,6 +535,8 @@ public class Main2Activity extends AppCompatActivity {
                         return m_data[0];
                     case 1:
                         return m_data[1];
+                    case 2:
+                        return "집 앞 카페";
                 }
             } else if (m_prefSize == 3) {
                 switch (position) {
@@ -542,6 +546,8 @@ public class Main2Activity extends AppCompatActivity {
                         return m_data[1];
                     case 2:
                         return m_data[2];
+                    case 3:
+                        return "집 앞 카페";
                 }
             }
             return null;

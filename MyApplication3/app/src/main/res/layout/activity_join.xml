@@ -1,205 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/loginbackground"
     tools:context=".JoinActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="85dp"
+        android:text="SIGN IN"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#A5ABC7" />
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
+        android:layout_width="280dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="25dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:paddingTop="9dp"
-            android:layout_width="26dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon2" />
 
         <EditText
             android:id="@+id/inputID"
-            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:layout_marginLeft="12dp"
             android:background="@android:color/transparent"
             android:hint="   아이디"
             android:textColorHint="#D8D8D8" />
 
         <Button
             android:id="@+id/checkButton"
-            android:layout_width="0dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/shape"
             android:onClick="checkID"
             android:text="중복확인"
-            android:textColor="#ffffff"
+            android:textColor="#D8D8D8"
             android:textSize="10sp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginStart="17dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="28dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon3" />
 
         <EditText
             android:id="@+id/inputPW"
             android:layout_width="316dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="38dp"
+            android:layout_marginBottom="20dp"
             android:background="@android:color/transparent"
             android:hint="   비밀번호"
             android:inputType="textPassword"
             android:textColorHint="#D8D8D8" />
-    </LinearLayout>
+
 
     <GridLayout
-        android:paddingLeft="10dp"
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="15dp"
         android:columnCount="3"
-        android:rowCount="3"
-        app:layout_constraintBottom_toTopOf="@+id/joinButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        android:paddingLeft="8dp"
+        android:rowCount="3">
 
         <Button
             android:id="@+id/flower"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="플라워 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
+            android:id="@+id/cat"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
-            android:id="@+id/cat"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="고양이 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
+            android:id="@+id/dog"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
-            android:id="@+id/dog"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="강아지 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/roofTop"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="루프탑 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/character"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="캐릭터 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/cheap"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="저렴한 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/fortune"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="사주 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/book"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="북 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
         <Button
+            android:id="@+id/dessert"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:textSize="10sp"
-            android:id="@+id/dessert"
+            android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="디저트 카페"
-            android:textColor="#D8D8D8" />
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
 
     </GridLayout>
 
     <Button
         android:id="@+id/joinButton"
-        android:layout_width="278dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="74dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/cornerradius"
+        android:layout_marginStart="40dp"
+        android:background="#A5ABC7"
         android:onClick="join"
         android:text="회원가입 완료"
         android:textColor="#D8D8D8"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+        android:layout_marginLeft="16dp" />
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

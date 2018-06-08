@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ten.myapplication.ChangePrefActivity">
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:columnCount="3"
+        android:paddingLeft="8dp"
+        android:rowCount="3">
+
+        <Button
+            android:id="@+id/flower"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="플라워 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/cat"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="고양이 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/dog"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="강아지 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/roofTop"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="루프탑 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/character"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="캐릭터 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/cheap"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="저렴한 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/fortune"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="사주 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/book"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="북 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/dessert"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/btnselector"
+            android:onClick="checkPreference"
+            android:text="디저트 카페"
+            android:textColor="#D8D8D8"
+            android:textSize="10sp" />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:onClick="join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

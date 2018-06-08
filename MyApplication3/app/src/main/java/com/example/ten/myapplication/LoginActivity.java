@@ -143,18 +143,11 @@ public class LoginActivity extends AppCompatActivity {
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
-//<<<<<<< HEAD
                             Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                             intent.putExtra("user", user);
                             startActivity(intent);
-//=======
-                            Intent i = new Intent(LoginActivity.this, ShowMapActivity.class);
-                            i.putExtra("curUser", inputID);
-                            startActivity(i);
-                            finish();
-
-//>>>>>>> 2f6d8d3d73a25a11dd1792d711d7fa5d2a64f83c
-                        } else {
+                        }
+                        else {
                             // 비밀번호 틀렸어
                             Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             editID.setText("");

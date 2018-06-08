@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ten.myapplication.StartActivity"
-    android:background="@drawable/titlepic">
+    android:background="@drawable/title">
 
 </android.support.constraint.ConstraintLayout>

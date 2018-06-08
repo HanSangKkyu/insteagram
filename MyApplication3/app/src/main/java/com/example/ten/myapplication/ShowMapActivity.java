@@ -123,7 +123,9 @@ public class ShowMapActivity extends NMapActivity implements NMapView.OnMapState
         databaseReference.child("위도+경도").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
+                ReviewData reviewData = dataSnapshot.getValue(ReviewData.class);
+                reviews.add(reviewData);
+                reviewAdapter.notifyDataSetChanged();
             }
 
             @Override

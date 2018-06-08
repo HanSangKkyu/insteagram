@@ -61,7 +61,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NearCafe" />
-<<<<<<< HEAD
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -69,9 +69,8 @@
 
         <activity android:name=".GoogleGpsActivity" />
         <activity android:name=".ChangePrefActivity"></activity>
-=======
         <activity android:name=".GpsActivity"></activity>
->>>>>>> c9f327b24495da3fadb81d4359f918a4725e0d7a
+
     </application>
 
 </manifest>

@@ -73,6 +73,7 @@
 
 
         </activity>
+        <activity android:name=".FacebookJoinActivity"></activity>
     </application>
 
 </manifest>

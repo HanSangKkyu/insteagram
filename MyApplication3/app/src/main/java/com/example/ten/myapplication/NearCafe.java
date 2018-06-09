@@ -132,8 +132,8 @@ public class NearCafe extends AppCompatActivity {
                         // 비동기 문제로 안에서 처리해준다
                         Log.v("donen", name.size() + " " + id.size());
                         for (int i = 0; i < id.size(); i++) {
-                            NearCafeData nearCafeData = new NearCafeData(name.get(i), id.get(i));
-                            nearCafeDataList.add(nearCafeData);
+                  //          NearCafeData nearCafeData = new NearCafeData(name.get(i), id.get(i));
+                   //         nearCafeDataList.add(nearCafeData);
                         }
                         nearCafeAdapter = new NearCafeAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, nearCafeDataList);
                         nearCafeList.setAdapter(nearCafeAdapter);

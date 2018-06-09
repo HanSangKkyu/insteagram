@@ -3,10 +3,12 @@ package com.example.ten.myapplication;
 public class NearCafeData {
     String name;
     String id;
+    String img;
 
-    public NearCafeData(String name, String id) {
+    public NearCafeData(String name, String id, String img) {
         this.name = name;
         this.id = id;
+        this.img = img;
     }
 
     public String getName() {
@@ -23,5 +25,13 @@ public class NearCafeData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

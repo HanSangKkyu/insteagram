@@ -48,8 +48,8 @@ public class Adapter extends ArrayAdapter<Data> {
                     .load(p.getDisplay_url())
                     .into(img);
 
-            final TextView shortcode = (TextView) v.findViewById(R.id.shortcode);
-            shortcode.setText(p.getShortcode());
+            //    final TextView shortcode = (TextView) v.findViewById(R.id.shortcode);
+            //    shortcode.setText(p.getShortcode());
 
 
             // 해시태그 가져오기
@@ -61,7 +61,7 @@ public class Adapter extends ArrayAdapter<Data> {
                         public void onCompleted(Exception e, String result) {
 
                             String findStr = "hashtags\" content=\"";
-                            int findStrLen = result.indexOf(findStr);
+                            //int findStrLen = result.indexOf(findStr);
                             String tagSet = "";
 
                             String nowString = result;
@@ -91,7 +91,7 @@ public class Adapter extends ArrayAdapter<Data> {
                                 }
                             }
                             String r = filtering_first(tagSet);
-                            shortcode.setText("\n" + r);
+                            //            shortcode.setText("\n" + r);
 
                         }
                     });

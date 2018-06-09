@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -31,12 +32,15 @@ import java.util.Iterator;
 public class LoginActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference_f;
     EditText editID;
     EditText editPW;
     Button loginButton;
 
     String inputID;
     String inputPW;
+
+    String facebook_id;
 
     private CallbackManager callbackManager;
 
@@ -50,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void init() {
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference_f = FirebaseDatabase.getInstance().getReference("users");
 
         editID = (EditText) findViewById(R.id.inputID);
         editPW = (EditText) findViewById(R.id.inputPW);
@@ -81,9 +86,47 @@ public class LoginActivity extends AppCompatActivity {
                             Log.i("TAG", "AccessToken: " + result.getAccessToken().getToken());
                             setResult(RESULT_OK);
                             // 로그인 성공시 할 일 아래에 쓰면 됨
-                            Toast.makeText(LoginActivity.this, "페이스북 로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            facebook_id = "";
+
+                            try {
+                                // 페이스북 로그인 이메일 가져온다.
+                                facebook_id = user.getString("id");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(LoginActivity.this, facebook_id, Toast.LENGTH_SHORT).show();
+
 
                             // Firebase에 저장된 아이디 (이메일)인지 확인한다
+                            databaseReference_f.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+
+                                    while (child.hasNext()) {
+                                        if (child.next().getKey().equals(facebook_id)) {
+                                            // 이미 존재하는 페이스북 계정이면
+                                            // curUser 정보 보내주고 액티비티 실행
+                                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                                            intent.putExtra("user", facebook_id);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else continue;
+                                    }
+                                    // 존재하지 않는 이메일이라면 가입 절차를 거쳐야함
+                                    Intent intent = new Intent(getApplicationContext(), FacebookJoinActivity.class);
+                                    intent.putExtra("user", facebook_id);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
 
                             // 있으면
                             // curUser = 이메일 로 설정하고
@@ -94,9 +137,6 @@ public class LoginActivity extends AppCompatActivity {
                             // 선택하게 한 다음에 정보를 Firebase에 저장해야겠네요.
                             // 그리고 그 다음에 Main2Activity로 이동하기
 
-//                            Intent i = new Intent(LoginActivity.this, Main2Activity.class);
-//                            startActivity(i);
-//                            finish();
                         }
                     }
                 });

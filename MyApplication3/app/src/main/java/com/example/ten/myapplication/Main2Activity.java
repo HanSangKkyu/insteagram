@@ -1,7 +1,10 @@
 package com.example.ten.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,6 +140,7 @@ public class Main2Activity extends AppCompatActivity {
         private ListView listView;
 
 
+        // 관심사 카페 보여주기 위한 필드들
         ArrayList<String> imgUrlList;
         ArrayList<String> urlList;
         ArrayList<String> hashtagList;
@@ -142,6 +148,23 @@ public class Main2Activity extends AppCompatActivity {
         ListView lsitView;
         Adapter adapter;
         static String[] hashtag1;
+
+
+        // 집 앞 카페 보여주기 위한 피드들
+        TextView textview;
+        ArrayList<String> name;
+        ArrayList<String> id;
+        ArrayList<String> imgList;
+
+        ListView nearCafeList;
+        NearCafeAdapter nearCafeAdapter;
+        ArrayList<NearCafeData> nearCafeDataList;
+
+        final int PERMISSIONS_ACCESS_FINE_LOCATION = 1000;
+        final int PERMISSIONS_ACCESS_COARSE_LOCATION = 1001;
+        boolean isAccessFineLocation = false;
+        boolean isAccessCoarseLocation = false;
+        boolean isPermission = false;
 
 
         public PlaceholderFragment() {
@@ -169,7 +192,7 @@ public class Main2Activity extends AppCompatActivity {
 
             makeFile();
 
-
+            Log.v("섹션", sectionNumber + "");
             if (sectionNumber == 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                 TextView title = (TextView) rootView.findViewById(R.id.title);
@@ -245,12 +268,11 @@ public class Main2Activity extends AppCompatActivity {
                                     dataList.add(data);
                                 }
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
                                 listView.setAdapter(adapter);
                             }
                         });
 
-            } else if (sectionNumber == 2) {
+            } else if (sectionNumber == 2 && m_data.length > 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                 TextView title = (TextView) rootView.findViewById(R.id.title);
                 final String search = m_data[sectionNumber - 1];
@@ -325,12 +347,12 @@ public class Main2Activity extends AppCompatActivity {
                                     dataList.add(data);
                                 }
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
                                 listView.setAdapter(adapter);
                             }
                         });
 
-            } else if (sectionNumber == 3) {
+
+            } else if (sectionNumber == 3 && m_data.length > 2) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                 TextView title = (TextView) rootView.findViewById(R.id.title);
                 final String search = m_data[sectionNumber - 1];
@@ -405,85 +427,279 @@ public class Main2Activity extends AppCompatActivity {
                                     dataList.add(data);
                                 }
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
                                 listView.setAdapter(adapter);
+                            }
+                        });
+
+            } else if (sectionNumber == m_data.length + 1) {
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                TextView title = (TextView) rootView.findViewById(R.id.title);
+                title.setText("집 앞 카페");
+
+
+                // GPSTracker class
+                GpsInfo gps;
+
+
+                nearCafeList = (ListView) rootView.findViewById(R.id.listView);
+
+                nearCafeDataList = new ArrayList<>();
+
+                name = new ArrayList<>();
+                id = new ArrayList<>();
+                imgList = new ArrayList<>();
+
+                if (!isPermission) {
+                    callPermission();
+                    //return;
+                }
+
+                gps = new GpsInfo(getContext());
+                // GPS 사용유무 가져오기
+                double latitude = 0.0;
+                double longitude = 0.0;
+                if (gps.isGetLocation()) {
+
+                    latitude = gps.getLatitude();
+                    longitude = gps.getLongitude();
+
+                    Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
+                } else {
+                    // GPS 를 사용할수 없으므로
+                    gps.showSettingsAlert();
+                }
+
+                String x = longitude + "";
+                String y = latitude + "";
+
+
+                Ion.with(this)
+                        .load("https://m.store.naver.com/places/listMap?display=40&level=middle&nlu=%5Bobject%20Object%5D&query=%EC%B9%B4%ED%8E%98&sid=468329393%2C37392371%2C967978358&sortingOrder=distance&viewType=place&x=" + x + "&y=" + y)
+                        .asString(Charsets.UTF_8) // .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                String nowString = result;
+
+
+                                // 상호명 가져오기
+                                for (int i = 0; nowString.indexOf("name\":\"") != -1; i++) {
+                                    int flag = 0;
+                                    int start = nowString.indexOf("name\":\"");
+                                    int end = 0;
+                                    for (int j = start; ; j++) {
+                                        if (nowString.charAt(j) == '\"') {
+                                            if (flag == 1) {
+                                                start = j + 1;
+                                            } else if (flag == 2) {
+                                                end = j;
+                                                String img = nowString.substring(start, end);
+                                                name.add(img);
+                                                Log.v("done2", img + "");
+                                                nowString = nowString.substring(end + 1, nowString.length());
+                                                break;
+                                            }
+                                            flag++;
+                                        }
+                                    }
+                                }
+
+                                // 상호에 대한 아이디
+                                String nowString1 = result;
+                                for (int i = 0; nowString1.indexOf("id\":\"") != -1; i++) {
+                                    int flag = 0;
+                                    int start = nowString1.indexOf("id\":\"");
+                                    int end = 0;
+                                    for (int j = start; ; j++) {
+                                        if (nowString1.charAt(j) == '\"') {
+                                            if (flag == 1) {
+                                                start = j + 1;
+                                            } else if (flag == 2) {
+                                                end = j;
+                                                String img = nowString1.substring(start, end);
+                                                id.add(img);
+                                                Log.v("done2", img + "");
+                                                nowString1 = nowString1.substring(end + 1, nowString1.length());
+                                                break;
+                                            }
+                                            flag++;
+                                        }
+                                    }
+                                }
+
+
+                                // 비동기 문제로 안에서 처리해준다
+                                Log.v("donen", name.size() + " " + id.size());
+                                for (int i = 0; i < id.size(); i++) {
+
+                                    // 이미지 가져오기
+                                    final int finalI = i;
+
+                                    Ion.with(getContext())
+                                            .load("https://www.instagram.com/explore/tags/" + name.get(i) + "/?hl=ko")
+                                            .asString(Charsets.UTF_8) // .asString()
+                                            .setCallback(new FutureCallback<String>() {
+                                                @Override
+                                                public void onCompleted(Exception e, String result) {
+                                                    String nowString = result;
+                                                    int flag = 0;
+                                                    int start = nowString.indexOf("display_url");
+                                                    int end = 0;
+                                                    for (int j = start; start != -1; j++) {
+                                                        if (nowString.charAt(j) == '\"') {
+                                                            if (flag == 1) {
+                                                                start = j + 1;
+                                                            } else if (flag == 2) {
+                                                                end = j;
+                                                                String img = nowString.substring(start, end);
+                                                                NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
+                                                                nearCafeDataList.add(nearCafeData);
+                                                                Log.v("asdf", img + "");
+                                                                nowString = nowString.substring(end + 1, nowString.length());
+                                                                break;
+                                                            }
+                                                            flag++;
+                                                        }
+                                                    }
+
+                                                    Log.v("사이즈", nearCafeDataList + "");
+                                                    nearCafeAdapter = new NearCafeAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, nearCafeDataList);
+                                                    nearCafeList.setAdapter(nearCafeAdapter);
+                                                }
+                                            });
+                                }
                             }
                         });
             }
-
             return rootView;
         }
 
+        private void callList(LayoutInflater inflater, ViewGroup container, int sectionNumber) {
 
-//        private void callList() {
-//            imgUrlList = new ArrayList<>();
-//            urlList = new ArrayList<>();  /////
-//            hashtagList = new ArrayList<>();
-//            dataList = new ArrayList<>();
-//
-//            Ion.with(this)
-//                    .load("https://www.instagram.com/explore/tags/%ED%94%8C%EB%9D%BC%EC%9B%8C%EC%B9%B4%ED%8E%98/?hl=ko")
-//                    .asString(Charsets.UTF_8) // .asString()
-//                    .setCallback(new FutureCallback<String>() {
-//                        @Override
-//                        public void onCompleted(Exception e, String result) {
-//                            // 최신글의 이미지를 가져온다.
-//                            String nowString = String.valueOf(result);
-//                            for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
-//                                int flag = 0;
-//                                int start = nowString.indexOf("display_url");
-//                                int end = 0;
-//                                for (int j = start; ; j++) {
-//                                    if (nowString.charAt(j) == '\"') {
-//                                        if (flag == 1) {
-//                                            start = j + 1;
-//                                        } else if (flag == 2) {
-//                                            end = j;
-//                                            String img = nowString.substring(start, end);
-//                                            imgUrlList.add(img);
-//                                            Log.v("asdf", img + "");
-//                                            nowString = nowString.substring(end + 1, nowString.length());
-//                                            break;
-//                                        }
-//                                        flag++;
-//                                    }
-//                                }
-//                            }
-//
-//                            // 최신글의 url을 가져온다.
-//                            String nowString1 = String.valueOf(result);
-//                            for (int i = 0; nowString1.indexOf("shortcode") != -1; i++) {
-//                                int flag = 0;
-//                                int start = nowString1.indexOf("shortcode");
-//                                int end = 0;
-//                                for (int j = start; ; j++) {
-//                                    if (nowString1.charAt(j) == '\"') {
-//                                        if (flag == 1) {
-//                                            start = j + 1;
-//                                        } else if (flag == 2) {
-//                                            end = j;
-//                                            String img = nowString1.substring(start, end);
-//                                            urlList.add(img);
-//                                            Log.v("asdf", img + "");
-//                                            nowString1 = nowString1.substring(end + 1, nowString1.length());
-//                                            break;
-//                                        }
-//                                        flag++;
-//                                    }
-//                                }
-//                            }
-//
-//                            Log.v("donen", imgUrlList.size() + "");
-//
-//                            for (int i = 0; i < imgUrlList.size(); i++) {
-//                                Data data = new Data(imgUrlList.get(i), urlList.get(i));
-//                                dataList.add(data);
-//                            }
-//                            adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList);
-//                            lsitView.setAdapter(adapter);
-//                        }
-//                    });
-//        }
+
+            View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+            TextView title = (TextView) rootView.findViewById(R.id.title);
+            final String search = m_data[sectionNumber - 1];
+
+
+            title.setText(search.toString());
+
+            listView = (ListView) rootView.findViewById(R.id.listView);
+            //callList();
+            imgUrlList = new ArrayList<>();
+            urlList = new ArrayList<>();  /////
+            hashtagList = new ArrayList<>();
+            dataList = new ArrayList<>();
+
+
+            Ion.with(this)
+                    .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
+                    .asString(Charsets.UTF_8) // .asString()
+                    .setCallback(new FutureCallback<String>() {
+                        @Override
+                        public void onCompleted(Exception e, String result) {
+                            // 최신글의 이미지를 가져온다.
+                            String nowString = String.valueOf(result);
+                            for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                                int flag = 0;
+                                int start = nowString.indexOf("display_url");
+                                int end = 0;
+                                for (int j = start; ; j++) {
+                                    if (nowString.charAt(j) == '\"') {
+                                        if (flag == 1) {
+                                            start = j + 1;
+                                        } else if (flag == 2) {
+                                            end = j;
+                                            String img = nowString.substring(start, end);
+                                            imgUrlList.add(img);
+                                            Log.v("asdf", img + "");
+                                            nowString = nowString.substring(end + 1, nowString.length());
+                                            break;
+                                        }
+                                        flag++;
+                                    }
+                                }
+                            }
+
+                            // 최신글의 url을 가져온다.
+                            String nowString1 = String.valueOf(result);
+                            for (int i = 0; nowString1.indexOf("shortcode") != -1; i++) {
+                                int flag = 0;
+                                int start = nowString1.indexOf("shortcode");
+                                int end = 0;
+                                for (int j = start; ; j++) {
+                                    if (nowString1.charAt(j) == '\"') {
+                                        if (flag == 1) {
+                                            start = j + 1;
+                                        } else if (flag == 2) {
+                                            end = j;
+                                            String img = nowString1.substring(start, end);
+                                            urlList.add(img);
+                                            Log.v("asdf", img + "");
+                                            nowString1 = nowString1.substring(end + 1, nowString1.length());
+                                            break;
+                                        }
+                                        flag++;
+                                    }
+                                }
+                            }
+
+                            Log.v("donen", imgUrlList.size() + "");
+
+                            for (int i = 0; i < imgUrlList.size(); i++) {
+                                Data data = new Data(imgUrlList.get(i), urlList.get(i));
+                                dataList.add(data);
+                            }
+                            adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+                            listView.setAdapter(adapter);
+                        }
+                    });
+
+        }
+
+
+        //권한요청
+        @Override
+        public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                               int[] grantResults) {
+            if (requestCode == PERMISSIONS_ACCESS_FINE_LOCATION
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                isAccessFineLocation = true;
+
+            } else if (requestCode == PERMISSIONS_ACCESS_COARSE_LOCATION
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                isAccessCoarseLocation = true;
+            }
+
+            if (isAccessFineLocation && isAccessCoarseLocation) {
+                isPermission = true;
+            }
+        }
+
+        // 전화번호 권한 요청
+        private void callPermission() {
+            // Check the SDK version and whether the permission is already granted or not.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && getContext().checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_ACCESS_FINE_LOCATION);
+
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && getContext().checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        PERMISSIONS_ACCESS_COARSE_LOCATION);
+            } else {
+                isPermission = true;
+            }
+        }
 
         public void makeFile() {
             String hash = "";
@@ -516,7 +732,7 @@ public class Main2Activity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return m_prefSize+1;
+            return m_prefSize + 1;
         }
 
         @Nullable

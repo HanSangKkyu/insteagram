@@ -68,7 +68,9 @@
         <activity android:name=".GpsActivity" />
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".ShowReviewActivity"></activity>
     </application>
 
 </manifest>

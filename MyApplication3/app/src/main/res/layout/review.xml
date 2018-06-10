@@ -18,10 +18,11 @@
 
         <RatingBar
             android:id="@+id/r_rating"
-            android:isIndicator="true"
-            android:numStars="5"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5" />
 
     </LinearLayout>
 

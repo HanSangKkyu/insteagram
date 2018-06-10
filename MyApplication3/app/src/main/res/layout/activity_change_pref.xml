@@ -6,13 +6,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.example.ten.myapplication.ChangePrefActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/settings"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:text="Settings"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="15dp"
         android:columnCount="3"
         android:paddingLeft="8dp"
@@ -26,7 +44,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="플라워 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -37,7 +55,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="고양이 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -48,7 +66,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="강아지 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -59,7 +77,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="루프탑 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -70,7 +88,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="캐릭터 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -81,7 +99,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="저렴한 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -92,7 +110,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="사주 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -103,7 +121,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="북 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
         <Button
@@ -114,14 +132,18 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="디저트 카페"
-            android:textColor="#D8D8D8"
+            android:textColor="#282828"
             android:textSize="10sp" />
 
     </GridLayout>
 
     <Button
+        android:layout_gravity="right"
+        android:layout_marginRight="35dp"
         android:id="@+id/submit"
         android:onClick="join"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/arrow"
+        android:textColor="#282828"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
 </LinearLayout>

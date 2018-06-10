@@ -91,7 +91,7 @@ public class Adapter extends ArrayAdapter<Data> {
                                 }
                             }
                             String r = filtering_first(tagSet);
-                            shortcode.setText("\n" + r);
+//                            shortcode.setText("\n" + r);
 
                         }
                     });

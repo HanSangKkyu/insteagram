@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackground"
+    android:background="@drawable/login2"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -17,7 +17,7 @@
         android:paddingTop="90dp"
         android:text="LOGIN"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#A5ABC7"
+        android:textColor="#334036"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="83dp" />
 
@@ -29,10 +29,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="23dp"
         android:layout_marginLeft="12dp"
+        android:paddingTop="5dp"
         android:background="@android:color/transparent"
-        android:hint="  아이디"
-        android:textColor="#A5ABC7"
-        android:textColorHint="#D8D8D8"
+        android:hint="@string/edittext_hint_id"
+        android:textColorHint="#95AD9A"
         tools:layout_editor_absoluteX="52dp"
         tools:layout_editor_absoluteY="142dp" />
 
@@ -44,11 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="12dp"
+        android:paddingTop="10dp"
         android:background="@android:color/transparent"
-        android:hint="  비밀번호"
+        android:hint="@string/edittext_hint_pw"
         android:inputType="textPassword"
-        android:textColor="#A5ABC7"
-        android:textColorHint="#D8D8D8"
+        android:textColorHint="#95AD9A"
         tools:layout_editor_absoluteX="47dp"
         tools:layout_editor_absoluteY="211dp" />
 
@@ -58,7 +58,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
-        android:background="#A5ABC7"
+        android:background="#334036"
         android:onClick="login"
         android:text="LOGIN"
         android:textColor="#ffffff"
@@ -76,7 +76,7 @@
         android:layout_marginLeft="35dp"
         android:text="회원가입"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="#9E9E9E"
+        android:textColor="#334036"
         tools:layout_editor_absoluteX="52dp"
         tools:layout_editor_absoluteY="362dp" />
 
@@ -84,7 +84,7 @@
         android:id="@+id/textView"
         android:layout_width="220dp"
         android:layout_height="1dp"
-        android:background="#A5ABC7"
+        android:background="#6D8472"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
          />

@@ -8,13 +8,17 @@
         android:id="@+id/img"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="180dp" />
+=======
+        android:layout_height="200dp"
+        android:scaleType="fitXY" />
+>>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 
     <TextView
         android:id="@+id/shortcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/cardview_dark_background"
-        />
+        android:textColor="@color/cardview_dark_background" />
 
 </LinearLayout>

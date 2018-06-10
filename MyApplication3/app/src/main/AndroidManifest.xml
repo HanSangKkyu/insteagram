@@ -65,12 +65,23 @@
             android:value="AIzaSyCPCmZjU3661Sex0D_jZVtOwUhfGlnxRlk" />
 
         <activity android:name=".ChangePrefActivity" />
-        <activity android:name=".GpsActivity" />
         <activity
             android:name=".MapsActivity"
+<<<<<<< HEAD
             android:label="@string/title_activity_maps" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".ShowReviewActivity"></activity>
+=======
+
+            android:label="@string/title_activity_maps">
+
+        </activity>
+
+
+        <activity android:name=".JsonParsing"></activity>
+        <activity android:name=".FacebookJoinActivity"></activity>
+
+>>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
     </application>
 
 </manifest>

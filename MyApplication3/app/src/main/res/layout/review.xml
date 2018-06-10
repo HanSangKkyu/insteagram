@@ -12,22 +12,42 @@
 
         <TextView
             android:id="@+id/r_id"
-            android:text="id"
+            android:textSize="15dp"
+            android:text="리뷰 작성자"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/r_date"
+            android:text="YYYY-MM-DD"
+            android:paddingRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <RatingBar
             android:id="@+id/r_rating"
+<<<<<<< HEAD
             style="@style/Widget.AppCompat.RatingBar.Small"
+=======
+            android:paddingTop="4dp"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+>>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="true"
             android:numStars="5" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/r_review"
+        android:text="리뷰 내용"
+        android:textSize="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

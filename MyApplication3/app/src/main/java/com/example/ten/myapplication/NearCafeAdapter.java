@@ -37,51 +37,18 @@ public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View v = convertView;
-        if (v == null) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.row, null);
-        }
+        LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = vi.inflate(R.layout.row, null);
         final NearCafeData p = mData.get(position); // 위젯이 하나 하나 생성될 때마다 position에 해당하는 위젯이 담긴다.
         if (p != null) {
             final View finalV1 = v;
 
 
-            // 이미지 가져오기
-            Ion.with(getContext())
-                    .load("https://www.instagram.com/explore/tags/" + p.getName() + "/?hl=ko")
-                    .asString(Charsets.UTF_8) // .asString()
-                    .setCallback(new FutureCallback<String>() {
-                        @Override
-                        public void onCompleted(Exception e, String result) {
-                            String nowString = result;
-                            int flag = 0;
-                            int start = nowString.indexOf("display_url");
-                            int end = 0;
-                            for (int j = start; start != -1; j++) {
-                                Log.v("fdsa", p.getName());
+            ImageView imgView = (ImageView) finalV1.findViewById(R.id.img);
+            Picasso.with(context)
+                    .load(p.getImg())
+                    .into(imgView);
 
-                                if (nowString.charAt(j) == '\"') {
-                                    if (flag == 1) {
-                                        start = j + 1;
-                                    } else if (flag == 2) {
-                                        end = j;
-                                        String img = nowString.substring(start, end);
-                                        ImageView imgView = (ImageView) finalV1.findViewById(R.id.img);
-                                        Picasso.with(context)
-                                                .load(img)
-                                                .into(imgView);
-
-                                        Log.v("asdf", img + "");
-                                        nowString = nowString.substring(end + 1, nowString.length());
-                                        break;
-                                    }
-                                    flag++;
-                                }
-                            }
-
-
-                        }
-                    });
 
             //메뉴 & 가격 가져오기
             final View finalV = v;

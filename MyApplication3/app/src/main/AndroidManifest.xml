@@ -22,6 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -67,21 +68,16 @@
         <activity android:name=".ChangePrefActivity" />
         <activity
             android:name=".MapsActivity"
-<<<<<<< HEAD
             android:label="@string/title_activity_maps" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".ShowReviewActivity"></activity>
-=======
 
-            android:label="@string/title_activity_maps">
 
-        </activity>
 
 
         <activity android:name=".JsonParsing"></activity>
         <activity android:name=".FacebookJoinActivity"></activity>
 
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
     </application>
 
 </manifest>

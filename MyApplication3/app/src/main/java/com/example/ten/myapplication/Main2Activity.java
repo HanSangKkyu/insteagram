@@ -20,13 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-
 import android.widget.AdapterView;
-import android.widget.Button;
-=======
 import android.widget.AutoCompleteTextView;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +34,7 @@ import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
@@ -59,9 +55,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     static User m_user;
     String m_pref;
     DatabaseReference rDatabase;
-<<<<<<< HEAD
     Intent intent;
-=======
     public static final int TYPE_CAFE = 15;
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
@@ -73,7 +67,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     private ArrayList<PlaceAutocomplete> mResultList;
     private static final String TAG = "PlaceArrayAdapter";
 
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -83,6 +76,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -318,7 +312,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
             makeFile();
 
-<<<<<<< HEAD
             int size = m_data.length;
             if(size == 1) {
                 if (sectionNumber == 1) {
@@ -382,7 +375,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
+
             Log.v("섹션", sectionNumber + "");
             if (sectionNumber == 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -423,7 +416,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
@@ -579,7 +571,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -624,7 +615,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
@@ -662,7 +652,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
-<<<<<<< HEAD
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -716,7 +705,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -762,7 +750,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
@@ -988,7 +975,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 }
 
 
-=======
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -1018,8 +1004,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     //return;
                 }
 
-<<<<<<< HEAD
-
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -1029,8 +1013,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    startActivity(intent);
 //                }
 //            });
-
-=======
                 gps = new GpsInfo(getContext());
                 // GPS 사용유무 가져오기
                 double latitude = 0.0;
@@ -1148,7 +1130,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             }
                         });
             }
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
             return rootView;
         }
 

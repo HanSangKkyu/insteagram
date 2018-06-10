@@ -27,20 +27,12 @@
 
         <RatingBar
             android:id="@+id/r_rating"
-<<<<<<< HEAD
-            style="@style/Widget.AppCompat.RatingBar.Small"
-=======
             android:paddingTop="4dp"
             style="@style/Base.Widget.AppCompat.RatingBar.Small"
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="true"
             android:numStars="5" />
-<<<<<<< HEAD
-=======
-
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 
     </LinearLayout>
 

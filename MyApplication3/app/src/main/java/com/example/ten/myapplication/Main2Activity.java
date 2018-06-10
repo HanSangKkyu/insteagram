@@ -3,53 +3,65 @@ package com.example.ten.myapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Paint;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
     int m_prefSize; //관심사 개수
     static String[] m_data; //관심사 저장한 배열
     String m_pref;
     DatabaseReference rDatabase;
+    public static final int TYPE_CAFE = 15;
+    private static final int GOOGLE_API_CLIENT_ID = 0;
+    private AutoCompleteTextView mAutocompleteTextView;
+    private GoogleApiClient mGoogleApiClient;
+    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
+            new LatLng(33.500000, 126.51667), new LatLng(37.56667, 126.97806));
+    private AutocompleteFilter typeFilter;
+    private static final String LOG_TAG = "Main2Activity";
+    private ArrayList<PlaceAutocomplete> mResultList;
+    private static final String TAG = "PlaceArrayAdapter";
 
 
     /**
@@ -103,6 +115,22 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
+        //여리 태그에 따른 카페 주소 찾아내기
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
+                .addConnectionCallbacks(this)
+                .build();
+
+        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+            mGoogleApiClient = null;
+        }
+
+        typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(TYPE_CAFE)
+                .build();
+        Filtering_2("하나코이 울산");
+
     }
 
 
@@ -128,6 +156,92 @@ public class Main2Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(LOG_TAG, "Google Places API connection failed with error code: "
+                + connectionResult.getErrorCode());
+
+        Toast.makeText(this,
+                "Google Places API connection failed with error code:" +
+                        connectionResult.getErrorCode(),
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.i(LOG_TAG, "Google Places API connected.");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.e(LOG_TAG, "Google Places API connection suspended.");
+    }
+
+    private ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint) {
+        if (mGoogleApiClient != null) {
+            Log.i(TAG, "Executing autocomplete query for: " + constraint);
+            String str = "하나코히#하나코히플라워#lfl#f4f#ootd#핫플#오오티디#취향저격#플라워카페#포토존#토요일";
+            String[] s = str.split("#");
+            Status status = null;
+            AutocompletePredictionBuffer autocompletePredictions = null;
+            int count = 0;
+            ArrayList resultList;
+
+            do {
+                resultList = null;
+                PendingResult<AutocompletePredictionBuffer> results =
+                        Places.GeoDataApi
+                                .getAutocompletePredictions(mGoogleApiClient, s[count] + " 울산",
+                                        BOUNDS_MOUNTAIN_VIEW, typeFilter);
+                // Wait for predictions, set the timeout.
+                autocompletePredictions = results
+                        .await(60, TimeUnit.SECONDS);
+                status = autocompletePredictions.getStatus();
+                count++;
+                if (count == s.length) {
+                    Log.i("Status", "장소가 아니거나 해당 장소를 찾을 수 없음.");
+                }
+
+                if (!status.isSuccess()) {
+                    Toast.makeText(this, "Error: " + status.toString(),
+                            Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Error getting place predictions: " + status
+                            .toString());
+                    autocompletePredictions.release();
+                    return null;
+                }
+
+                Log.i(TAG, "Query completed. Received " + autocompletePredictions.getCount()
+                        + " predictions.");
+                Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
+                resultList = new ArrayList<>(autocompletePredictions.getCount());
+                while (iterator.hasNext()) {
+                    AutocompletePrediction prediction = iterator.next();
+                    resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
+                            prediction.getFullText(null)));
+                }
+                // Buffer release
+                autocompletePredictions.release();
+            } while (resultList.size() == 0);
+
+            return resultList;
+        }
+        Log.e(TAG, "Google API client is not connected.");
+        return null;
+
+}
+
+    public void Filtering_2(CharSequence constraint) {
+
+        if (constraint != null) {
+            // Query the autocomplete API for the entered constraint
+            mResultList = getPredictions(constraint);
+            if (mResultList != null) {
+                // Results
+
+            }
+        }
+    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -574,6 +688,8 @@ public class Main2Activity extends AppCompatActivity {
             return rootView;
         }
 
+
+
         private void callList(LayoutInflater inflater, ViewGroup container, int sectionNumber) {
 
 
@@ -769,6 +885,20 @@ public class Main2Activity extends AppCompatActivity {
             return null;
         }
     }
+    class PlaceAutocomplete {
 
+        public CharSequence placeId;
+        public CharSequence description;
+
+        PlaceAutocomplete(CharSequence placeId, CharSequence description) {
+            this.placeId = placeId;
+            this.description = description;
+        }
+
+        @Override
+        public String toString() {
+            return description.toString();
+        }
+    }
 
 }

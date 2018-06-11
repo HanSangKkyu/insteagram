@@ -1,5 +1,4 @@
 package com.example.ten.myapplication;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
@@ -128,6 +128,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 BOUNDS_MOUNTAIN_VIEW, typeFilter);
         //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
         mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
+        Filtering_2();
         // Filtering_2();
 
     }
@@ -313,13 +314,23 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     }
                                 }
                             });
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getContext(), DetailActivity.class);
+                            intent.putExtra("user", m_user);
+                            intent.putExtra("url", imgUrlList.get(position));
+                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
+                    });
+
                 }
             }
-            else if(size == 2){
+            else if(size == 2) {
                 if (sectionNumber == 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     final String search = m_data[sectionNumber - 1];
-
 
 
                     listView = (ListView) rootView.findViewById(R.id.listView);
@@ -538,13 +549,13 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                     });
+
                 }
             }
-            else if(size == 3){
+            else if(size == 3) {
                 if (sectionNumber == 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     final String search = m_data[sectionNumber - 1];
-
 
 
                     listView = (ListView) rootView.findViewById(R.id.listView);
@@ -677,6 +688,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                     });
+
                 } else if (sectionNumber == 2) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     final String search = m_data[sectionNumber - 1];
@@ -857,23 +869,28 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 TextView title = (TextView) rootView.findViewById(R.id.title);
                 title.setText("집 앞 카페");
 
+                } else if (sectionNumber == m_data.length + 1) {
+                    rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                    TextView title = (TextView) rootView.findViewById(R.id.title);
+                    title.setText("집 앞 카페");
 
-                // GPSTracker class
-                GpsInfo gps;
+
+                    // GPSTracker class
+                    GpsInfo gps;
 
 
-                nearCafeList = (ListView) rootView.findViewById(R.id.listView);
+                    nearCafeList = (ListView) rootView.findViewById(R.id.listView);
 
-                nearCafeDataList = new ArrayList<>();
+                    nearCafeDataList = new ArrayList<>();
 
-                name = new ArrayList<>();
-                id = new ArrayList<>();
-                imgList = new ArrayList<>();
+                    name = new ArrayList<>();
+                    id = new ArrayList<>();
+                    imgList = new ArrayList<>();
 
-                if (!isPermission) {
-                    callPermission();
-                    //return;
-                }
+                    if (!isPermission) {
+                        callPermission();
+                        //return;
+                    }
 
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
@@ -884,125 +901,131 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    startActivity(intent);
 //                }
 //            });
+                    gps = new GpsInfo(getContext());
+                    // GPS 사용유무 가져오기
+                    double latitude = 0.0;
+                    double longitude = 0.0;
+                    if (gps.isGetLocation()) {
+
+                        latitude = gps.getLatitude();
+                        longitude = gps.getLongitude();
                 gps = new GpsInfo(getContext());
                 // GPS 사용유무 가져오기
-                double latitude = 0.0;
-                double longitude = 0.0;
+
                 if (gps.isGetLocation()) {
 
-                    latitude = gps.getLatitude();
-                    longitude = gps.getLongitude();
+                        Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
+                    } else {
+                        // GPS 를 사용할수 없으므로
+                        gps.showSettingsAlert();
+                    }
 
-                    Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
-                } else {
-                    // GPS 를 사용할수 없으므로
-                    gps.showSettingsAlert();
-                }
-
-                String x = longitude + "";
-                String y = latitude + "";
+                    String x = longitude + "";
+                    String y = latitude + "";
 
 
-                Ion.with(this)
-                        .load("https://m.store.naver.com/places/listMap?display=40&level=middle&nlu=%5Bobject%20Object%5D&query=%EC%B9%B4%ED%8E%98&sid=468329393%2C37392371%2C967978358&sortingOrder=distance&viewType=place&x=" + x + "&y=" + y)
-                        .asString(Charsets.UTF_8) // .asString()
-                        .setCallback(new FutureCallback<String>() {
-                            @Override
-                            public void onCompleted(Exception e, String result) {
-                                String nowString = result;
+                    Ion.with(this)
+                            .load("https://m.store.naver.com/places/listMap?display=40&level=middle&nlu=%5Bobject%20Object%5D&query=%EC%B9%B4%ED%8E%98&sid=468329393%2C37392371%2C967978358&sortingOrder=distance&viewType=place&x=" + x + "&y=" + y)
+                            .asString(Charsets.UTF_8) // .asString()
+                            .setCallback(new FutureCallback<String>() {
+                                @Override
+                                public void onCompleted(Exception e, String result) {
+                                    String nowString = result;
 
 
-                                // 상호명 가져오기
-                                for (int i = 0; nowString.indexOf("name\":\"") != -1; i++) {
-                                    int flag = 0;
-                                    int start = nowString.indexOf("name\":\"");
-                                    int end = 0;
-                                    for (int j = start; ; j++) {
-                                        if (nowString.charAt(j) == '\"') {
-                                            if (flag == 1) {
-                                                start = j + 1;
-                                            } else if (flag == 2) {
-                                                end = j;
-                                                String img = nowString.substring(start, end);
-                                                name.add(img);
-                                                Log.v("done2", img + "");
-                                                nowString = nowString.substring(end + 1, nowString.length());
-                                                break;
-                                            }
-                                            flag++;
-                                        }
-                                    }
-                                }
-
-                                // 상호에 대한 아이디
-                                String nowString1 = result;
-                                for (int i = 0; nowString1.indexOf("id\":\"") != -1; i++) {
-                                    int flag = 0;
-                                    int start = nowString1.indexOf("id\":\"");
-                                    int end = 0;
-                                    for (int j = start; ; j++) {
-                                        if (nowString1.charAt(j) == '\"') {
-                                            if (flag == 1) {
-                                                start = j + 1;
-                                            } else if (flag == 2) {
-                                                end = j;
-                                                String img = nowString1.substring(start, end);
-                                                id.add(img);
-                                                Log.v("done2", img + "");
-                                                nowString1 = nowString1.substring(end + 1, nowString1.length());
-                                                break;
-                                            }
-                                            flag++;
-                                        }
-                                    }
-                                }
-
-
-                                // 비동기 문제로 안에서 처리해준다
-                                Log.v("donen", name.size() + " " + id.size());
-                                for (int i = 0; i < id.size(); i++) {
-
-                                    // 이미지 가져오기
-                                    final int finalI = i;
-
-                                    Ion.with(getContext())
-                                            .load("https://www.instagram.com/explore/tags/" + name.get(i) + "/?hl=ko")
-                                            .asString(Charsets.UTF_8) // .asString()
-                                            .setCallback(new FutureCallback<String>() {
-                                                @Override
-                                                public void onCompleted(Exception e, String result) {
-                                                    String nowString = result;
-                                                    int flag = 0;
-                                                    int start = nowString.indexOf("display_url");
-                                                    int end = 0;
-                                                    for (int j = start; start != -1; j++) {
-                                                        if (nowString.charAt(j) == '\"') {
-                                                            if (flag == 1) {
-                                                                start = j + 1;
-                                                            } else if (flag == 2) {
-                                                                end = j;
-                                                                String img = nowString.substring(start, end);
-                                                                NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
-                                                                nearCafeDataList.add(nearCafeData);
-                                                                Log.v("asdf", img + "");
-                                                                nowString = nowString.substring(end + 1, nowString.length());
-                                                                break;
-                                                            }
-                                                            flag++;
-                                                        }
-                                                    }
-
-                                                    Log.v("사이즈", nearCafeDataList + "");
-                                                    nearCafeAdapter = new NearCafeAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, nearCafeDataList);
-                                                    nearCafeList.setAdapter(nearCafeAdapter);
+                                    // 상호명 가져오기
+                                    for (int i = 0; nowString.indexOf("name\":\"") != -1; i++) {
+                                        int flag = 0;
+                                        int start = nowString.indexOf("name\":\"");
+                                        int end = 0;
+                                        for (int j = start; ; j++) {
+                                            if (nowString.charAt(j) == '\"') {
+                                                if (flag == 1) {
+                                                    start = j + 1;
+                                                } else if (flag == 2) {
+                                                    end = j;
+                                                    String img = nowString.substring(start, end);
+                                                    name.add(img);
+                                                    Log.v("done2", img + "");
+                                                    nowString = nowString.substring(end + 1, nowString.length());
+                                                    break;
                                                 }
-                                            });
+                                                flag++;
+                                            }
+                                        }
+                                    }
+
+                                    // 상호에 대한 아이디
+                                    String nowString1 = result;
+                                    for (int i = 0; nowString1.indexOf("id\":\"") != -1; i++) {
+                                        int flag = 0;
+                                        int start = nowString1.indexOf("id\":\"");
+                                        int end = 0;
+                                        for (int j = start; ; j++) {
+                                            if (nowString1.charAt(j) == '\"') {
+                                                if (flag == 1) {
+                                                    start = j + 1;
+                                                } else if (flag == 2) {
+                                                    end = j;
+                                                    String img = nowString1.substring(start, end);
+                                                    id.add(img);
+                                                    Log.v("done2", img + "");
+                                                    nowString1 = nowString1.substring(end + 1, nowString1.length());
+                                                    break;
+                                                }
+                                                flag++;
+                                            }
+                                        }
+                                    }
+
+
+                                    // 비동기 문제로 안에서 처리해준다
+                                    Log.v("donen", name.size() + " " + id.size());
+                                    for (int i = 0; i < id.size(); i++) {
+
+                                        // 이미지 가져오기
+                                        final int finalI = i;
+
+                                        Ion.with(getContext())
+                                                .load("https://www.instagram.com/explore/tags/" + name.get(i) + "/?hl=ko")
+                                                .asString(Charsets.UTF_8) // .asString()
+                                                .setCallback(new FutureCallback<String>() {
+                                                    @Override
+                                                    public void onCompleted(Exception e, String result) {
+                                                        String nowString = result;
+                                                        int flag = 0;
+                                                        int start = nowString.indexOf("display_url");
+                                                        int end = 0;
+                                                        for (int j = start; start != -1; j++) {
+                                                            if (nowString.charAt(j) == '\"') {
+                                                                if (flag == 1) {
+                                                                    start = j + 1;
+                                                                } else if (flag == 2) {
+                                                                    end = j;
+                                                                    String img = nowString.substring(start, end);
+                                                                    NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
+                                                                    nearCafeDataList.add(nearCafeData);
+                                                                    Log.v("asdf", img + "");
+                                                                    nowString = nowString.substring(end + 1, nowString.length());
+                                                                    break;
+                                                                }
+                                                                flag++;
+                                                            }
+                                                        }
+
+                                                        Log.v("사이즈", nearCafeDataList + "");
+                                                        nearCafeAdapter = new NearCafeAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, nearCafeDataList);
+                                                        nearCafeList.setAdapter(nearCafeAdapter);
+                                                    }
+                                                });
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
             return rootView;
         }
+
 
 
 

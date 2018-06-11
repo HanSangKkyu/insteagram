@@ -47,7 +47,7 @@
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
-            android:text="고양이 카페"
+            android:text="동물 카페"
             android:textColor="#D8D8D8"
             android:textSize="10sp" />
 
@@ -58,7 +58,7 @@
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
-            android:text="강아지 카페"
+            android:text="키즈 카페"
             android:textColor="#D8D8D8"
             android:textSize="10sp" />
 

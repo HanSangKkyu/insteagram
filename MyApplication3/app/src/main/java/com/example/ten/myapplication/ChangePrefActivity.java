@@ -1,20 +1,14 @@
 package com.example.ten.myapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Iterator;
 
 public class ChangePrefActivity extends AppCompatActivity {
 
@@ -93,7 +87,7 @@ public class ChangePrefActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.cat: // 고양이 카페
+            case R.id.cat: // 동물 카페
                 if (check[1]) { // 체크 되었으면
                     check[1] = false; // 체크 풀기
                     count--;
@@ -108,7 +102,7 @@ public class ChangePrefActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.dog: // 강아지 카페
+            case R.id.dog: // 키즈 카페
                 if (check[2]) { // 체크 되었으면
                     check[2] = false; // 체크 풀기
                     count--;
@@ -224,10 +218,10 @@ public class ChangePrefActivity extends AppCompatActivity {
                             pref += "플라워카페 ";
                             break;
                         case 1:
-                            pref += "고양이카페 ";
+                            pref += "동물카페 ";
                             break;
                         case 2:
-                            pref += "강아지카페 ";
+                            pref += "키즈카페 ";
                             break;
                         case 3:
                             pref += "루프탑카페 ";

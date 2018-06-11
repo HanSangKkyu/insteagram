@@ -99,34 +99,34 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             // Firebase에 저장된 아이디 (이메일)인지 확인한다
-                            databaseReference_f.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
-
-                                    while (child.hasNext()) {
-                                        if (child.next().getKey().equals(facebook_id)) {
-                                            // 이미 존재하는 페이스북 계정이면
-                                            // curUser 정보 보내주고 액티비티 실행
-                                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
-                                            intent.putExtra("user", facebook_id);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                        else continue;
-                                    }
-                                    // 존재하지 않는 이메일이라면 가입 절차를 거쳐야함
-                                    Intent intent = new Intent(getApplicationContext(), FacebookJoinActivity.class);
-                                    intent.putExtra("user", facebook_id);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
+//                            databaseReference_f.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
+//
+//                                    while (child.hasNext()) {
+//                                        if (child.next().getKey().equals(facebook_id)) {
+//                                            // 이미 존재하는 페이스북 계정이면
+//                                            // curUser 정보 보내주고 액티비티 실행
+//                                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+//                                            intent.putExtra("user", facebook_id);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                        else continue;
+//                                    }
+//                                    // 존재하지 않는 이메일이라면 가입 절차를 거쳐야함
+//                                    Intent intent = new Intent(getApplicationContext(), FacebookJoinActivity.class);
+//                                    intent.putExtra("user", facebook_id);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//
+//                                }
+//                            });
 
                             // 있으면
                             // curUser = 이메일 로 설정하고
@@ -136,6 +136,35 @@ public class LoginActivity extends AppCompatActivity {
                             // 선호 카페 선택하는 페이지 (만들어야 함)로 이동해서
                             // 선택하게 한 다음에 정보를 Firebase에 저장해야겠네요.
                             // 그리고 그 다음에 Main2Activity로 이동하기
+
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        User m_user = snapshot.getValue(User.class);
+
+                                        if(m_user.getId().equals(facebook_id)) {
+                                            // 이미 존재하는 페이스북 계정이면
+                                            // curUser 정보 보내주고 액티비티 실행
+                                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                                            intent.putExtra("user", m_user);
+                                            startActivity(intent);
+                                            return;
+                                        }
+                                        else continue;
+                                    }
+                                    // 존재하지 않는 이메일이라면 가입 절차를 거쳐야함
+                                    Intent intent = new Intent(getApplicationContext(), FacebookJoinActivity.class);
+                                    intent.putExtra("user", facebook_id);
+                                    startActivity(intent);
+                                    return;
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
 
                         }
                     }

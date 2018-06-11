@@ -413,14 +413,60 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                     });
-                }
-                else if (sectionNumber == 2) {
+                } else if (sectionNumber == 2) {
+                    rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                    final String search = m_data[sectionNumber - 1];
+
+
+                    listView = (ListView) rootView.findViewById(R.id.listView);
+                    //callList();
+                    imgUrlList = new ArrayList<>();
+                    urlList = new ArrayList<>();  /////
+                    hashtagList = new ArrayList<>();
+                    dataList = new ArrayList<>();
+
+
+                    Ion.with(this)
+                            .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
+                            .asString(Charsets.UTF_8) // .asString()
+                            .setCallback(new FutureCallback<String>() {
+                                @Override
+                                public void onCompleted(Exception e, String result) {
+                                    // 최신글의 이미지를 가져온다.
+                                    String nowString = String.valueOf(result);
+                                    for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                                        int flag = 0;
+                                        int start = nowString.indexOf("display_url");
+                                        int end = 0;
+                                        for (int j = start; ; j++) {
+                                            if (nowString.charAt(j) == '\"') {
+                                                if (flag == 1) {
+                                                    start = j + 1;
+                                                } else if (flag == 2) {
+                                                    end = j;
+                                                    String img = nowString.substring(start, end);
+                                                    imgUrlList.add(img);
+                                                    Log.v("asdf", img + "");
+                                                    nowString = nowString.substring(end + 1, nowString.length());
+                                                    break;
+                                                }
+                                                flag++;
+                                            }
+                                        }
+                                    }
+
+                                adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+                                listView.setAdapter(adapter);
+                            }
+                        });
+
+            } else if (sectionNumber == 2 && m_data.length > 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                TextView title = (TextView) rootView.findViewById(R.id.title);
+//                TextView title = (TextView) rootView.findViewById(R.id.title);
                 final String search = m_data[sectionNumber - 1];
 
 
-                title.setText(search.toString());
+//                title.setText(search.toString());
 
                 listView = (ListView) rootView.findViewById(R.id.listView);
                 //callList();
@@ -507,12 +553,98 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
             }
             else if(size == 3) {
                 if (sectionNumber == 1) {
+                    rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                    final String search = m_data[sectionNumber - 1];
+
+
+                    listView = (ListView) rootView.findViewById(R.id.listView);
+                    //callList();
+                    imgUrlList = new ArrayList<>();
+                    urlList = new ArrayList<>();  /////
+                    hashtagList = new ArrayList<>();
+                    dataList = new ArrayList<>();
+
+
+                    Ion.with(this)
+                            .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
+                            .asString(Charsets.UTF_8) // .asString()
+                            .setCallback(new FutureCallback<String>() {
+                                @Override
+                                public void onCompleted(Exception e, String result) {
+                                    // 최신글의 이미지를 가져온다.
+                                    String nowString = String.valueOf(result);
+                                    for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                                        int flag = 0;
+                                        int start = nowString.indexOf("display_url");
+                                        int end = 0;
+                                        for (int j = start; ; j++) {
+                                            if (nowString.charAt(j) == '\"') {
+                                                if (flag == 1) {
+                                                    start = j + 1;
+                                                } else if (flag == 2) {
+                                                    end = j;
+                                                    String img = nowString.substring(start, end);
+                                                    imgUrlList.add(img);
+                                                    Log.v("asdf", img + "");
+                                                    nowString = nowString.substring(end + 1, nowString.length());
+                                                    break;
+                                                }
+                                                flag++;
+                                            }
+                                        }
+                                    }
+
+                                    // 최신글의 url을 가져온다.
+                                    String nowString1 = String.valueOf(result);
+                                    for (int i = 0; nowString1.indexOf("shortcode") != -1; i++) {
+                                        int flag = 0;
+                                        int start = nowString1.indexOf("shortcode");
+                                        int end = 0;
+                                        for (int j = start; ; j++) {
+                                            if (nowString1.charAt(j) == '\"') {
+                                                if (flag == 1) {
+                                                    start = j + 1;
+                                                } else if (flag == 2) {
+                                                    end = j;
+                                                    String img = nowString1.substring(start, end);
+                                                    urlList.add(img);
+                                                    Log.v("asdf", img + "");
+                                                    nowString1 = nowString1.substring(end + 1, nowString1.length());
+                                                    break;
+                                                }
+                                                flag++;
+                                            }
+                                        }
+                                    }
+
+                                    Log.v("donen", imgUrlList.size() + "");
+
+                                    for (int i = 0; i < imgUrlList.size(); i++) {
+                                        Data data = new Data(imgUrlList.get(i), urlList.get(i));
+                                        dataList.add(data);
+                                    }
+                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+
+                                    listView.setAdapter(adapter);
+                                }
+                            });
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getContext(), DetailActivity.class);
+                            intent.putExtra("user", m_user);
+                            intent.putExtra("url", imgUrlList.get(position));
+                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
+                    });
+                }  else if (sectionNumber == 3 && m_data.length > 2) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                TextView title = (TextView) rootView.findViewById(R.id.title);
+//                TextView title = (TextView) rootView.findViewById(R.id.title);
                 final String search = m_data[sectionNumber - 1];
 
 
-                title.setText(search.toString());
+//                title.setText(search.toString());
 
                 listView = (ListView) rootView.findViewById(R.id.listView);
                 //callList();
@@ -546,6 +678,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
                                             }
+                                            flag++;
                                         }
                                     }
                                 }
@@ -771,8 +904,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                         }
                     });
                 }
-            }
-            else if (sectionNumber == m_data.length + 1) {
+            }  else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     TextView title = (TextView) rootView.findViewById(R.id.title);
                     title.setText("집 앞 카페");

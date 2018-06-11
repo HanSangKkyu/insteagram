@@ -57,7 +57,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     ListView reviewList;
     ArrayList<ReviewData> reviews;
     ReviewAdapter reviewAdapter;
-
+    TextView cafeName;
     DatabaseReference databaseReference;
 
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
@@ -135,12 +135,11 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             nearCafeName = intent.getStringExtra("cafename"); //name
             nearCafeId = intent.getStringExtra("cafeid"); //id
 
-<<<<<<< HEAD
-            TextView cafeName = (TextView)findViewById(R.id.cafeName);
+            cafeName = (TextView)findViewById(R.id.cafeName);
             cafeName.setText(nearCafeName);
-=======
-            final TextView cafeName = (TextView)findViewById(R.id.cafeName);
->>>>>>> dbaa973fdfb6cab9b2b8fc18a3528a41d24e0d2f
+
+            cafeName = (TextView)findViewById(R.id.cafeName);
+
             final TextView cafeFood = (TextView)findViewById(R.id.cafeFood);
 
             Ion.with(getApplicationContext())
@@ -159,12 +158,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             priceList = new ArrayList<>();
 
                             String resultString = "";
-<<<<<<< HEAD
                             // resultString += nearCafeName + "\n";
-=======
 //                            resultString += nearCafeName + "\n\n";
->>>>>>> dbaa973fdfb6cab9b2b8fc18a3528a41d24e0d2f
-
 
                             String nowString1 = result;
                             int flag1 = 0;

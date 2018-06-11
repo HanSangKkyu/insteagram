@@ -1,5 +1,4 @@
 package com.example.ten.myapplication;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -129,11 +128,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 BOUNDS_MOUNTAIN_VIEW, typeFilter);
         //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
         mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
-<<<<<<< HEAD
         Filtering_2();
-=======
         // Filtering_2();
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
     }
     public void Filtering_2(){
@@ -310,18 +306,14 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-<<<<<<< HEAD
-=======
 
                                                 // Log.v("섹션", sectionNumber + "");
 
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                                             }
                                         }
                                     }
                                 }
                             });
-<<<<<<< HEAD
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -333,8 +325,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                         }
                     });
 
-=======
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                 }
             }
             else if(size == 2) {
@@ -462,8 +452,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-<<<<<<< HEAD
-=======
                                             }
                                         }
                                     }
@@ -512,7 +500,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                                             }
                                         }
                                     }
@@ -604,8 +591,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-<<<<<<< HEAD
-=======
                                             }
                                         }
                                     }
@@ -653,7 +638,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                                             }
                                         }
                                     }
@@ -867,10 +851,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -882,14 +863,11 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                     });
-<<<<<<< HEAD
-=======
                 }
             } else if (sectionNumber == m_data.length + 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                 TextView title = (TextView) rootView.findViewById(R.id.title);
                 title.setText("집 앞 카페");
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
                 } else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -909,14 +887,11 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     id = new ArrayList<>();
                     imgList = new ArrayList<>();
 
-<<<<<<< HEAD
                     if (!isPermission) {
                         callPermission();
                         //return;
                     }
 
-=======
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -926,7 +901,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    startActivity(intent);
 //                }
 //            });
-<<<<<<< HEAD
                     gps = new GpsInfo(getContext());
                     // GPS 사용유무 가져오기
                     double latitude = 0.0;
@@ -935,13 +909,10 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                         latitude = gps.getLatitude();
                         longitude = gps.getLongitude();
-=======
                 gps = new GpsInfo(getContext());
                 // GPS 사용유무 가져오기
-                double latitude = 0.0;
-                double longitude = 0.0;
+
                 if (gps.isGetLocation()) {
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
                         Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
                     } else {
@@ -1058,10 +1029,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
         private void callList(LayoutInflater inflater, ViewGroup container, int sectionNumber) {
 
 

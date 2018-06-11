@@ -29,7 +29,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
@@ -128,7 +127,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 BOUNDS_MOUNTAIN_VIEW, typeFilter);
         //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
         mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
-        Filtering_2();
+
         // Filtering_2();
 
     }

@@ -20,25 +20,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-
 import android.widget.AdapterView;
-import android.widget.Button;
-=======
 import android.widget.AutoCompleteTextView;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.AutocompletePrediction;
-import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
@@ -48,9 +40,7 @@ import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 
 public class Main2Activity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener {
@@ -59,9 +49,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     static User m_user;
     String m_pref;
     DatabaseReference rDatabase;
-<<<<<<< HEAD
     Intent intent;
-=======
     public static final int TYPE_CAFE = 15;
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
@@ -70,10 +58,9 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
             new LatLng(33.500000, 126.51667), new LatLng(37.56667, 126.97806));
     private AutocompleteFilter typeFilter;
     private static final String LOG_TAG = "Main2Activity";
-    private ArrayList<PlaceAutocomplete> mResultList;
+    private PlaceArrayAdapter mPlaceArrayAdapter;
     private static final String TAG = "PlaceArrayAdapter";
 
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -83,6 +70,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -134,17 +122,19 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 .addConnectionCallbacks(this)
                 .build();
 
-        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
-            mGoogleApiClient = null;
-        }
-
         typeFilter = new AutocompleteFilter.Builder()
                 .setTypeFilter(TYPE_CAFE)
                 .build();
-        Filtering_2("하나코이 울산");
+        mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
+                BOUNDS_MOUNTAIN_VIEW, typeFilter);
+        //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+        mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
+        Filtering_2();
 
     }
-
+    public void Filtering_2(){
+        ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions("");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -189,71 +179,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         Log.e(LOG_TAG, "Google Places API connection suspended.");
     }
 
-    private ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint) {
-        if (mGoogleApiClient != null) {
-            Log.i(TAG, "Executing autocomplete query for: " + constraint);
-            String str = "하나코히#하나코히플라워#lfl#f4f#ootd#핫플#오오티디#취향저격#플라워카페#포토존#토요일";
-            String[] s = str.split("#");
-            Status status = null;
-            AutocompletePredictionBuffer autocompletePredictions = null;
-            int count = 0;
-            ArrayList resultList;
-
-            do {
-                resultList = null;
-                PendingResult<AutocompletePredictionBuffer> results =
-                        Places.GeoDataApi
-                                .getAutocompletePredictions(mGoogleApiClient, s[count] + " 울산",
-                                        BOUNDS_MOUNTAIN_VIEW, typeFilter);
-                // Wait for predictions, set the timeout.
-                autocompletePredictions = results
-                        .await(60, TimeUnit.SECONDS);
-                status = autocompletePredictions.getStatus();
-                count++;
-                if (count == s.length) {
-                    Log.i("Status", "장소가 아니거나 해당 장소를 찾을 수 없음.");
-                }
-
-                if (!status.isSuccess()) {
-                    Toast.makeText(this, "Error: " + status.toString(),
-                            Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error getting place predictions: " + status
-                            .toString());
-                    autocompletePredictions.release();
-                    return null;
-                }
-
-                Log.i(TAG, "Query completed. Received " + autocompletePredictions.getCount()
-                        + " predictions.");
-                Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
-                resultList = new ArrayList<>(autocompletePredictions.getCount());
-                while (iterator.hasNext()) {
-                    AutocompletePrediction prediction = iterator.next();
-                    resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
-                            prediction.getFullText(null)));
-                }
-                // Buffer release
-                autocompletePredictions.release();
-            } while (resultList.size() == 0);
-
-            return resultList;
-        }
-        Log.e(TAG, "Google API client is not connected.");
-        return null;
-
-}
-
-    public void Filtering_2(CharSequence constraint) {
-
-        if (constraint != null) {
-            // Query the autocomplete API for the entered constraint
-            mResultList = getPredictions(constraint);
-            if (mResultList != null) {
-                // Results
-
-            }
-        }
-    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -318,7 +243,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
             makeFile();
 
-<<<<<<< HEAD
             int size = m_data.length;
             if(size == 1) {
                 if (sectionNumber == 1) {
@@ -382,75 +306,15 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
-            Log.v("섹션", sectionNumber + "");
-            if (sectionNumber == 1) {
-                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                TextView title = (TextView) rootView.findViewById(R.id.title);
-                final String search = m_data[sectionNumber - 1];
 
+                                                Log.v("섹션", sectionNumber + "");
 
-                title.setText(search.toString());
-
-                listView = (ListView) rootView.findViewById(R.id.listView);
-                //callList();
-                imgUrlList = new ArrayList<>();
-                urlList = new ArrayList<>();  /////
-                hashtagList = new ArrayList<>();
-                dataList = new ArrayList<>();
-
-
-                Ion.with(this)
-                        .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
-                        .asString(Charsets.UTF_8) // .asString()
-                        .setCallback(new FutureCallback<String>() {
-                            @Override
-                            public void onCompleted(Exception e, String result) {
-                                // 최신글의 이미지를 가져온다.
-                                String nowString = String.valueOf(result);
-                                for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
-                                    int flag = 0;
-                                    int start = nowString.indexOf("display_url");
-                                    int end = 0;
-                                    for (int j = start; ; j++) {
-                                        if (nowString.charAt(j) == '\"') {
-                                            if (flag == 1) {
-                                                start = j + 1;
-                                            } else if (flag == 2) {
-                                                end = j;
-                                                String img = nowString.substring(start, end);
-                                                imgUrlList.add(img);
-                                                Log.v("asdf", img + "");
-                                                nowString = nowString.substring(end + 1, nowString.length());
-                                                break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
-
-                                    Log.v("donen", imgUrlList.size() + "");
-
-                                    for (int i = 0; i < imgUrlList.size(); i++) {
-                                        Data data = new Data(imgUrlList.get(i), urlList.get(i));
-                                        dataList.add(data);
-                                    }
-                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
-                                    listView.setAdapter(adapter);
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
                 }
-
             }
             else if(size == 2){
                 if (sectionNumber == 1) {
@@ -579,7 +443,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
+
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -624,7 +488,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
@@ -662,7 +525,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
-<<<<<<< HEAD
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -716,7 +578,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
-=======
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -762,7 +623,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 Log.v("asdf", img + "");
                                                 nowString = nowString.substring(end + 1, nowString.length());
                                                 break;
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
                                             }
                                         }
                                     }
@@ -988,7 +848,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 }
 
 
-=======
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -1018,8 +877,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     //return;
                 }
 
-<<<<<<< HEAD
-
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -1029,8 +886,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    startActivity(intent);
 //                }
 //            });
-
-=======
                 gps = new GpsInfo(getContext());
                 // GPS 사용유무 가져오기
                 double latitude = 0.0;
@@ -1148,9 +1003,9 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             }
                         });
             }
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
             return rootView;
         }
+
 
 
 
@@ -1292,6 +1147,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -1349,20 +1205,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
             return null;
         }
     }
-    class PlaceAutocomplete {
 
-        public CharSequence placeId;
-        public CharSequence description;
-
-        PlaceAutocomplete(CharSequence placeId, CharSequence description) {
-            this.placeId = placeId;
-            this.description = description;
-        }
-
-        @Override
-        public String toString() {
-            return description.toString();
-        }
-    }
 
 }

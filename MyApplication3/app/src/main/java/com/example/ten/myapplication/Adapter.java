@@ -16,14 +16,13 @@ import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Adapter extends ArrayAdapter<Data> {
     List<Data> mData;
     Context context;
     String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
-
+    String tagSets="";
 
     public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
         super(context, resource, objects);
@@ -90,8 +89,9 @@ public class Adapter extends ArrayAdapter<Data> {
                                     }
                                 }
                             }
-                            String r = filtering_first(tagSet);
+                            //String r = filtering_first(tagSet);
 //                            shortcode.setText("\n" + r);
+                            tagSets=tagSet;
 
                         }
                     });
@@ -100,21 +100,6 @@ public class Adapter extends ArrayAdapter<Data> {
 
     }
 
-    public String filtering_first(String tagSet) {
-        if (tagSet == "") {
-            return "";
-        }
-        String[] str = tagSet.split(" ");
-        Log.d("HashTag", str[0]);
-        for (int i = 0; i < str.length; i++) {
-            for (int j = 0; j < Main2Activity.PlaceholderFragment.hashtag1.length; j++) {
-                if (Main2Activity.PlaceholderFragment.hashtag1[j].equals(str[i])) {
-                    str[i] = "";
-                }
-            }
-        }
-        return Arrays.toString(str).toString();
-    }
 
     public String filtering_two(String tagSet) {
         /*2차필터링-준비단계

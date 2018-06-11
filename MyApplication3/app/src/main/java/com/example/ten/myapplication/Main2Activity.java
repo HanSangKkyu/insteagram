@@ -179,8 +179,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         Log.e(LOG_TAG, "Google Places API connection suspended.");
     }
 
-
-
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -309,73 +307,14 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                 }
                                                 flag++;
 
-            Log.v("섹션", sectionNumber + "");
-            if (sectionNumber == 1) {
-                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                TextView title = (TextView) rootView.findViewById(R.id.title);
-                final String search = m_data[sectionNumber - 1];
+                                                Log.v("섹션", sectionNumber + "");
 
-
-                title.setText(search.toString());
-
-                listView = (ListView) rootView.findViewById(R.id.listView);
-                //callList();
-                imgUrlList = new ArrayList<>();
-                urlList = new ArrayList<>();  /////
-                hashtagList = new ArrayList<>();
-                dataList = new ArrayList<>();
-
-
-                Ion.with(this)
-                        .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
-                        .asString(Charsets.UTF_8) // .asString()
-                        .setCallback(new FutureCallback<String>() {
-                            @Override
-                            public void onCompleted(Exception e, String result) {
-                                // 최신글의 이미지를 가져온다.
-                                String nowString = String.valueOf(result);
-                                for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
-                                    int flag = 0;
-                                    int start = nowString.indexOf("display_url");
-                                    int end = 0;
-                                    for (int j = start; ; j++) {
-                                        if (nowString.charAt(j) == '\"') {
-                                            if (flag == 1) {
-                                                start = j + 1;
-                                            } else if (flag == 2) {
-                                                end = j;
-                                                String img = nowString.substring(start, end);
-                                                imgUrlList.add(img);
-                                                Log.v("asdf", img + "");
-                                                nowString = nowString.substring(end + 1, nowString.length());
-                                                break;
                                             }
                                         }
                                     }
-
-                                    Log.v("donen", imgUrlList.size() + "");
-
-                                    for (int i = 0; i < imgUrlList.size(); i++) {
-                                        Data data = new Data(imgUrlList.get(i), urlList.get(i));
-                                        dataList.add(data);
-                                    }
-                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
-                                    listView.setAdapter(adapter);
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
                 }
-
             }
             else if(size == 2){
                 if (sectionNumber == 1) {
@@ -504,6 +443,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
@@ -1068,6 +1008,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
 
 
+
         private void callList(LayoutInflater inflater, ViewGroup container, int sectionNumber) {
 
 
@@ -1206,6 +1147,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -1263,5 +1205,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
             return null;
         }
     }
+
 
 }

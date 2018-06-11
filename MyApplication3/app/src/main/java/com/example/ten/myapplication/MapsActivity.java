@@ -75,7 +75,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
                 BOUNDS_MOUNTAIN_VIEW, typeFilter);
+
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener

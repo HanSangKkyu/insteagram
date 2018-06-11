@@ -25,7 +25,7 @@ public class PlaceArrayAdapter
         extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> implements Filterable {
     Context context;
     private static final String TAG = "PlaceArrayAdapter";
-    private GoogleApiClient mGoogleApiClient;
+    GoogleApiClient mGoogleApiClient;
     private AutocompleteFilter mPlaceFilter;
     private LatLngBounds mBounds;
     private ArrayList<PlaceAutocomplete> mResultList;
@@ -64,10 +64,10 @@ public class PlaceArrayAdapter
         return mResultList.get(position);
     }
 
-    private ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint) {
+    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint) {
         if (mGoogleApiClient != null) {
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
-            String str = "하나코히#하나코히플라워#lfl#f4f#ootd#핫플#오오티디#취향저격#플라워카페#포토존#토요일";
+            String str = "벨라시타나탈리#토요일";
             String[] s=str.split("#");
             Status status=null;
             AutocompletePredictionBuffer autocompletePredictions=null;
@@ -78,7 +78,7 @@ public class PlaceArrayAdapter
                 resultList=null;
                 PendingResult<AutocompletePredictionBuffer> results =
                         Places.GeoDataApi
-                                .getAutocompletePredictions(mGoogleApiClient, s[count]+ " 울산",
+                                .getAutocompletePredictions(mGoogleApiClient, s[count]+ " 일산",
                                         mBounds, mPlaceFilter);
                 // Wait for predictions, set the timeout.
                 autocompletePredictions = results

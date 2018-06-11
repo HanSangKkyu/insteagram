@@ -137,7 +137,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             nearCafeName = intent.getStringExtra("cafename"); //name
             nearCafeId = intent.getStringExtra("cafeid"); //id
 
-            TextView cafeName = (TextView)findViewById(R.id.cafeName);
+            final TextView cafeName = (TextView)findViewById(R.id.cafeName);
             final TextView cafeFood = (TextView)findViewById(R.id.cafeFood);
 
             Ion.with(getApplicationContext())
@@ -156,7 +156,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             priceList = new ArrayList<>();
 
                             String resultString = "";
-                            resultString += nearCafeName + "\n";
+//                            resultString += nearCafeName + "\n\n";
 
 
                             String nowString1 = result;
@@ -225,6 +225,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             for (int i = 0; i < menuList.size(); i++) {
                                 resultString += menuList.get(i) + "  " + priceList.get(i) + "\n";
                             }
+                            cafeName.setText(nearCafeName);
                             cafeFood.setText(resultString);
                             Log.v("resultT", resultString);
                         }

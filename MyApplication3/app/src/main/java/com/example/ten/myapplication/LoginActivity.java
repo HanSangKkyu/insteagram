@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -230,6 +232,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             // 비밀번호 틀렸어
+                            YoYo.with(Techniques.Shake)
+                                    .duration(1000)
+                                    .playOn(loginButton);
                             Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             editID.setText("");
                             editPW.setText("");

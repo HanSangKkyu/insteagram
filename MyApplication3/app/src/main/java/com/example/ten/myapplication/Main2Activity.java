@@ -1217,10 +1217,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    TextView title = (TextView) rootView.findViewById(R.id.title);
 //                    title.setText("집 앞 카페");
 
-
                     // GPSTracker class
                     GpsInfo gps;
-
 
                     nearCafeList = (ListView) rootView.findViewById(R.id.listView);
 

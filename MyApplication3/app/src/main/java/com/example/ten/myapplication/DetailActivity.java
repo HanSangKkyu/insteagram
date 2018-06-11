@@ -1,11 +1,10 @@
 package com.example.ten.myapplication;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,7 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
 
     String urlStr;
     String curUser;
+    String cafeName; // 카페 이름 어디서 알아낸담
 
     ListView reviewList;
     ArrayList<ReviewData> reviews;
@@ -37,11 +39,13 @@ public class DetailActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
+    SimpleDateFormat simpleDateFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Intent intent = getIntent();
+
         init();
     }
     public void init(){
@@ -68,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reviews.clear();
-                reviewAdapter.notifyDataSetChanged();
+
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ReviewData data = snapshot.getValue(ReviewData.class);
                     reviews.add(data);
@@ -91,6 +95,8 @@ public class DetailActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
     }
 
     @Override
@@ -107,5 +113,25 @@ public class DetailActivity extends AppCompatActivity {
         Intent i = new Intent(this, ShowReviewActivity.class);
         i.putExtra("user", m_curUser);
         startActivity(i);
+    }
+
+    public void registerReview(View view) {
+
+        String review = editReview.getText().toString();
+        double rating = ratingBar.getRating();
+
+        if(review == null) {
+            // 내용 없으면 거르기
+            Toast.makeText(this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            String date = simpleDateFormat.format(System.currentTimeMillis());
+            ReviewData reviewData = new ReviewData(curUser, rating, review, date);
+            databaseReference.child("cafe1").push().setValue(reviewData);
+            editReview.setText("");
+            Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

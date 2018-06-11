@@ -24,7 +24,6 @@ public class ReviewData {
         this.rating = rating;
         this.review = review;
         this.date = date;
-
     }
 
     public double getRating() {

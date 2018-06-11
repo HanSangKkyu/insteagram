@@ -1,12 +1,10 @@
 package com.example.ten.myapplication;
 
 import android.content.Intent;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -17,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ShowReviewActivity extends AppCompatActivity {
@@ -83,7 +82,9 @@ public class ShowReviewActivity extends AppCompatActivity {
             return;
         }
         else {
-            ReviewData reviewData = new ReviewData(curUser, rating, review);
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = date.format(System.currentTimeMillis());
+            ReviewData reviewData = new ReviewData(curUser, rating, review, strDate);
             databaseReference.child("cafe1").push().setValue(reviewData);
             editReview.setText("");
             Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();

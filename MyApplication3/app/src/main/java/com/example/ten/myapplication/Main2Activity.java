@@ -393,7 +393,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
-<<<<<<< HEAD
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -443,6 +442,9 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+                                            }
+                                        }
+                                    }
 
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
@@ -491,6 +493,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                             }
                                         }
                                     }
+                                }
 
                                     // 최신글의 url을 가져온다.
                                     String nowString1 = String.valueOf(result);
@@ -578,11 +581,13 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+                                            }
+                                        }
+                                    }
                                 adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
                                 listView.setAdapter(adapter);
                             }
                         });
-
 
             } else if (sectionNumber == 3 && m_data.length > 2) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -626,6 +631,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                             }
                                         }
                                     }
+                                }
+
 
                                     // 최신글의 url을 가져온다.
                                     String nowString1 = String.valueOf(result);
@@ -833,7 +840,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
-<<<<<<< HEAD
+
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -846,14 +853,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                         }
                     });
                 }
-
-
-                                adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-                                listView.setAdapter(adapter);
-                            }
-                        });
->>>>>>> dddd6cf3eacbd9f21c91bc5c1929871071d609e5
-
             } else if (sectionNumber == m_data.length + 1) {
                 rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                 TextView title = (TextView) rootView.findViewById(R.id.title);

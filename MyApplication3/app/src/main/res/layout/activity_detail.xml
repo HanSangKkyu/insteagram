@@ -67,8 +67,6 @@
             />
 
 
-
-
         <ImageView
             android:layout_marginTop="20dp"
             android:onClick="showReview"

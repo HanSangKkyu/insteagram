@@ -37,7 +37,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -132,7 +131,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         // Filtering_2();
 
     }
-    public void Filtering_2(){
+    public void Filtering_2() {
         ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions("");
     }
 

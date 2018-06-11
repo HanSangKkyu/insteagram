@@ -129,7 +129,11 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 BOUNDS_MOUNTAIN_VIEW, typeFilter);
         //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
         mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
+<<<<<<< HEAD
         Filtering_2();
+=======
+        // Filtering_2();
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
     }
     public void Filtering_2(){
@@ -306,21 +310,18 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+<<<<<<< HEAD
+=======
+
+                                                // Log.v("섹션", sectionNumber + "");
+
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                                             }
                                         }
                                     }
-
-                                    Log.v("donen", imgUrlList.size() + "");
-
-                                    for (int i = 0; i < imgUrlList.size(); i++) {
-                                        Data data = new Data(imgUrlList.get(i), urlList.get(i));
-                                        dataList.add(data);
-                                    }
-                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
-                                    listView.setAdapter(adapter);
                                 }
                             });
+<<<<<<< HEAD
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -332,6 +333,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                         }
                     });
 
+=======
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                 }
             }
             else if(size == 2) {
@@ -459,9 +462,61 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+<<<<<<< HEAD
+=======
                                             }
                                         }
                                     }
+
+                                adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+                                listView.setAdapter(adapter);
+                            }
+                        });
+
+            } else if (sectionNumber == 2 && m_data.length > 1) {
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                TextView title = (TextView) rootView.findViewById(R.id.title);
+                final String search = m_data[sectionNumber - 1];
+
+
+                title.setText(search.toString());
+
+                listView = (ListView) rootView.findViewById(R.id.listView);
+                //callList();
+                imgUrlList = new ArrayList<>();
+                urlList = new ArrayList<>();  /////
+                hashtagList = new ArrayList<>();
+                dataList = new ArrayList<>();
+
+
+                Ion.with(this)
+                        .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
+                        .asString(Charsets.UTF_8) // .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                // 최신글의 이미지를 가져온다.
+                                String nowString = String.valueOf(result);
+                                for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                                    int flag = 0;
+                                    int start = nowString.indexOf("display_url");
+                                    int end = 0;
+                                    for (int j = start; ; j++) {
+                                        if (nowString.charAt(j) == '\"') {
+                                            if (flag == 1) {
+                                                start = j + 1;
+                                            } else if (flag == 2) {
+                                                end = j;
+                                                String img = nowString.substring(start, end);
+                                                imgUrlList.add(img);
+                                                Log.v("asdf", img + "");
+                                                nowString = nowString.substring(end + 1, nowString.length());
+                                                break;
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
+                                            }
+                                        }
+                                    }
+                                }
 
                                     // 최신글의 url을 가져온다.
                                     String nowString1 = String.valueOf(result);
@@ -549,9 +604,61 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                     break;
                                                 }
                                                 flag++;
+<<<<<<< HEAD
+=======
                                             }
                                         }
                                     }
+                                adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+                                listView.setAdapter(adapter);
+                            }
+                        });
+
+            } else if (sectionNumber == 3 && m_data.length > 2) {
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                TextView title = (TextView) rootView.findViewById(R.id.title);
+                final String search = m_data[sectionNumber - 1];
+
+
+                title.setText(search.toString());
+
+                listView = (ListView) rootView.findViewById(R.id.listView);
+                //callList();
+                imgUrlList = new ArrayList<>();
+                urlList = new ArrayList<>();  /////
+                hashtagList = new ArrayList<>();
+                dataList = new ArrayList<>();
+
+
+                Ion.with(this)
+                        .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
+                        .asString(Charsets.UTF_8) // .asString()
+                        .setCallback(new FutureCallback<String>() {
+                            @Override
+                            public void onCompleted(Exception e, String result) {
+                                // 최신글의 이미지를 가져온다.
+                                String nowString = String.valueOf(result);
+                                for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
+                                    int flag = 0;
+                                    int start = nowString.indexOf("display_url");
+                                    int end = 0;
+                                    for (int j = start; ; j++) {
+                                        if (nowString.charAt(j) == '\"') {
+                                            if (flag == 1) {
+                                                start = j + 1;
+                                            } else if (flag == 2) {
+                                                end = j;
+                                                String img = nowString.substring(start, end);
+                                                imgUrlList.add(img);
+                                                Log.v("asdf", img + "");
+                                                nowString = nowString.substring(end + 1, nowString.length());
+                                                break;
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
+                                            }
+                                        }
+                                    }
+                                }
+
 
                                     // 최신글의 url을 가져온다.
                                     String nowString1 = String.valueOf(result);
@@ -760,6 +867,10 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                                     listView.setAdapter(adapter);
                                 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -771,6 +882,14 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                     });
+<<<<<<< HEAD
+=======
+                }
+            } else if (sectionNumber == m_data.length + 1) {
+                rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+                TextView title = (TextView) rootView.findViewById(R.id.title);
+                title.setText("집 앞 카페");
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
                 } else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -790,11 +909,14 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     id = new ArrayList<>();
                     imgList = new ArrayList<>();
 
+<<<<<<< HEAD
                     if (!isPermission) {
                         callPermission();
                         //return;
                     }
 
+=======
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -804,6 +926,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                    startActivity(intent);
 //                }
 //            });
+<<<<<<< HEAD
                     gps = new GpsInfo(getContext());
                     // GPS 사용유무 가져오기
                     double latitude = 0.0;
@@ -812,6 +935,13 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                         latitude = gps.getLatitude();
                         longitude = gps.getLongitude();
+=======
+                gps = new GpsInfo(getContext());
+                // GPS 사용유무 가져오기
+                double latitude = 0.0;
+                double longitude = 0.0;
+                if (gps.isGetLocation()) {
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
 
                         Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
                     } else {
@@ -928,7 +1058,10 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 49b82dc0e18706292acc65dec703642b0b80620b
         private void callList(LayoutInflater inflater, ViewGroup container, int sectionNumber) {
 
 

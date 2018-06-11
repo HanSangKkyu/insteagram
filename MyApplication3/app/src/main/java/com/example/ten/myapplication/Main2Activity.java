@@ -210,6 +210,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         ListView nearCafeList;
         NearCafeAdapter nearCafeAdapter;
         ArrayList<NearCafeData> nearCafeDataList;
+        NearCafeData nearCafeData;
 
         final int PERMISSIONS_ACCESS_FINE_LOCATION = 1000;
         final int PERMISSIONS_ACCESS_COARSE_LOCATION = 1001;
@@ -235,7 +236,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
         //여기가 layout 부분
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
             int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 
@@ -460,7 +461,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                                     } else if (flag == 2) {
                                                                         end = j;
                                                                         String img = nowString.substring(start, end);
-                                                                        NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
+                                                                        nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
                                                                         nearCafeDataList.add(nearCafeData);
                                                                         Log.v("asdf", img + "");
                                                                         nowString = nowString.substring(end + 1, nowString.length());
@@ -484,6 +485,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 Intent intent = new Intent(getContext(), DetailActivity.class);
                                 intent.putExtra("user", m_user);
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                intent.putExtra("cafename", nearCafeDataList.get(position).getName());
+                                intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
                                 Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
@@ -850,7 +853,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                                     } else if (flag == 2) {
                                                                         end = j;
                                                                         String img = nowString.substring(start, end);
-                                                                        NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
+                                                                        nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
                                                                         nearCafeDataList.add(nearCafeData);
                                                                         Log.v("asdf", img + "");
                                                                         nowString = nowString.substring(end + 1, nowString.length());
@@ -874,6 +877,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 Intent intent = new Intent(getContext(), DetailActivity.class);
                                 intent.putExtra("user", m_user);
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                intent.putExtra("cafename", nearCafeDataList.get(position).getName());
+                                intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
                                 Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
@@ -1367,7 +1372,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                                                     } else if (flag == 2) {
                                                                         end = j;
                                                                         String img = nowString.substring(start, end);
-                                                                        NearCafeData nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
+                                                                        nearCafeData = new NearCafeData(name.get(finalI), id.get(finalI), img);
                                                                         nearCafeDataList.add(nearCafeData);
                                                                         Log.v("asdf", img + "");
                                                                         nowString = nowString.substring(end + 1, nowString.length());
@@ -1391,6 +1396,8 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 Intent intent = new Intent(getContext(), DetailActivity.class);
                                 intent.putExtra("user", m_user);
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                intent.putExtra("cafename", nearCafeDataList.get(position).getName());
+                                intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
                                 Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }

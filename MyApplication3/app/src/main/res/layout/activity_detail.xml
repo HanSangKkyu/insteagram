@@ -25,21 +25,24 @@
             android:layout_height="180dp" />
 
         <TextView
+            android:id="@+id/cafeName"
             android:text="\n카페이름"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/cafeFood"
             android:layout_marginTop="20dp"
             android:text="메뉴정보\n아메리카노 2000\n라떼 2500\nddd 3000\nssss 3000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
-            android:text="여기는 지도"
-            android:background="@drawable/background"
-            android:layout_marginTop="30dp"
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_marginTop="20dp"
+            android:layout_height="200dp"
+            />
 
         <ImageView
             android:layout_marginTop="20dp"

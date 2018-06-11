@@ -6,9 +6,10 @@
 
     <ImageView
         android:id="@+id/img"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY" />
+        android:layout_height="180dp" />
+
 
     <TextView
         android:id="@+id/shortcode"

@@ -7,6 +7,10 @@
     <string name="fb_login_protocol_scheme">fb1044156802416809</string>
     <string name="title_activity_main2">Main2Activity</string>
 
+    <string name="edittext_hint_id"><font size="12">  아이디</font></string>
+    <string name="edittext_hint_pw"><font size="12">  비밀번호</font></string>
+
+    <string name="edittext_review"><font size="12">      답글달기...</font></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

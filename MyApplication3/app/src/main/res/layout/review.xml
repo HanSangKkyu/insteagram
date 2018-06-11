@@ -34,7 +34,6 @@
             android:isIndicator="true"
             android:numStars="5" />
 
-
     </LinearLayout>
 
     <TextView

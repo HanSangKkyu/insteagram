@@ -37,6 +37,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -477,6 +478,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                         }
                                     }
                                 });
+                        nearCafeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                intent.putExtra("user", m_user);
+                                intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }
@@ -857,6 +868,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                         }
                                     }
                                 });
+                        nearCafeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                intent.putExtra("user", m_user);
+                                intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }
@@ -1362,6 +1383,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                         }
                                     }
                                 });
+                        nearCafeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getContext(), DetailActivity.class);
+                                intent.putExtra("user", m_user);
+                                intent.putExtra("url", nearCafeDataList.get(position).getImg());
+                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }

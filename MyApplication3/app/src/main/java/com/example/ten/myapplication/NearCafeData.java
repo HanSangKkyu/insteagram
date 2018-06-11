@@ -1,6 +1,8 @@
 package com.example.ten.myapplication;
 
-public class NearCafeData {
+import java.io.Serializable;
+
+public class NearCafeData implements Serializable{
     String name;
     String id;
     String img;

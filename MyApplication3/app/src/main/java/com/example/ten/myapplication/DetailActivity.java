@@ -45,7 +45,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 61d91d1255bd686b369cd5c51c18af579339ff15
         init();
     }
     public void init(){

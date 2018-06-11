@@ -17,7 +17,6 @@ import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {

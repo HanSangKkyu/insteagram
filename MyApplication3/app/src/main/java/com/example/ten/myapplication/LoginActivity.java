@@ -226,7 +226,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
-                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), ChooseMapActivity.class);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }

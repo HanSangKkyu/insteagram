@@ -243,16 +243,16 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                 .into(imageView);
 
         databaseReference.child(nearCafeName).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                reviews.clear();
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    reviews.clear();
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ReviewData data = snapshot.getValue(ReviewData.class);
-                    reviews.add(data);
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        ReviewData data = snapshot.getValue(ReviewData.class);
+                        reviews.add(data);
+                    }
+                    reviewAdapter.notifyDataSetChanged();
                 }
-                reviewAdapter.notifyDataSetChanged();
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

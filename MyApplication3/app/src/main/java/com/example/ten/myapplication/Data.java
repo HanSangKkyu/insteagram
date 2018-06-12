@@ -36,4 +36,12 @@ public class Data {
     public void setHashtag(ArrayList<String> hashtag) {
         this.hashtag = hashtag;
     }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
 }

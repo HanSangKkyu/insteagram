@@ -3,6 +3,7 @@ package com.example.ten.myapplication;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -118,15 +119,16 @@ public class PlaceArrayAdapter
 
             // 장소 클릭했을 때 뜨는 위치 명
 //            Log.i("검색한 위치명: ", place.getName()+"");
-            String string;
+            String str="";
             Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
             resultList = new ArrayList<>(autocompletePredictions.getCount());
             while (iterator.hasNext()) {
                 AutocompletePrediction prediction = iterator.next();
                 resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
                         prediction.getFullText(null)));
-                string=prediction.getFullText(null).toString();
+                str=prediction.getFullText(null).toString();
             }
+            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
             //resultList.get(0);
             // Buffer release
             autocompletePredictions.release();

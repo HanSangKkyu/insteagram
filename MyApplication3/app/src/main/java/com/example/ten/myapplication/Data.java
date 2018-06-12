@@ -6,6 +6,7 @@ public class Data {
     String display_url;
     String shortcode;
     ArrayList<String> hashtag;
+    String place="";
 
     public Data(String display_url, String shortcode) {
         this.display_url = display_url;

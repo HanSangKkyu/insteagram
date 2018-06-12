@@ -3,12 +3,11 @@ package com.example.ten.myapplication;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
@@ -19,16 +18,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class PlaceArrayAdapter
-        extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> implements Filterable {
+        extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete>{
     Context context;
     private static final String TAG = "PlaceArrayAdapter";
     GoogleApiClient mGoogleApiClient;
     private AutocompleteFilter mPlaceFilter;
     private LatLngBounds mBounds;
     private ArrayList<PlaceAutocomplete> mResultList;
+    int count = 0;
 
     /**
      * Constructor
@@ -41,7 +40,7 @@ public class PlaceArrayAdapter
     public PlaceArrayAdapter(Context context, int resource, LatLngBounds bounds,
                              AutocompleteFilter filter) {
         super(context, resource);
-        this.context=context;
+        this.context = context;
         mBounds = bounds;
         mPlaceFilter = filter;
     }
@@ -64,91 +63,83 @@ public class PlaceArrayAdapter
         return mResultList.get(position);
     }
 
-    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint) {
+    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint,  String place) {
+
         if (mGoogleApiClient != null) {
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
-            String str = "벨라시타나탈리#토요일";
-            String[] s=str.split("#");
-            Status status=null;
-            AutocompletePredictionBuffer autocompletePredictions=null;
-            int count=0;
+            String str = constraint.toString();
+            //String[] s = str.split("#");
+            Status status = null;
+            AutocompletePredictionBuffer autocompletePredictions = null;
+
             ArrayList resultList;
 
-            do {
-                resultList=null;
-                PendingResult<AutocompletePredictionBuffer> results =
-                        Places.GeoDataApi
-                                .getAutocompletePredictions(mGoogleApiClient, s[count]+ " 일산",
-                                        mBounds, mPlaceFilter);
-                // Wait for predictions, set the timeout.
-                autocompletePredictions = results
-                        .await(60, TimeUnit.SECONDS);
-                status = autocompletePredictions.getStatus();
-                count++;
-                if (count == s.length) {
-                    Log.i("Status", "장소가 아니거나 해당 장소를 찾을 수 없음.");
-                }
-
-                if (!status.isSuccess()) {
-                    Toast.makeText(getContext(), "Error: " + status.toString(),
-                            Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Error getting place predictions: " + status
-                            .toString());
-                    autocompletePredictions.release();
-                    return null;
-                }
-
-                Log.i(TAG, "Query completed. Received " + autocompletePredictions.getCount()
-                        + " predictions.");
-                Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
-                resultList = new ArrayList<>(autocompletePredictions.getCount());
-                while (iterator.hasNext()) {
-                    AutocompletePrediction prediction = iterator.next();
-                    resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
-                            prediction.getFullText(null)));
-                }
-                // Buffer release
-                autocompletePredictions.release();
-            }while(resultList.size()==0);
+//            do {
+            resultList = null;
+            PendingResult<AutocompletePredictionBuffer> results =
+                    Places.GeoDataApi
+                            .getAutocompletePredictions(mGoogleApiClient, str + " "+place,
+                                    mBounds, mPlaceFilter);
+            results.setResultCallback(mUpdatePlaceDetailsCallback);
 
             return resultList;
+//        }
+          //  Log.e(TAG, "Google API client is not connected.");
+            // return null;
         }
-        Log.e(TAG, "Google API client is not connected.");
         return null;
     }
 
-    @Override
-    public Filter getFilter() {
-        Filter filter = new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults results = new FilterResults();
-                if (constraint != null) {
-                    // Query the autocomplete API for the entered constraint
-                    mResultList = getPredictions(constraint);
-                    if (mResultList != null) {
-                        // Results
-                        results.values = mResultList;
-                        results.count = mResultList.size();
-                    }
-                }
-                return results;
+    // 장소불러오기 성공 실패 -> 성공일 경우 검색한 장소에대한 정보를 가지고 있음
+    private ResultCallback<AutocompletePredictionBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<AutocompletePredictionBuffer>() {
+        @Override
+        public void onResult(AutocompletePredictionBuffer places) {
+            AutocompletePredictionBuffer autocompletePredictions = null;
+            ArrayList resultList;
+            if (!places.getStatus().isSuccess()) {
+                // 실패
+                places.release();
+                return;
             }
 
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (results != null && results.count > 0) {
-                    // The API returned at least one result, update the data.
-                    notifyDataSetChanged();
-                } else {
-                    // The API did not return any results, invalidate the data set.
-                    notifyDataSetInvalidated();
-                }
-            }
-        };
-        return filter;
-    }
+            // 장소 이름     : place.getName()
+            // 장소 ID       : place.getId()
+            // 장소 주소     : place.getAddress()
+            // 장소 전화번호  : place.getPhoneNumber()
+            // 장소 url      : place.getWebsiteUri()
 
+            // 성공
+            autocompletePredictions = places;
+            //places.
+            //final Place place = places.get(0);
+
+            // 장소에 대한 GPS 정보
+            //queriedLocation = place.getLatLng();
+            //locationName = "" + place.getName();
+
+            // 장소 클릭했을 때 뜨는 위치 명
+//            Log.i("검색한 위치명: ", place.getName()+"");
+            String str="";
+            Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
+            resultList = new ArrayList<>(autocompletePredictions.getCount());
+            while (iterator.hasNext()) {
+                AutocompletePrediction prediction = iterator.next();
+                resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
+                        prediction.getFullText(null)));
+                str=prediction.getFullText(null).toString();
+            }
+            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
+            //resultList.get(0);
+            // Buffer release
+            autocompletePredictions.release();
+
+            places.release();
+
+
+        }
+    };
+
+    //
     class PlaceAutocomplete {
 
         public CharSequence placeId;
@@ -164,6 +155,7 @@ public class PlaceArrayAdapter
             return description.toString();
         }
     }
+
     public String Filtering1() {
         Scanner scan = new Scanner(context.getResources().openRawResource(R.raw.location));
         String str = "";
@@ -182,13 +174,6 @@ public class PlaceArrayAdapter
         }
         return "";
     }
-    public void makeFile(){
-        String hash="";
-        Scanner scan=new Scanner(context.getResources().openRawResource(R.raw.hash));
-        while(scan.hasNextLine()){
-            hash+=scan.nextLine();
-        }
-        //hashtag=hash.split(" ");
-        //Toast.makeText(this, hashtag[1], Toast.LENGTH_SHORT).show();;
-    }
+
+
 }

@@ -1,4 +1,5 @@
 package com.example.ten.myapplication;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,11 +33,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -50,14 +53,19 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     Intent intent;
     public static final int TYPE_CAFE = 15;
     private static final int GOOGLE_API_CLIENT_ID = 0;
-    private AutoCompleteTextView mAutocompleteTextView;
     private GoogleApiClient mGoogleApiClient;
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(33.500000, 126.51667), new LatLng(37.56667, 126.97806));
     private AutocompleteFilter typeFilter;
     private static final String LOG_TAG = "Main2Activity";
-    private PlaceArrayAdapter mPlaceArrayAdapter;
+    static PlaceArrayAdapter mPlaceArrayAdapter;
     private static final String TAG = "PlaceArrayAdapter";
+    static String filtering1="";
+    static int count=0;
+    static String hashes[];
+    static String locationes[];
+    String jsontag="";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
+
 
 
     /**
@@ -111,8 +119,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 startActivity(intent);
             }
         });
-
-
         //여리 태그에 따른 카페 주소 찾아내기
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -128,12 +134,106 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
         mPlaceArrayAdapter.mGoogleApiClient=mGoogleApiClient;
 
-        // Filtering_2();
+        makeFile();
+        makeFile2();
+        //JsonParshing("서울카페"); //언제받아야할지 물어봐야할듯
+    }
+    public void makeFile2(){
+        String loca = "";
+        Scanner scan = new Scanner(getResources().openRawResource(R.raw.location));
+        while (scan.hasNextLine()) {
+            loca += scan.nextLine();
+        }
+        locationes=loca.split("#");
+        //Toast.makeText(this, hashtag[1], Toast.LENGTH_SHORT).show();;
+    }
+    static String reality="";
 
+    public String JsonParshing(String s){
+        reality="";
+        String temp[]=s.split(" ");
+
+        for(int i=0;i<temp.length;i++) {
+            Ion.with(this)
+                    .load("https://open-korean-text.herokuapp.com/extractPhrases?text=" + temp[i])
+                .asJsonObject(Charsets.UTF_8)
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+
+                            JsonArray array = result.getAsJsonArray("phrases");
+                            boolean flag=false;
+                            for (int i = 0; i < array.size(); i++) {
+                                //결과 값 가져오는 부분, 만약 json결과가 location결과와 동일할 경우 location 정보를 저장하고 있어야 한다.
+                                //array.get()
+                                String s=array.get(i).getAsString();
+                                int idx=s.indexOf("(");
+                                String r=s.substring(0,idx);
+                                //Log.v("제이썬", array.get(i) + "");
+                                int idx2=r.indexOf("카페");
+                                if(idx2!=-1)
+                                    jsontag+=r+" ";
+                                else
+                                {
+                                    /// /String t2=r.substring()
+                                }
+                                for(int j=0;j<locationes.length;j++){
+                                    if(locationes[j].equals(r))
+                                        flag=true;
+                                        reality=r;
+                                        break;
+                                }
+                                if(flag==true)
+                                    break;
+                            }
+                        }
+                    });
+        }
+        return null;
     }
-    public void Filtering_2() {
-        ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions("");
+    public void makeFile() {
+        String hash = "";
+        Scanner scan = new Scanner(getResources().openRawResource(R.raw.hash));
+        while (scan.hasNextLine()) {
+            hash += scan.nextLine();
+        }
+        hashes=hash.split(" ");
+        //Toast.makeText(this, hashtag[1], Toast.LENGTH_SHORT).show();;
     }
+
+    static public String filtering_first(String tagSet) {
+        if (tagSet == "") {
+            return "";
+        }
+        String[] str = tagSet.split(" ");
+        Log.d("HashTag", str[0]);
+        for (int i = 0; i < str.length; i++) {
+            for (int j = 0; j < hashes.length; j++) {
+                if (hashes[j].equals(str[i])) {
+                    str[i] = "";
+                }
+            }
+        }
+        String temp = "";
+        for (int i = 0; i < str.length; i++) {
+            temp += str[i] + "#";
+        }
+        filtering1 = temp;
+        return Arrays.toString(str).toString();
+    }
+
+    static public void Filtering_2(String str, String place) {
+        //str은 filtering1을 거치고 난 뒤의 결과일 것
+        //그거 가지고 장소검색시작한다.
+
+        String[] s = str.split(" ");    //걸러지고 남은 아이들
+        count=0;
+        do {
+            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place);
+            count++;
+        }while(count!=s.length);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -334,7 +434,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                     // GPSTracker class
                     GpsInfo gps;
-
 
                     nearCafeList = (ListView) rootView.findViewById(R.id.listView);
 
@@ -566,8 +665,12 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                         dataList.add(data);
                                     }
                                     adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-
                                     listView.setAdapter(adapter);
+                                    if(adapter.tagSets.equals(""))
+                                        filtering_first(adapter.tagSets);
+
+                                    Filtering_2(filtering1, "논현");
+                                    //filtering2=adapter.filtering2
                                 }
                             });
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

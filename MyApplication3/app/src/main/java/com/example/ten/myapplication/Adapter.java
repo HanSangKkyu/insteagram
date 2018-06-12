@@ -156,12 +156,20 @@ public class Adapter extends ArrayAdapter<Data> {
         //그거 가지고 장소검색시작한다.
 
         String[] s = str.split(" ");    //걸러지고 남은 아이들
-        count = 0;
-        do {
+
+        for (int i = 0; i < s.length; i++) {
             Log.v("태그들4", str + "1" + place);
-            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place);
-            count++;
-        } while (count != s.length);
+            Log.v("인덱스", i + " " + s.length);
+            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place);
+        }
+
+//        count = 0;
+//        do {
+//            Log.v("태그들4", str + "1" + place);
+//            Log.v("인덱스", count + " " + s.length);
+//            count++;
+//            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count - 1], place);
+//        } while (count != s.length);
     }
 
 //    public String JsonParshing(String s, final int position) {

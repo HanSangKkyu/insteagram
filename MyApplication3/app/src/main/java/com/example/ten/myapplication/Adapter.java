@@ -158,15 +158,84 @@ public class Adapter extends ArrayAdapter<Data> {
         String[] s = str.split(" ");    //걸러지고 남은 아이들
         count = 0;
         do {
+            Log.v("태그들4", str + "1" + place);
             ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place);
             count++;
         } while (count != s.length);
     }
 
+//    public String JsonParshing(String s, final int position) {
+//        jsontag = "";
+//        reality = "";
+//        String temp[] = s.split(" ");
+//
+//        Log.v("태그들start", "-------------------");
+//        for (int i = 0; i < temp.length; i++) {
+//            Ion.with(getContext())
+//                    .load("https://open-korean-text.herokuapp.com/extractPhrases?text=" + temp[i])
+//                    .asJsonObject(Charsets.UTF_8)
+//                    .setCallback(new FutureCallback<JsonObject>() {
+//                        @Override
+//                        public void onCompleted(Exception e, JsonObject result) {
+//
+//                            JsonArray array = result.getAsJsonArray("phrases");
+//                            boolean flag = false;
+//                            for (int i = 0; i < array.size(); i++) {
+//                                //결과 값 가져오는 부분, 만약 json결과가 location결과와 동일할 경우 location 정보를 저장하고 있어야 한다.
+//                                //array.get()
+//                                String s = array.get(i).getAsString();
+//                                int idx = s.indexOf("(");
+//                                String r = s.substring(0, idx); // 불용어 단위로 나누기
+//                                //Log.v("제이썬", array.get(i) + "");
+//                                int idx2 = r.indexOf("카페");
+//                                if (idx2 == -1)
+//                                    jsontag += r + " "; // 카페가 들어가지 않은 태그들 가져오기
+//                                else {
+//                                    /// /String t2=r.substring()
+//                                }
+//                                String real1 = "";
+//                                for (int j = 0; j < locationes.length; j++) {
+//                                    if (locationes[j].equals(r)) {
+//                                        flag = true;
+//                                        real1 += r + " "; // 서울 , 동대문, 구로5동
+//                                        mData.get(position).setPlace(real1);
+//                                        break;
+//                                    }
+//                                    //  Filtering_2(filtering1, );
+//                                }
+////                                if (flag == true)
+////                                    break;
+//                            }
+//                            Log.v("태그들2", mData.get(position).getPlace() + "1");
+//
+//                        }
+//                    });
+//
+//        }
+//
+//
+//        TimerTask mTask;
+//        Timer mTimer;
+//
+//        mTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//                Filtering_2(jsontag, mData.get(position).getPlace());
+//            }
+//        };
+//
+//        mTimer = new Timer();
+//        mTimer.schedule(mTask, 1000);
+//
+//
+//        return null;
+//    }
+
     public String JsonParshing(String s, final int position) {
         jsontag = "";
         reality = "";
-        String temp[] = s.split(" ");
+        final String temp[] = s.split(" ");
 
         Log.v("태그들start", "-------------------");
         for (int i = 0; i < temp.length; i++) {
@@ -176,7 +245,6 @@ public class Adapter extends ArrayAdapter<Data> {
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
-
                             JsonArray array = result.getAsJsonArray("phrases");
                             boolean flag = false;
                             for (int i = 0; i < array.size(); i++) {
@@ -192,40 +260,36 @@ public class Adapter extends ArrayAdapter<Data> {
                                 else {
                                     /// /String t2=r.substring()
                                 }
-                                String real1 = "";
-                                for (int j = 0; j < locationes.length; j++) {
-                                    if (locationes[j].equals(r)) {
-                                        flag = true;
-                                        real1 += r + " "; // 서울 , 동대문, 구로5동
-                                        mData.get(position).setPlace(real1);
-                                        break;
-                                    }
-                                    //  Filtering_2(filtering1, );
-                                }
-//                                if (flag == true)
-//                                    break;
-                            }
-                            Log.v("태그들2", mData.get(position).getPlace() + "1");
+                                if (i == temp.length - 1) { // 마지막 실행이면
+                                    TimerTask mTask;
+                                    Timer mTimer;
 
+                                    mTask = new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            String temp2[] = jsontag.split(" "); // 불용어 처리를 위해
+
+                                            String real1 = "";
+                                            for (int j = 0; j < locationes.length; j++) {
+                                                if (locationes[j].equals(temp2)) {
+                                                    real1 += temp2 + " "; // 서울 , 동대문, 구로5동
+                                                    mData.get(position).setPlace(real1);
+                                                    break;
+                                                }
+                                                //  Filtering_2(filtering1, );
+                                            }
+
+                                            Filtering_2(jsontag, mData.get(position).getPlace());
+                                        }
+                                    };
+
+                                    mTimer = new Timer();
+                                    mTimer.schedule(mTask, 1000);
+                                }
+                            }
                         }
                     });
-
         }
-
-
-        TimerTask mTask;
-        Timer mTimer;
-
-        mTask = new TimerTask() {
-            @Override
-            public void run() {
-                Log.v("태그들2json", jsontag + "1");
-                Filtering_2(jsontag, mData.get(position).getPlace());
-            }
-        };
-
-        mTimer = new Timer();
-        mTimer.schedule(mTask, 5000);
 
 
         return null;

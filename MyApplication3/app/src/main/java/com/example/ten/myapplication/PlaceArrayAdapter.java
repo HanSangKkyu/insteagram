@@ -130,6 +130,9 @@ public class PlaceArrayAdapter
             }
             Log.v("태그들3", str);
             if(str.indexOf("대한민국")!=-1){
+                int idx=str.indexOf("시");
+                String n=str.substring(idx+1);
+                str+="#"+n;
                 Message message= Message.obtain(Adapter.handler,0,str);
                 Adapter.handler.sendMessage(message);
             }

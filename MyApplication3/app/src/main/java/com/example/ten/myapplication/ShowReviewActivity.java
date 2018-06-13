@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -35,6 +36,7 @@ public class ShowReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_review);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         init();
     }
     public void init(){
@@ -78,7 +80,7 @@ public class ShowReviewActivity extends AppCompatActivity {
         String review = editReview.getText().toString();
         double rating = ratingBar.getRating();
 
-        if(review == null) {
+        if(review.length() == 0) {
             // 내용 없으면 거르기
             Toast.makeText(this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
             return;

@@ -326,15 +326,20 @@ public class Adapter extends ArrayAdapter<Data> {
                                             String temp2[] = jsontag.split(" "); // 불용어 처리를 위해
 
                                             String real1 = "";
-                                            for (int j = 0; j < locationes.length; j++) {
-                                                if (locationes[j].equals(temp2)) {
-                                                    real1 += temp2 + " "; // 서울 , 동대문, 구로5동
-                                                    mData.get(position).setPlace(real1);
-                                                    break;
+                                            for (int i = 0; i < temp2.length; i++) {
+                                                boolean flag = false;
+                                                for (int j = 0; j < locationes.length; j++) {
+                                                    if (locationes[j].equals(temp2)) {
+                                                        real1 += temp2 + " "; // 서울 , 동대문, 구로5동
+                                                        mData.get(position).setPlace(real1);
+                                                        flag = true;
+                                                        break;
+                                                    }
                                                 }
+                                                if (flag)
+                                                    break;
+                                                //  Filtering_2(filtering1, );
                                             }
-                                            //  Filtering_2(filtering1, );
-
                                             Filtering_2(jsontag, mData.get(position).getPlace(), position);
                                         }
                                     };

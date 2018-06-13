@@ -27,6 +27,7 @@ public class ShowReviewActivity extends AppCompatActivity {
     ListView reviewList;
     ArrayList<ReviewData> reviews;
     ReviewAdapter reviewAdapter;
+    String cafeName;
 
     DatabaseReference databaseReference;
 
@@ -46,11 +47,12 @@ public class ShowReviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         m_curUser = (User) intent.getSerializableExtra("user");
         curUser = m_curUser.getId().toString();
+        cafeName = intent.getStringExtra("cafename");
 
         reviewList = (ListView) findViewById(R.id.reviewList);
         reviews = new ArrayList<>();
 
-        databaseReference.child("cafe1").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(cafeName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reviews.clear();
@@ -85,7 +87,7 @@ public class ShowReviewActivity extends AppCompatActivity {
             SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = date.format(System.currentTimeMillis());
             ReviewData reviewData = new ReviewData(curUser, rating, review, strDate);
-            databaseReference.child("cafe1").push().setValue(reviewData);
+            databaseReference.child(cafeName).push().setValue(reviewData);
             editReview.setText("");
             Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }

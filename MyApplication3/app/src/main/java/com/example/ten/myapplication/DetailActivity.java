@@ -2,6 +2,8 @@ package com.example.ten.myapplication;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,8 +40,10 @@ import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener{
@@ -59,6 +64,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     ReviewAdapter reviewAdapter;
     TextView cafeName;
     DatabaseReference databaseReference;
+    List<Address> result;
+    LatLng latLng;
 
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
     private final String  TAG = "MainActivity";
@@ -72,6 +79,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     private NMapOverlayManager mapOverlayManager;
     NMapPOIdataOverlay.OnStateChangeListener onPOldataStateChangeListener=null;
     SimpleDateFormat simpleDateFormat;
+    Geocoder geocoder;  //주어진 주소에서 위도, 경도를 가져와야함.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,37 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         setContentView(R.layout.activity_detail);
 
         init();
+    }
+    public void addressToLatLng(View view) {
+        Intent intent=getIntent();
+        String str=intent.getStringExtra("Address");
+        try {
+            result = geocoder.getFromLocationName(str, 1);
+            Address address = result.get(0);
+            latLng=new LatLng(address.getLatitude(), address.getLongitude());
+            setMarker(latLng);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setMarker(LatLng latLng){
+        int markId=NMapPOIflagType.PIN;
+        NMapPOIdata nMapPOIdata=new NMapPOIdata(1, nMapResourceProvider);
+        nMapPOIdata.beginPOIdata(1);
+
+        nMapPOIdata.addPOIitem(latLng.latitude, latLng.longitude, "카페이름", markId, 0);
+        nMapPOIdata.endPOIdata();
+
+        NMapPOIdataOverlay poIdataOverlay=mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
+
+        poIdataOverlay.showAllPOIdata(0);
+        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
+        mMapView.setScalingFactor(1.7f);
+
+        mMapController = mMapView.getMapController();
+        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
+        geocoder = new Geocoder(this);
     }
     public void init(){
         mapLayout = findViewById(R.id.map_view);
@@ -96,21 +135,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         nMapResourceProvider=new NMapViewerResourceProvider(this);
         mapOverlayManager=new NMapOverlayManager(this, mMapView, nMapResourceProvider);
 
-        int markId=NMapPOIflagType.PIN;
-        NMapPOIdata nMapPOIdata=new NMapPOIdata(1, nMapResourceProvider);
-        nMapPOIdata.beginPOIdata(1);
-
-        nMapPOIdata.addPOIitem(127.0630205, 37.5091300, "Pizza777-111", markId, 0);
-        nMapPOIdata.endPOIdata();
-
-        NMapPOIdataOverlay poIdataOverlay=mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
-
-        poIdataOverlay.showAllPOIdata(0);
-        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
-        mMapView.setScalingFactor(1.7f);
-
-        mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
 
         //Default Data
 
@@ -286,6 +310,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     public void showReview(View view) {
         Intent i = new Intent(this, ShowReviewActivity.class);
         i.putExtra("user", m_curUser);
+        i.putExtra("cafename", nearCafeName);
         startActivity(i);
     }
 

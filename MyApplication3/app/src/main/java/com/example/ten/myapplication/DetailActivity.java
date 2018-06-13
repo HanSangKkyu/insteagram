@@ -59,6 +59,9 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     String urlStr;
     String curUser;
 
+    String instaCafeName;
+    String instaCafeAddress;
+
     ListView reviewList;
     ArrayList<ReviewData> reviews;
     ReviewAdapter reviewAdapter;
@@ -88,28 +91,28 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
         init();
     }
-    public void addressToLatLng(View view) {
-        Intent intent=getIntent();
-        String str=intent.getStringExtra("Address");
+
+    public void addressToLatLng(String adrress) {
         try {
-            result = geocoder.getFromLocationName(str, 1);
+            result = geocoder.getFromLocationName(adrress, 1);
             Address address = result.get(0);
-            latLng=new LatLng(address.getLatitude(), address.getLongitude());
+            latLng = new LatLng(address.getLatitude(), address.getLongitude());
             setMarker(latLng);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void setMarker(LatLng latLng){
-        int markId=NMapPOIflagType.PIN;
-        NMapPOIdata nMapPOIdata=new NMapPOIdata(1, nMapResourceProvider);
+
+    public void setMarker(LatLng latLng) {
+        int markId = NMapPOIflagType.PIN;
+        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
         nMapPOIdata.beginPOIdata(1);
 
         nMapPOIdata.addPOIitem(latLng.latitude, latLng.longitude, "카페이름", markId, 0);
         nMapPOIdata.endPOIdata();
 
-        NMapPOIdataOverlay poIdataOverlay=mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
+        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
 
         poIdataOverlay.showAllPOIdata(0);
         poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
@@ -117,10 +120,12 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
         mMapController = mMapView.getMapController();
         mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
-        geocoder = new Geocoder(this);
     }
 
-    public void init(){
+    public void init() {
+        geocoder = new Geocoder(this);
+
+
         mapLayout = findViewById(R.id.map_view);
 
         mMapView = new NMapView(this);
@@ -171,11 +176,12 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         Intent intent = getIntent();
         m_curUser = (User) intent.getSerializableExtra("user");
         urlStr = intent.getStringExtra("url");
-        if (intent.getSerializableExtra("cafeid") != null) { //주변 카페
+
+        if (intent.getSerializableExtra("cafeid") != null) { //주변 카페(인스타는 cafeid가 없다)
             nearCafeName = intent.getStringExtra("cafename"); //name
             nearCafeId = intent.getStringExtra("cafeid"); //id
 
-            cafeName = (TextView) findViewById(R.id.cafeName);
+            cafeName = (TextView) findViewById(R.id.cafeName); // 카페이름 텍스트뷰 설정
             cafeName.setText(nearCafeName);
 
             cafeName = (TextView) findViewById(R.id.cafeName);
@@ -201,6 +207,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             // resultString += nearCafeName + "\n";
 //                            resultString += nearCafeName + "\n\n";
 
+                            // 시간정보
                             String nowString1 = result;
                             int flag1 = 0;
                             int start1 = nowString1.indexOf("hourString\":\"");
@@ -272,6 +279,25 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             Log.v("resultT", resultString);
                         }
                     });
+        } else { // 인스타에서 가져오는 게시글
+            Log.v("들어감", urlStr + " / " + nearCafeName + " / " + instaCafeAddress + " / ");
+
+            // 이미지 가져오기
+            Picasso.with(getApplicationContext())
+                    .load(urlStr)
+                    .into(imageView);
+
+            // 카페이름 텍스트뷰 설정
+            nearCafeName = intent.getStringExtra("cafename");
+            cafeName = (TextView) findViewById(R.id.cafeName);
+            cafeName.setText(nearCafeName);
+
+            // 지도 마커 찍기
+            instaCafeAddress = intent.getStringExtra("Address");
+            addressToLatLng(instaCafeAddress);
+
+            TextView cafeFood = (TextView) findViewById(R.id.cafeFood);
+            cafeFood.setText("");
         }
 
         curUser = m_curUser.getId().toString();

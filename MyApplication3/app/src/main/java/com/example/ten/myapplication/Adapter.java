@@ -41,7 +41,7 @@ public class Adapter extends ArrayAdapter<Data> {
     String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
     String tagSets = "";
     static Handler handler = new Handler();
-
+    int GlobalPosition;
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
 
 
@@ -51,7 +51,24 @@ public class Adapter extends ArrayAdapter<Data> {
         this.context = context;
         this.search = search;
 
-
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                //MyAdapter2에서 선택한 버튼의 정보를 알려줌.
+                super.handleMessage(msg);
+                if (msg.what == 0) {
+                    //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                    String s = (String) msg.obj;
+                    Log.v("태그들기모찌", s + " " + GlobalPosition);
+                    String[] temp = s.split("#");
+                    mData.get(GlobalPosition).setAddress(temp[0]);
+                    if (temp.length == 1)
+                        mData.get(GlobalPosition).setName(temp[0]);
+                    else
+                        mData.get(GlobalPosition).setName(temp[1]);
+                }
+            }
+        };
     }
 
     @NonNull
@@ -130,30 +147,16 @@ public class Adapter extends ArrayAdapter<Data> {
                         }
                     });
         }
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                //MyAdapter2에서 선택한 버튼의 정보를 알려줌.
-                super.handleMessage(msg);
-                if (msg.what == 0) {
-                    //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                    String s = (String) msg.obj;
-                    Log.v("태그들기모찌", s);
-                    String[] temp = s.split("#");
-                    mData.get(position).setAddress(temp[0]);
-                    mData.get(position).setName(temp[1]);
 
-                }
-            }
-        };
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.v("겟뷰", mData.get(position).getAddress() + position);
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("user", m_user);
                 intent.putExtra("url", mData.get(position).getDisplay_url());
                 intent.putExtra("cafename", mData.get(position).getName());
-                intent.putExtra("cafeAddress", mData.get(position).getAddress());
+                intent.putExtra("Address", mData.get(position).getAddress());
                 Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
@@ -185,7 +188,7 @@ public class Adapter extends ArrayAdapter<Data> {
     }
 
 
-    static public void Filtering_2(String str, String place) {  // 상호명과 장소를 함께 넣어주면 최종결과가 나온다
+    public void Filtering_2(String str, String place, int position) {  // 상호명과 장소를 함께 넣어주면 최종결과가 나온다
         //str은 filtering1을 거치고 난 뒤의 결과일 것
         //그거 가지고 장소검색시작한다.
 
@@ -197,6 +200,7 @@ public class Adapter extends ArrayAdapter<Data> {
             ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place);
 
         }
+        GlobalPosition = position;
 
 
 //        count = 0;
@@ -323,7 +327,7 @@ public class Adapter extends ArrayAdapter<Data> {
                                                 //  Filtering_2(filtering1, );
                                             }
 
-                                            Filtering_2(jsontag, mData.get(position).getPlace());
+                                            Filtering_2(jsontag, mData.get(position).getPlace(), position);
                                         }
                                     };
 
@@ -334,7 +338,6 @@ public class Adapter extends ArrayAdapter<Data> {
                         }
                     });
         }
-
 
         return null;
     }

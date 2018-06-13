@@ -6,7 +6,10 @@ public class Data {
     String display_url;
     String shortcode;
     ArrayList<String> hashtag;
-    String place="";
+    String place = "";
+    String address = "";
+    String name = "";
+
 
     public Data(String display_url, String shortcode) {
         this.display_url = display_url;
@@ -43,5 +46,22 @@ public class Data {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

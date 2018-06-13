@@ -10,13 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="180dp" />
 
-
-    <TextView
+    <LinearLayout
         android:paddingTop="5dp"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="15dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/icon_"
+            android:paddingRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    <TextView
         android:id="@+id/shortcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/cardview_dark_background" />
 
+    </LinearLayout>
 </LinearLayout>

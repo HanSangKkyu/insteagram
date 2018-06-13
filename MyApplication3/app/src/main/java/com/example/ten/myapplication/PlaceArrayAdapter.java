@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class PlaceArrayAdapter
-        extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete>{
+        extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> {
     Context context;
     private static final String TAG = "PlaceArrayAdapter";
     GoogleApiClient mGoogleApiClient;
@@ -63,8 +63,7 @@ public class PlaceArrayAdapter
         return mResultList.get(position);
     }
 
-    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint,  String place) {
-
+    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint, String place) {
         if (mGoogleApiClient != null) {
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
             String str = constraint.toString();
@@ -78,13 +77,13 @@ public class PlaceArrayAdapter
             resultList = null;
             PendingResult<AutocompletePredictionBuffer> results =
                     Places.GeoDataApi
-                            .getAutocompletePredictions(mGoogleApiClient, str + " "+place,
+                            .getAutocompletePredictions(mGoogleApiClient, str + " " + place,
                                     mBounds, mPlaceFilter);
             results.setResultCallback(mUpdatePlaceDetailsCallback);
 
             return resultList;
 //        }
-          //  Log.e(TAG, "Google API client is not connected.");
+            //  Log.e(TAG, "Google API client is not connected.");
             // return null;
         }
         return null;
@@ -99,6 +98,7 @@ public class PlaceArrayAdapter
             if (!places.getStatus().isSuccess()) {
                 // 실패
                 places.release();
+                Log.v("태그들3", "실패");
                 return;
             }
 
@@ -119,16 +119,17 @@ public class PlaceArrayAdapter
 
             // 장소 클릭했을 때 뜨는 위치 명
 //            Log.i("검색한 위치명: ", place.getName()+"");
-            String str="";
+            String str = "";
             Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
             resultList = new ArrayList<>(autocompletePredictions.getCount());
             while (iterator.hasNext()) {
                 AutocompletePrediction prediction = iterator.next();
                 resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
                         prediction.getFullText(null)));
-                str=prediction.getFullText(null).toString();
+                str = prediction.getFullText(null).toString();
             }
-            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
+            Log.v("태그들3", str);
+//            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
             //resultList.get(0);
             // Buffer release
             autocompletePredictions.release();

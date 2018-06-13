@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if(m_user.getId().equals(facebook_id)) {
                                             // 이미 존재하는 페이스북 계정이면
                                             // curUser 정보 보내주고 액티비티 실행
-                                            Intent intent = new Intent(getApplicationContext(), ChooseMapActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                                             intent.putExtra("user", m_user);
                                             startActivity(intent);
                                             return;
@@ -226,7 +226,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             // 성공하면 어디로 가야함
                             /// 여기다가 하세여
-                            Intent intent = new Intent(getApplicationContext(), ChooseMapActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
                             intent.putExtra("user", user);
                             startActivity(intent);
                         }

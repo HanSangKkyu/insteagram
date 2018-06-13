@@ -695,54 +695,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                            startActivity(intent);
 //                        }
 //                    });
-                } else if (sectionNumber == 2) {
-                    rootView = inflater.inflate(R.layout.fragment_main2, container, false);
-                    final String search = m_data[sectionNumber - 1];
-
-
-                    listView = (ListView) rootView.findViewById(R.id.listView);
-                    //callList();
-                    imgUrlList = new ArrayList<>();
-                    urlList = new ArrayList<>();  /////
-                    hashtagList = new ArrayList<>();
-                    dataList = new ArrayList<>();
-
-
-                    Ion.with(this)
-                            .load("https://www.instagram.com/explore/tags/" + search + "/?hl=ko")
-                            .asString(Charsets.UTF_8) // .asString()
-                            .setCallback(new FutureCallback<String>() {
-                                @Override
-                                public void onCompleted(Exception e, String result) {
-                                    // 최신글의 이미지를 가져온다.
-                                    String nowString = String.valueOf(result);
-                                    for (int i = 0; nowString.indexOf("display_url") != -1; i++) {
-                                        int flag = 0;
-                                        int start = nowString.indexOf("display_url");
-                                        int end = 0;
-                                        for (int j = start; ; j++) {
-                                            if (nowString.charAt(j) == '\"') {
-                                                if (flag == 1) {
-                                                    start = j + 1;
-                                                } else if (flag == 2) {
-                                                    end = j;
-                                                    String img = nowString.substring(start, end);
-                                                    imgUrlList.add(img);
-                                                    Log.v("asdf", img + "");
-                                                    nowString = nowString.substring(end + 1, nowString.length());
-                                                    break;
-                                                }
-                                                flag++;
-                                            }
-                                        }
-                                    }
-
-                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
-                                    listView.setAdapter(adapter);
-                                }
-                            });
-
-                } else if (sectionNumber == 2 && m_data.length > 1) {
+                }else if (sectionNumber == 2 && m_data.length > 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
 //                TextView title = (TextView) rootView.findViewById(R.id.title);
                     final String search = m_data[sectionNumber - 1];

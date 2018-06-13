@@ -416,7 +416,14 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                             }
                                         }
                                     }
+                                    Log.v("donen", imgUrlList.size() + "");
 
+                                    for (int i = 0; i < imgUrlList.size(); i++) {
+                                        Data data = new Data(imgUrlList.get(i), urlList.get(i));
+                                        dataList.add(data);
+                                    }
+                                    adapter = new Adapter(getContext(), R.layout.support_simple_spinner_dropdown_item, dataList, search);
+                                    listView.setAdapter(adapter);
 
                                 }
                             });

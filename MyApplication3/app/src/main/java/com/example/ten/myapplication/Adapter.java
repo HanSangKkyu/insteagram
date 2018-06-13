@@ -102,7 +102,6 @@ public class Adapter extends ArrayAdapter<Data> {
                         public void onCompleted(Exception e, String result) {
 
                             String findStr = "hashtags\" content=\"";
-                            int findStrLen = result.indexOf(findStr);
                             String tagSet = "";
 
                             String nowString = result;
@@ -333,8 +332,8 @@ public class Adapter extends ArrayAdapter<Data> {
                                                     mData.get(position).setPlace(real1);
                                                     break;
                                                 }
-                                                //  Filtering_2(filtering1, );
                                             }
+                                            //  Filtering_2(filtering1, );
 
                                             Filtering_2(jsontag, mData.get(position).getPlace(), position);
                                         }

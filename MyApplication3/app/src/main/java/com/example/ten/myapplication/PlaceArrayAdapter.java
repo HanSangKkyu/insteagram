@@ -73,7 +73,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
             AutocompletePredictionBuffer autocompletePredictions = null;
 
             ArrayList resultList;
-            Log.v("태그들정답", place + " " + position);
+            Log.v("태그들정답", str + " " + place + " " + position);
 //            do {
             resultList = null;
             PendingResult<AutocompletePredictionBuffer> results =
@@ -129,7 +129,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                         prediction.getFullText(null)));
                 str = prediction.getFullText(null).toString();
             }
-            Log.v("태그들3", str);
+            Log.v("태그들3", str + " " + globalPositon);
             if (str.indexOf("대한민국") != -1) {
                 int idx = str.indexOf("시");
                 String n = str.substring(idx + 1);

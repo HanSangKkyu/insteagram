@@ -55,10 +55,10 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
     public static final int TYPE_CAFE = 15;
     private static final int GOOGLE_API_CLIENT_ID = 0;
-    private GoogleApiClient mGoogleApiClient;
-    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
+    static GoogleApiClient mGoogleApiClient;
+    static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(33.500000, 126.51667), new LatLng(37.56667, 126.97806));
-    private AutocompleteFilter typeFilter;
+    static AutocompleteFilter typeFilter;
     private static final String LOG_TAG = "Main2Activity";
     static PlaceArrayAdapter mPlaceArrayAdapter;
     private static final String TAG = "PlaceArrayAdapter";
@@ -233,7 +233,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         String[] s = str.split(" ");    //걸러지고 남은 아이들
         count = 0;
         do {
-            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place);
+            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place, 0); //일단 값 채워 넣고
             count++;
         } while (count != s.length);
     }

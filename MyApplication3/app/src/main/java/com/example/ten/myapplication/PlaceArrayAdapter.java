@@ -19,15 +19,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PlaceArrayAdapter
-        extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> {
+import static com.example.ten.myapplication.Adapter.mData;
+
+public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> {
     Context context;
     private static final String TAG = "PlaceArrayAdapter";
     GoogleApiClient mGoogleApiClient;
     private AutocompleteFilter mPlaceFilter;
     private LatLngBounds mBounds;
     private ArrayList<PlaceAutocomplete> mResultList;
-    int count = 0;
+    int globalPositon = 0;
 
     /**
      * Constructor
@@ -63,7 +64,7 @@ public class PlaceArrayAdapter
         return mResultList.get(position);
     }
 
-    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint, String place) {
+    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint, String place, int position) {
         if (mGoogleApiClient != null) {
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
             String str = constraint.toString();
@@ -72,7 +73,7 @@ public class PlaceArrayAdapter
             AutocompletePredictionBuffer autocompletePredictions = null;
 
             ArrayList resultList;
-
+            Log.v("태그들정답", place + " " + position);
 //            do {
             resultList = null;
             PendingResult<AutocompletePredictionBuffer> results =
@@ -80,7 +81,7 @@ public class PlaceArrayAdapter
                             .getAutocompletePredictions(mGoogleApiClient, str + " " + place,
                                     mBounds, mPlaceFilter);
             results.setResultCallback(mUpdatePlaceDetailsCallback);
-
+            globalPositon = position;
             return resultList;
 //        }
             //  Log.e(TAG, "Google API client is not connected.");
@@ -129,12 +130,22 @@ public class PlaceArrayAdapter
                 str = prediction.getFullText(null).toString();
             }
             Log.v("태그들3", str);
-            if(str.indexOf("대한민국")!=-1){
-                int idx=str.indexOf("시");
-                String n=str.substring(idx+1);
-                str+="#"+n;
-                Message message= Message.obtain(Adapter.handler,0,str);
-                Adapter.handler.sendMessage(message);
+            if (str.indexOf("대한민국") != -1) {
+                int idx = str.indexOf("시");
+                String n = str.substring(idx + 1);
+                str += "#" + n;
+                Message message = Message.obtain(Adapter.handler, 0, str);
+
+                Log.v("태그들기모찌", str + " " + globalPositon);
+                String[] temp = str.split("#");
+                mData.get(globalPositon).setAddress(temp[0]);
+                if (temp.length == 1)
+                    mData.get(globalPositon).setName(temp[0]);
+                else
+                    mData.get(globalPositon).setName(temp[1]);
+
+
+//                Adapter.handler.sendMessage(message);
             }
 
 

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -36,14 +37,14 @@ import static com.example.ten.myapplication.Main2Activity.m_user;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
 public class Adapter extends ArrayAdapter<Data> {
-    List<Data> mData;
+    static List<Data> mData;
     Context context;
     String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
     String tagSets = "";
     static Handler handler = new Handler();
     int GlobalPosition;
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
-
+    public static final int TYPE_CAFE = 15;
 
     public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
         super(context, resource, objects);
@@ -197,8 +198,16 @@ public class Adapter extends ArrayAdapter<Data> {
         for (int i = 0; i < s.length; i++) {
             Log.v("태그들4", str + "1" + place);
             Log.v("인덱스", i + " " + s.length);
-            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place);
 
+
+            PlaceArrayAdapter sPlaceArrayAdapter = new PlaceArrayAdapter(getContext(), android.R.layout.simple_list_item_1,
+                    Main2Activity.BOUNDS_MOUNTAIN_VIEW, Main2Activity.typeFilter);
+            //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+            sPlaceArrayAdapter.mGoogleApiClient = Main2Activity.mGoogleApiClient;
+
+            sPlaceArrayAdapter.getPredictions(s[i], place, position);
+
+//            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place, position);
         }
         GlobalPosition = position;
 

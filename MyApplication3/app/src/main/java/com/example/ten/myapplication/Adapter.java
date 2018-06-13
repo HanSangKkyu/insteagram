@@ -62,11 +62,11 @@ public class Adapter extends ArrayAdapter<Data> {
                     String s = (String) msg.obj;
                     Log.v("태그들기모찌", s + " " + GlobalPosition);
                     String[] temp = s.split("#");
-                    mData.get(GlobalPosition).setAddress(temp[0]);
+                    mData.get(GlobalPosition).setAddress(temp[0]); //주소
                     if (temp.length == 1)
-                        mData.get(GlobalPosition).setName(temp[0]);
+                        mData.get(GlobalPosition).setName(temp[0]); //
                     else
-                        mData.get(GlobalPosition).setName(temp[1]);
+                        mData.get(GlobalPosition).setName(temp[1]); //상호명
                 }
             }
         };

@@ -29,6 +29,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
     private ArrayList<PlaceAutocomplete> mResultList;
     int globalPositon = 0;
     int count = 0;
+    boolean flag=false;
     Adapter mAdapter;
 
     /**
@@ -83,7 +84,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                                     mBounds, mPlaceFilter);
             results.setResultCallback(mUpdatePlaceDetailsCallback);
             globalPositon = position;
-            mAdapter = madapter;
+            this.mAdapter = madapter;
             return resultList;
 //        }
             //  Log.e(TAG, "Google API client is not connected.");
@@ -140,10 +141,11 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                 str += "#" + n;
                 Message message = Message.obtain(Adapter.handler, count, str);
                 count++;
-
-
-                mAdapter.setInfo(str, globalPositon);
-
+                if(flag==false) {
+                    mAdapter.setInfo(str, globalPositon);
+                    Log.v("setInfo되는 것", str);
+                }
+                flag=true;
 //                Adapter.handler.sendMessage(message);
             }
 

@@ -23,7 +23,6 @@ import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -32,7 +31,6 @@ import java.util.TimerTask;
 import static com.example.ten.myapplication.Main2Activity.filtering1;
 import static com.example.ten.myapplication.Main2Activity.hashes;
 import static com.example.ten.myapplication.Main2Activity.locationes;
-import static com.example.ten.myapplication.Main2Activity.mPlaceArrayAdapter;
 import static com.example.ten.myapplication.Main2Activity.m_user;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
@@ -45,7 +43,7 @@ public class Adapter extends ArrayAdapter<Data> {
     int GlobalPosition;
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
     public static final int TYPE_CAFE = 15;
-
+    static AutocompleteFilter typeFilter;
     Adapter mAdapter;
 
     public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
@@ -54,7 +52,9 @@ public class Adapter extends ArrayAdapter<Data> {
         this.context = context;
         this.search = search;
         mAdapter = this;
-
+        typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(TYPE_CAFE)
+                .build();
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -200,7 +200,7 @@ public class Adapter extends ArrayAdapter<Data> {
 
 
             PlaceArrayAdapter sPlaceArrayAdapter = new PlaceArrayAdapter(getContext(), android.R.layout.simple_list_item_1,
-                    Main2Activity.BOUNDS_MOUNTAIN_VIEW, Main2Activity.typeFilter);
+                    Main2Activity.BOUNDS_MOUNTAIN_VIEW, typeFilter);
             //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
             sPlaceArrayAdapter.mGoogleApiClient = Main2Activity.mGoogleApiClient;
 

@@ -58,7 +58,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     static GoogleApiClient mGoogleApiClient;
     static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(33.500000, 126.51667), new LatLng(37.56667, 126.97806));
-    static AutocompleteFilter typeFilter;
+
     private static final String LOG_TAG = "Main2Activity";
     static PlaceArrayAdapter mPlaceArrayAdapter;
     private static final String TAG = "PlaceArrayAdapter";
@@ -127,13 +127,11 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                 .addConnectionCallbacks(this)
                 .build();
 
-        typeFilter = new AutocompleteFilter.Builder()
-                .setTypeFilter(TYPE_CAFE)
-                .build();
-        mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
-                BOUNDS_MOUNTAIN_VIEW, typeFilter);
-        //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
-        mPlaceArrayAdapter.mGoogleApiClient = mGoogleApiClient;
+
+//        mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
+//                BOUNDS_MOUNTAIN_VIEW, typeFilter);
+//        //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+//        mPlaceArrayAdapter.mGoogleApiClient = mGoogleApiClient;
 
         makeFile();
         makeFile2();

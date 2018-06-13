@@ -1,7 +1,8 @@
 package com.example.ten.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -25,11 +26,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.ten.myapplication.Main2Activity.count;
+import static com.example.ten.myapplication.Main2Activity.filtering1;
 import static com.example.ten.myapplication.Main2Activity.hashes;
 import static com.example.ten.myapplication.Main2Activity.locationes;
 import static com.example.ten.myapplication.Main2Activity.mPlaceArrayAdapter;
-import static com.example.ten.myapplication.Main2Activity.filtering1;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
 public class Adapter extends ArrayAdapter<Data> {
@@ -37,7 +37,7 @@ public class Adapter extends ArrayAdapter<Data> {
     Context context;
     String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
     String tagSets = "";
-
+    static Handler handler = new Handler();
 
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
 
@@ -47,6 +47,20 @@ public class Adapter extends ArrayAdapter<Data> {
         mData = objects;
         this.context = context;
         this.search = search;
+
+        handler=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                //MyAdapter2에서 선택한 버튼의 정보를 알려줌.
+                super.handleMessage(msg);
+                if(msg.what==0){
+                    //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                    String s=(String)msg.obj;
+                    Log.v("태그들기모찌", s);
+                    
+                }
+            }
+        };
     }
 
     @NonNull
@@ -151,6 +165,7 @@ public class Adapter extends ArrayAdapter<Data> {
         return Arrays.toString(str).toString();
     }
 
+
     static public void Filtering_2(String str, String place) {  // 상호명과 장소를 함께 넣어주면 최종결과가 나온다
         //str은 filtering1을 거치고 난 뒤의 결과일 것
         //그거 가지고 장소검색시작한다.
@@ -161,7 +176,10 @@ public class Adapter extends ArrayAdapter<Data> {
             Log.v("태그들4", str + "1" + place);
             Log.v("인덱스", i + " " + s.length);
             ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place);
+
         }
+
+
 
 //        count = 0;
 //        do {

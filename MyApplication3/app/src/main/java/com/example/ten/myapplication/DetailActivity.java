@@ -17,14 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +33,7 @@ import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
@@ -52,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class DetailActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener, OnMapReadyCallback {
+public class DetailActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener {
 
     ImageView imageView;
     EditText editReview;
@@ -75,7 +69,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     DatabaseReference databaseReference;
     List<Address> result;
     LatLng latLng;
-    private GoogleMap map;
 
     RatingBar averageRating;
 
@@ -115,68 +108,43 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
     public void setMarker(LatLng latLng) {
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+        int markId = NMapPOIflagType.PIN;
+        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
+        nMapPOIdata.beginPOIdata(1);
 
-        MarkerOptions options = new MarkerOptions();
-        options.position(latLng);
-        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)); // BitmapDescriptorFactory.fromResource(R.drawable.station))
-        options.title("카페띠"); //info window의 타이틀
-        options.snippet("테이큰커피라가정할고야"); //info window의 설명
-        map.addMarker(options);
-        Marker mk1 = map.addMarker(options);
-        mk1.showInfoWindow();
+        nMapPOIdata.addPOIitem(latLng.longitude, latLng.latitude, nearCafeName, markId, 0);
+        nMapPOIdata.endPOIdata();
 
-//        int markId = NMapPOIflagType.PIN;
-//        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
-//        nMapPOIdata.beginPOIdata(1);
-//
-//        nMapPOIdata.addPOIitem(latLng.latitude, latLng.longitude, "카페이름", markId, 0);
-//        nMapPOIdata.endPOIdata();
-//
-//        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
-//
-//        poIdataOverlay.showAllPOIdata(0);
-//        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
-//        mMapView.setScalingFactor(1.7f);
-//
-//        mMapController = mMapView.getMapController();
-//        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
+        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
+
+        poIdataOverlay.showAllPOIdata(0);
+        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
+        mMapView.setScalingFactor(1.7f);
+
+        mMapController = mMapView.getMapController();
+        mMapController.setMapCenter(new NGeoPoint(latLng.longitude,latLng.latitude), 10);     //Default Data
     }
 
     public void init() {
         geocoder = new Geocoder(this);
 
 
-        //mapLayout = findViewById(R.id.map_view);
+        mapLayout = findViewById(R.id.map_view);
 
-//        mMapView = new NMapView(this);
-//        mMapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
-//        mMapView.setClickable(true);
-//        mMapView.setEnabled(true);
-//        mMapView.setFocusable(true);
-//        mMapView.setFocusableInTouchMode(true);
-//        mMapView.setScalingFactor(1.7f);
-//        mMapView.requestFocus();
-//
-//        mapLayout.addView(mMapView);
-//        nMapResourceProvider = new NMapViewerResourceProvider(this);
-//        mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
-//
-//        int markId = NMapPOIflagType.PIN;
-//        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
-//        nMapPOIdata.beginPOIdata(1);
-//
-//        nMapPOIdata.addPOIitem(127.0630205, 37.5091300, "Pizza777-111", markId, 0);
-//        nMapPOIdata.endPOIdata();
-//
-//        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
-//
-//        poIdataOverlay.showAllPOIdata(0);
-//        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
-//        mMapView.setScalingFactor(1.7f);
-//
-//        mMapController = mMapView.getMapController();
-//        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
+        mMapView = new NMapView(this);
+        mMapView.setClientId(CLIENT_ID); // 클라이언트 아이디 값 설정
+        mMapView.setClickable(true);
+        mMapView.setEnabled(true);
+        mMapView.setFocusable(true);
+        mMapView.setFocusableInTouchMode(true);
+        mMapView.setScalingFactor(1.7f);
+        mMapView.requestFocus();
+
+        mapLayout.addView(mMapView);
+        nMapResourceProvider = new NMapViewerResourceProvider(this);
+        mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
+
+
 
         //Default Data
 
@@ -312,10 +280,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             nearCafeName = intent.getStringExtra("cafename");
             cafeName = (TextView) findViewById(R.id.cafeName);
             cafeName.setText(nearCafeName);
-
-            MapFragment mapFr = (MapFragment)getFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFr.getMapAsync(this);
 
             // 지도 마커 찍기
             instaCafeAddress = intent.getStringExtra("Address");
@@ -465,14 +429,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             editReview.setText("");
             Toast.makeText(this, "리뷰가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
 
     }
 }

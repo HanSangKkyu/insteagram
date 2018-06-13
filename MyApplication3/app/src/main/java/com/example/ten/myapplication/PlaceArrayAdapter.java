@@ -29,6 +29,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
     private LatLngBounds mBounds;
     private ArrayList<PlaceAutocomplete> mResultList;
     int globalPositon = 0;
+    int count=0;
 
     /**
      * Constructor
@@ -130,13 +131,14 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                 str = prediction.getFullText(null).toString();
                 break;
             }
+
             Log.v("태그들3", str + " " + globalPositon);
             if (str.indexOf("대한민국") != -1) {
                 int idx = str.indexOf("시");
                 String n = str.substring(idx + 1);
                 str += "#" + n;
-                Message message = Message.obtain(Adapter.handler, 0, str);
-
+                Message message = Message.obtain(Adapter.handler, count, str);
+                count++;
                 Log.v("태그들기모찌", str + " " + globalPositon);
                 String[] temp = str.split("#");
                 mData.get(globalPositon).setAddress(temp[0]);

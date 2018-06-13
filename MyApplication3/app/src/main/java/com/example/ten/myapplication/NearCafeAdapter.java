@@ -81,7 +81,7 @@ public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {
                                     } else if (flag1 == 2) {
                                         end1 = j;
                                         String img = nowString1.substring(start1, end1);
-                                        resultString += img + "\n";
+//                                        resultString += img + "\n";
                                         Log.v("done2", img + "");
                                         nowString1 = nowString1.substring(end1 + 1, nowString1.length());
                                         break;
@@ -133,9 +133,9 @@ public class NearCafeAdapter extends ArrayAdapter<NearCafeData> {
                             }
 
 
-                            for (int i = 0; i < menuList.size(); i++) {
-                                resultString += menuList.get(i) + "  " + priceList.get(i) + "\n";
-                            }
+//                            for (int i = 0; i < menuList.size(); i++) {
+//                                resultString += menuList.get(i) + "  " + priceList.get(i) + "\n";
+//                            }
                             name.setText(resultString);
                             Log.v("resultT", resultString);
                         }

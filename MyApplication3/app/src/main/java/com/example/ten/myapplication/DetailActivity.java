@@ -172,7 +172,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                                     } else if (flag1 == 2) {
                                         end1 = j;
                                         String img = nowString1.substring(start1, end1);
-                                        resultString += img + "\n";
+                                        resultString += img + "\n\n";
                                         Log.v("done2", img + "");
                                         nowString1 = nowString1.substring(end1 + 1, nowString1.length());
                                         break;

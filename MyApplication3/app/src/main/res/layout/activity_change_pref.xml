@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6ABC64"
+    android:background="@color/colorGreen"
     tools:context="com.example.ten.myapplication.ChangePrefActivity">
 
     <LinearLayout
@@ -144,7 +144,7 @@
         android:id="@+id/submit"
         android:onClick="join"
         android:background="@drawable/arrow"
-        android:textColor="#282828"
+        android:textColor="@color/colorDarkGreen"
         android:layout_width="45dp"
         android:layout_height="45dp" />
 </LinearLayout>

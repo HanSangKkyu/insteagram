@@ -15,7 +15,7 @@
         android:paddingTop="85dp"
         android:text="SIGN IN"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#334036" />
+        android:textColor="@color/colorDarkGreen" />
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="241dp"
@@ -37,7 +37,7 @@
             android:layout_marginLeft="18dp"
             android:background="@android:color/transparent"
             android:hint="@string/edittext_hint_id"
-            android:textColorHint="#95AD9A" />
+            android:textColorHint="@color/colorAccent" />
 
         <Button
             android:id="@+id/checkButton"
@@ -63,7 +63,7 @@
         android:background="@drawable/edittext"
         android:hint="@string/edittext_hint_pw"
         android:inputType="textPassword"
-        android:textColorHint="#95AD9A" />
+        android:textColorHint="@color/colorAccent" />
 
 
     <GridLayout
@@ -85,7 +85,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="플라워 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -96,7 +96,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="동물 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -107,7 +107,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="만화 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -118,7 +118,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="루프탑 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -129,7 +129,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="캐릭터 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -140,7 +140,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="저렴한 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -151,7 +151,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="사주 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -162,7 +162,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="북 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
         <Button
@@ -173,7 +173,7 @@
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
             android:text="디저트 카페"
-            android:textColor="#282828"
+            android:textColor="@color/colorDarkGreen"
             android:textSize="10sp" />
 
     </GridLayout>
@@ -185,7 +185,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="74dp"
         android:layout_marginHorizontal="18dp"
-        android:background="#334036"
+        android:background="@color/colorAccent"
         android:onClick="join"
         android:textColor="#ffffff"
         />

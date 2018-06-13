@@ -59,7 +59,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
-        android:background="#334036"
+        android:background="@color/colorAccent"
         android:onClick="login"
         android:text="LOGIN"
         android:textColor="#ffffff"

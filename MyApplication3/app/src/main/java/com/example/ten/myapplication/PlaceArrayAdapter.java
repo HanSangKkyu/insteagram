@@ -128,6 +128,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                 resultList.add(new PlaceAutocomplete(prediction.getPlaceId(),
                         prediction.getFullText(null)));
                 str = prediction.getFullText(null).toString();
+                break;
             }
             Log.v("태그들3", str);
             if (str.indexOf("대한민국") != -1) {

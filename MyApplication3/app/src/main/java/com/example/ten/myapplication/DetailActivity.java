@@ -217,6 +217,28 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                                 }
                             }
 
+                            // 지도정보
+                            String nowString2 = result;
+                            int flag2 = 0;
+                            int start2 = nowString2.indexOf("roadAddr\":\"");
+                            int end2 = 0;
+                            for (int j = start2; nowString2.indexOf("roadAddr\":\"") != -1; j++) {
+                                if (nowString2.charAt(j) == '\"') {
+                                    if (flag2 == 1) {
+                                        start2 = j + 1;
+                                    } else if (flag2 == 2) {
+                                        end2 = j;
+                                        String img = nowString2.substring(start2, end2);
+                                        resultString += img + "\n\n";
+                                        Log.v("roadArr", img + "");
+                                        nowString2 = nowString2.substring(end2 + 1, nowString2.length());
+                                        addressToLatLng(nowString2);
+                                        break;
+                                    }
+                                    flag2++;
+                                }
+                            }
+
                             // 메뉴 가져오기
                             String nowString = result;
                             String findStr = "<div class=\"menu_area\"><span>";

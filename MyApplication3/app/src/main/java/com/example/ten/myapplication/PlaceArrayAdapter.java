@@ -1,9 +1,9 @@
 package com.example.ten.myapplication;
 
 import android.content.Context;
+import android.os.Message;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -129,6 +129,12 @@ public class PlaceArrayAdapter
                 str = prediction.getFullText(null).toString();
             }
             Log.v("태그들3", str);
+            if(str.indexOf("대한민국")!=-1){
+                Message message= Message.obtain(Adapter.handler,0,str);
+                Adapter.handler.sendMessage(message);
+            }
+
+
 //            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
             //resultList.get(0);
             // Buffer release

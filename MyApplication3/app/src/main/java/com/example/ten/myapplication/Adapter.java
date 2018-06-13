@@ -57,7 +57,7 @@ public class Adapter extends ArrayAdapter<Data> {
                     //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
                     String s=(String)msg.obj;
                     Log.v("태그들기모찌", s);
-                    
+
                 }
             }
         };

@@ -129,8 +129,11 @@ public class PlaceArrayAdapter
                 str = prediction.getFullText(null).toString();
             }
             Log.v("태그들3", str);
-            Message message= Message.obtain(Adapter.handler,0,str);
-            Adapter.handler.sendMessage(message);
+            if(str.indexOf("대한민국")!=-1){
+                Message message= Message.obtain(Adapter.handler,0,str);
+                Adapter.handler.sendMessage(message);
+            }
+
 
 //            Toast.makeText(getContext(), "장소검사 :"+str,Toast.LENGTH_SHORT ).show();
             //resultList.get(0);

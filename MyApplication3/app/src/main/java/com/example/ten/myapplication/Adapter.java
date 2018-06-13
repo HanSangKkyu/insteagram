@@ -100,7 +100,6 @@ public class Adapter extends ArrayAdapter<Data> {
                     .setCallback(new FutureCallback<String>() {
                         @Override
                         public void onCompleted(Exception e, String result) {
-
                             String findStr = "hashtags\" content=\"";
                             String tagSet = "";
 
@@ -136,7 +135,6 @@ public class Adapter extends ArrayAdapter<Data> {
                             Log.v("태그들1", filtering1);
                             JsonParshing(filtering1, position); // 불용어 처리
                             Log.v("태그들2", mData.get(position).getPlace() + "0");
-                            Log.v("태그들2json", jsontag + "0");
 
 
 //                            if (!tagSets.equals("")) {
@@ -317,6 +315,8 @@ public class Adapter extends ArrayAdapter<Data> {
                                     /// /String t2=r.substring()
                                 }
                                 if (i == temp.length - 1) { // 마지막 실행이면
+                                    Log.v("태그들2json", jsontag + "0");
+
                                     TimerTask mTask;
                                     Timer mTimer;
 

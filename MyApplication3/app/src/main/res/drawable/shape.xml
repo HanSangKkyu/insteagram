@@ -8,6 +8,7 @@
 
     <!-- 테두리 radius 설정 -->
 
+    <corners android:radius="13dp"/>
     <!-- 테두리 내부 여백 설정 -->
     <padding
         android:bottom="3dp"

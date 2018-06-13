@@ -286,6 +286,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     public void showReview(View view) {
         Intent i = new Intent(this, ShowReviewActivity.class);
         i.putExtra("user", m_curUser);
+        i.putExtra("cafename", nearCafeName);
         startActivity(i);
     }
 

@@ -22,13 +22,15 @@
             android:id="@+id/img"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="180dp"
+            android:background="@color/colorGreen"/>
 
         <LinearLayout
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -42,22 +44,26 @@
                 android:text="\n카페이름"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:src="@drawable/cafeinfo"
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
+
             <TextView
                 android:id="@+id/cafeFood"
                 android:text="메뉴정보\n아메리카노 2000\n라떼 2500\nddd 3000\nssss 3000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
 
 

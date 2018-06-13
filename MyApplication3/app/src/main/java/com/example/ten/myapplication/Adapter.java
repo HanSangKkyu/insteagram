@@ -1,6 +1,7 @@
 package com.example.ten.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -30,6 +32,7 @@ import static com.example.ten.myapplication.Main2Activity.filtering1;
 import static com.example.ten.myapplication.Main2Activity.hashes;
 import static com.example.ten.myapplication.Main2Activity.locationes;
 import static com.example.ten.myapplication.Main2Activity.mPlaceArrayAdapter;
+import static com.example.ten.myapplication.Main2Activity.m_user;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
 public class Adapter extends ArrayAdapter<Data> {
@@ -48,19 +51,7 @@ public class Adapter extends ArrayAdapter<Data> {
         this.context = context;
         this.search = search;
 
-        handler=new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                //MyAdapter2에서 선택한 버튼의 정보를 알려줌.
-                super.handleMessage(msg);
-                if(msg.what==0){
-                    //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                    String s=(String)msg.obj;
-                    Log.v("태그들기모찌", s);
 
-                }
-            }
-        };
     }
 
     @NonNull
@@ -139,6 +130,34 @@ public class Adapter extends ArrayAdapter<Data> {
                         }
                     });
         }
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                //MyAdapter2에서 선택한 버튼의 정보를 알려줌.
+                super.handleMessage(msg);
+                if (msg.what == 0) {
+                    //Toast.makeText(getApplicationContext(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                    String s = (String) msg.obj;
+                    Log.v("태그들기모찌", s);
+                    String[] temp = s.split("#");
+                    mData.get(position).setAddress(temp[0]);
+                    mData.get(position).setName(temp[1]);
+
+                }
+            }
+        };
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("user", m_user);
+                intent.putExtra("url", mData.get(position).getDisplay_url());
+                intent.putExtra("cafename", mData.get(position).getName());
+                intent.putExtra("cafeAddress", mData.get(position).getAddress());
+                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                context.startActivity(intent);
+            }
+        });
         return v;
 
     }
@@ -178,7 +197,6 @@ public class Adapter extends ArrayAdapter<Data> {
             ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place);
 
         }
-
 
 
 //        count = 0;

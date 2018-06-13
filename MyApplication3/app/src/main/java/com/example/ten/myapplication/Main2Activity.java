@@ -53,7 +53,6 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
     Intent intent;
 
 
-
     public static final int TYPE_CAFE = 15;
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private GoogleApiClient mGoogleApiClient;
@@ -184,7 +183,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     if (locationes[j].equals(r))
                                         flag = true;
                                     reality = r; // 서울 , 동대문, 구로5동
-                                  //  Filtering_2(filtering1, );
+                                    //  Filtering_2(filtering1, );
                                     break;
                                 }
                                 if (flag == true)
@@ -419,19 +418,18 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     }
 
 
-
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
 
                 } else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -680,16 +678,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     //filtering2=adapter.filtering2
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
                 } else if (sectionNumber == 2) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
                     final String search = m_data[sectionNumber - 1];
@@ -816,16 +814,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     listView.setAdapter(adapter);
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
 
                 } else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -1160,16 +1158,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     listView.setAdapter(adapter);
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
 
                 } else if (sectionNumber == 2) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -1247,16 +1245,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                     listView.setAdapter(adapter);
                                 }
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
 
                 } else if (sectionNumber == 3) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
@@ -1335,16 +1333,16 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 }
 
                             });
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getContext(), DetailActivity.class);
-                            intent.putExtra("user", m_user);
-                            intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
+//                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                            Intent intent = new Intent(getContext(), DetailActivity.class);
+//                            intent.putExtra("user", m_user);
+//                            intent.putExtra("url", imgUrlList.get(position));
+//                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+//                            startActivity(intent);
+//                        }
+//                    });
                 } else if (sectionNumber == m_data.length + 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
 //                    TextView title = (TextView) rootView.findViewById(R.id.title);

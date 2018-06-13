@@ -41,7 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class DetailActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener{
+public class DetailActivity extends NMapActivity implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener, NMapOverlayManager.OnCalloutOverlayListener {
 
     ImageView imageView;
     EditText editReview;
@@ -61,16 +61,16 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     DatabaseReference databaseReference;
 
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
-    private final String  TAG = "MainActivity";
+    private final String TAG = "MainActivity";
 
     private ViewGroup mapLayout;
 
-    private NMapController mMapController=null;
+    private NMapController mMapController = null;
     private NMapView mMapView;
 
     private NMapResourceProvider nMapResourceProvider;
     private NMapOverlayManager mapOverlayManager;
-    NMapPOIdataOverlay.OnStateChangeListener onPOldataStateChangeListener=null;
+    NMapPOIdataOverlay.OnStateChangeListener onPOldataStateChangeListener = null;
     SimpleDateFormat simpleDateFormat;
 
     @Override
@@ -80,7 +80,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
         init();
     }
-    public void init(){
+
+    public void init() {
         mapLayout = findViewById(R.id.map_view);
 
         mMapView = new NMapView(this);
@@ -93,17 +94,17 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         mMapView.requestFocus();
 
         mapLayout.addView(mMapView);
-        nMapResourceProvider=new NMapViewerResourceProvider(this);
-        mapOverlayManager=new NMapOverlayManager(this, mMapView, nMapResourceProvider);
+        nMapResourceProvider = new NMapViewerResourceProvider(this);
+        mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
 
-        int markId=NMapPOIflagType.PIN;
-        NMapPOIdata nMapPOIdata=new NMapPOIdata(1, nMapResourceProvider);
+        int markId = NMapPOIflagType.PIN;
+        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
         nMapPOIdata.beginPOIdata(1);
 
         nMapPOIdata.addPOIitem(127.0630205, 37.5091300, "Pizza777-111", markId, 0);
         nMapPOIdata.endPOIdata();
 
-        NMapPOIdataOverlay poIdataOverlay=mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
+        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
 
         poIdataOverlay.showAllPOIdata(0);
         poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
@@ -131,16 +132,16 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         Intent intent = getIntent();
         m_curUser = (User) intent.getSerializableExtra("user");
         urlStr = intent.getStringExtra("url");
-        if(intent.getSerializableExtra("cafename")!=null) { //주변 카페
+        if (intent.getSerializableExtra("cafeid") != null) { //주변 카페
             nearCafeName = intent.getStringExtra("cafename"); //name
             nearCafeId = intent.getStringExtra("cafeid"); //id
 
-            cafeName = (TextView)findViewById(R.id.cafeName);
+            cafeName = (TextView) findViewById(R.id.cafeName);
             cafeName.setText(nearCafeName);
 
-            cafeName = (TextView)findViewById(R.id.cafeName);
+            cafeName = (TextView) findViewById(R.id.cafeName);
 
-            final TextView cafeFood = (TextView)findViewById(R.id.cafeFood);
+            final TextView cafeFood = (TextView) findViewById(R.id.cafeFood);
 
             Ion.with(getApplicationContext())
                     .load("https://m.store.naver.com/restaurants/" + nearCafeId)
@@ -243,16 +244,16 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                 .into(imageView);
 
         databaseReference.child(nearCafeName).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    reviews.clear();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                reviews.clear();
 
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        ReviewData data = snapshot.getValue(ReviewData.class);
-                        reviews.add(data);
-                    }
-                    reviewAdapter.notifyDataSetChanged();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ReviewData data = snapshot.getValue(ReviewData.class);
+                    reviews.add(data);
                 }
+                reviewAdapter.notifyDataSetChanged();
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -275,8 +276,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == 11){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 11) {
                 finish();
             }
         }
@@ -348,17 +349,17 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay nMapOverlay, NMapOverlayItem nMapOverlayItem, Rect rect) {
         return null;
     }
+
     public void registerReview(View view) {
 
         String review = editReview.getText().toString();
         double rating = ratingBar.getRating();
 
-        if(review == null) {
+        if (review == null) {
             // 내용 없으면 거르기
             Toast.makeText(this, "내용을 입력하세요.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else {
+        } else {
             String date = simpleDateFormat.format(System.currentTimeMillis());
             ReviewData reviewData = new ReviewData(curUser, rating, review, date);
             databaseReference.child(nearCafeName).push().setValue(reviewData);

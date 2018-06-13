@@ -107,11 +107,12 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     }
 
     public void setMarker(LatLng latLng) {
+
         int markId = NMapPOIflagType.PIN;
         NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
         nMapPOIdata.beginPOIdata(1);
 
-        nMapPOIdata.addPOIitem(latLng.latitude, latLng.longitude, "카페이름", markId, 0);
+        nMapPOIdata.addPOIitem(latLng.longitude, latLng.latitude, nearCafeName, markId, 0);
         nMapPOIdata.endPOIdata();
 
         NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
@@ -121,7 +122,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         mMapView.setScalingFactor(1.7f);
 
         mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
+        mMapController.setMapCenter(new NGeoPoint(latLng.longitude,latLng.latitude), 10);     //Default Data
     }
 
     public void init() {
@@ -143,21 +144,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         nMapResourceProvider = new NMapViewerResourceProvider(this);
         mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
 
-        int markId = NMapPOIflagType.PIN;
-        NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
-        nMapPOIdata.beginPOIdata(1);
 
-        nMapPOIdata.addPOIitem(127.0630205, 37.5091300, "Pizza777-111", markId, 0);
-        nMapPOIdata.endPOIdata();
-
-        NMapPOIdataOverlay poIdataOverlay = mapOverlayManager.createPOIdataOverlay(nMapPOIdata, null);
-
-        poIdataOverlay.showAllPOIdata(0);
-        poIdataOverlay.setOnStateChangeListener(onPOldataStateChangeListener);
-        mMapView.setScalingFactor(1.7f);
-
-        mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
 
         //Default Data
 

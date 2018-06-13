@@ -323,14 +323,17 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reviews.clear();
+
                 float ratingSum = 0;
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ReviewData data = snapshot.getValue(ReviewData.class);
-                    ratingSum += data.getRating();
-                    reviews.add(data);
+                if(nearCafeName.length() != 0) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        ReviewData data = snapshot.getValue(ReviewData.class);
+                        ratingSum += data.getRating();
+                        reviews.add(data);
+                    }
+                    reviewAdapter.notifyDataSetChanged();
                 }
-                reviewAdapter.notifyDataSetChanged();
 
                 // 평점 평균 계산
                 float average = ratingSum / reviews.size();

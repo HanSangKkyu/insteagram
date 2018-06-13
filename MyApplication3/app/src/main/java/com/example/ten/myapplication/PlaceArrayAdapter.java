@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import static com.example.ten.myapplication.Adapter.mData;
 
 public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutocomplete> {
     Context context;
@@ -29,7 +28,8 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
     private LatLngBounds mBounds;
     private ArrayList<PlaceAutocomplete> mResultList;
     int globalPositon = 0;
-    int count=0;
+    int count = 0;
+    Adapter mAdapter;
 
     /**
      * Constructor
@@ -65,7 +65,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
         return mResultList.get(position);
     }
 
-    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint, String place, int position) {
+    public ArrayList<PlaceAutocomplete> getPredictions(CharSequence constraint, String place, int position, Adapter madapter) {
         if (mGoogleApiClient != null) {
             Log.i(TAG, "Executing autocomplete query for: " + constraint);
             String str = constraint.toString();
@@ -83,6 +83,7 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                                     mBounds, mPlaceFilter);
             results.setResultCallback(mUpdatePlaceDetailsCallback);
             globalPositon = position;
+            mAdapter = madapter;
             return resultList;
 //        }
             //  Log.e(TAG, "Google API client is not connected.");
@@ -139,14 +140,9 @@ public class PlaceArrayAdapter extends ArrayAdapter<PlaceArrayAdapter.PlaceAutoc
                 str += "#" + n;
                 Message message = Message.obtain(Adapter.handler, count, str);
                 count++;
-                Log.v("태그들기모찌", str + " " + globalPositon);
-                String[] temp = str.split("#");
-                mData.get(globalPositon).setAddress(temp[0]);
-                if (temp.length == 1)
-                    mData.get(globalPositon).setName(temp[0]);
-                else
-                    mData.get(globalPositon).setName(temp[1]);
 
+
+                mAdapter.setInfo(str, globalPositon);
 
 //                Adapter.handler.sendMessage(message);
             }

@@ -233,7 +233,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
         String[] s = str.split(" ");    //걸러지고 남은 아이들
         count = 0;
         do {
-            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place, 0); //일단 값 채워 넣고
+    //        ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[count], place, 0); //일단 값 채워 넣고
             count++;
         } while (count != s.length);
     }
@@ -346,7 +346,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
             View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
 
             makeFile();
-
+            Log.v("페이지", sectionNumber + "");
             int size = m_data.length;
             if (size == 1) {
                 if (sectionNumber == 1) {
@@ -695,7 +695,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 //                            startActivity(intent);
 //                        }
 //                    });
-                }else if (sectionNumber == 2 && m_data.length > 1) {
+                } else if (sectionNumber == 2 && m_data.length > 1) {
                     rootView = inflater.inflate(R.layout.fragment_main2, container, false);
 //                TextView title = (TextView) rootView.findViewById(R.id.title);
                     final String search = m_data[sectionNumber - 1];

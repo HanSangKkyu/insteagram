@@ -97,10 +97,11 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     public void addressToLatLng(String adrress) {
         try {
             result = geocoder.getFromLocationName(adrress, 1);
-            Address address = result.get(0);
-            latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            setMarker(latLng);
-
+            if (result.size() > 0) {
+                Address address = result.get(0);
+                latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                setMarker(latLng);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +123,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         mMapView.setScalingFactor(1.7f);
 
         mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(latLng.longitude,latLng.latitude), 10);     //Default Data
+        mMapController.setMapCenter(new NGeoPoint(latLng.longitude, latLng.latitude), 10);     //Default Data
     }
 
     public void init() {
@@ -143,7 +144,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         mapLayout.addView(mMapView);
         nMapResourceProvider = new NMapViewerResourceProvider(this);
         mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
-
 
 
         //Default Data
@@ -326,7 +326,7 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
                 float ratingSum = 0;
 
-                if(nearCafeName.length() != 0) {
+                if (nearCafeName.length() != 0) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         ReviewData data = snapshot.getValue(ReviewData.class);
                         ratingSum += data.getRating();

@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreen"
+    android:orientation="vertical"
     tools:context="com.example.ten.myapplication.ChangePrefActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:src="@drawable/settings"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="20dp"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/settings" />
+
         <TextView
-            android:text="Settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="45dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:text="Settings" />
     </LinearLayout>
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="100dp"
         android:columnCount="3"
         android:paddingLeft="8dp"
         android:rowCount="3">
@@ -67,8 +69,7 @@
             android:onClick="checkPreference"
             android:text="키즈 카페"
             android:textColor="#ffffff"
-            android:textSize="12sp"
-             />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/roofTop"
@@ -139,12 +140,12 @@
     </GridLayout>
 
     <Button
+        android:id="@+id/submit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_gravity="right"
         android:layout_marginRight="35dp"
-        android:id="@+id/submit"
-        android:onClick="join"
         android:background="@drawable/arrow"
-        android:textColor="@color/colorDarkGreen"
-        android:layout_width="45dp"
-        android:layout_height="45dp" />
+        android:onClick="join"
+        android:textColor="@color/colorDarkGreen" />
 </LinearLayout>

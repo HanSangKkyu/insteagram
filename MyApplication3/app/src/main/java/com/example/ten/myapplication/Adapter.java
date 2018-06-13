@@ -37,7 +37,7 @@ import static com.example.ten.myapplication.Main2Activity.m_user;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
 public class Adapter extends ArrayAdapter<Data> {
-    static List<Data> mData;
+    List<Data> mData;
     Context context;
     String search; // 플라워카페, 캐릭터카페, 북카페, 루프탑카페 ...
     String tagSets = "";
@@ -46,11 +46,14 @@ public class Adapter extends ArrayAdapter<Data> {
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
     public static final int TYPE_CAFE = 15;
 
+    Adapter mAdapter;
+
     public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
         super(context, resource, objects);
         mData = objects;
         this.context = context;
         this.search = search;
+        mAdapter = this;
 
         handler = new Handler() {
             @Override
@@ -75,7 +78,6 @@ public class Adapter extends ArrayAdapter<Data> {
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         View v = convertView;
         if (v == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -202,7 +204,7 @@ public class Adapter extends ArrayAdapter<Data> {
             //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
             sPlaceArrayAdapter.mGoogleApiClient = Main2Activity.mGoogleApiClient;
 
-            sPlaceArrayAdapter.getPredictions(s[i], place, position);
+            sPlaceArrayAdapter.getPredictions(s[i], place, position, mAdapter);
 
 //            ArrayList<PlaceArrayAdapter.PlaceAutocomplete> placeAutocompletes = mPlaceArrayAdapter.getPredictions(s[i], place, position);
         }
@@ -353,6 +355,17 @@ public class Adapter extends ArrayAdapter<Data> {
         }
 
         return null;
+    }
+
+    public void setInfo(String str, int position) {
+        Log.v("태그들기모찌", str + " " + position);
+        String[] temp = str.split("#");
+        mData.get(position).setAddress(temp[0]);
+        if (temp.length == 1)
+            mData.get(position).setName(temp[0]);
+        else
+            mData.get(position).setName(temp[1]);
+
     }
 
 

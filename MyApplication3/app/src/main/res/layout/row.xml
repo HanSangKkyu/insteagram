@@ -16,7 +16,8 @@
         android:paddingBottom="5dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <ImageView
             android:src="@drawable/icon_"
@@ -24,6 +25,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
     <TextView
+        android:text="카페 이름"
         android:id="@+id/shortcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

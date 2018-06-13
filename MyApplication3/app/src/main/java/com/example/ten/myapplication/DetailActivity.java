@@ -88,10 +88,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
         init();
     }
-<<<<<<< HEAD
-
-    public void init() {
-=======
     public void addressToLatLng(View view) {
         Intent intent=getIntent();
         String str=intent.getStringExtra("Address");
@@ -123,8 +119,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
         geocoder = new Geocoder(this);
     }
+
     public void init(){
->>>>>>> 80874423b023144017c85b0647fbbdd7eda3e2ba
         mapLayout = findViewById(R.id.map_view);
 
         mMapView = new NMapView(this);
@@ -140,7 +136,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         nMapResourceProvider = new NMapViewerResourceProvider(this);
         mapOverlayManager = new NMapOverlayManager(this, mMapView, nMapResourceProvider);
 
-<<<<<<< HEAD
         int markId = NMapPOIflagType.PIN;
         NMapPOIdata nMapPOIdata = new NMapPOIdata(1, nMapResourceProvider);
         nMapPOIdata.beginPOIdata(1);
@@ -156,8 +151,6 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
 
         mMapController = mMapView.getMapController();
         mMapController.setMapCenter(new NGeoPoint(127.0630205, 37.5091300), 11);     //Default Data
-=======
->>>>>>> 80874423b023144017c85b0647fbbdd7eda3e2ba
 
         //Default Data
 

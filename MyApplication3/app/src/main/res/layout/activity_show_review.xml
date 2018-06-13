@@ -19,7 +19,8 @@
         <ImageView
             android:src="@drawable/arrow2"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:onClick="goBack"/>
 
         <ListView
             android:layout_marginTop="20dp"

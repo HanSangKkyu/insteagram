@@ -23,13 +23,14 @@
 
     <EditText
         android:id="@+id/inputID"
+        android:layout_marginHorizontal="10dp"
         android:layout_width="241dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_gravity="center"
         android:layout_marginTop="23dp"
         android:layout_marginLeft="12dp"
         android:paddingTop="5dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/edittext"
         android:hint="@string/edittext_hint_id"
         android:textColorHint="#95AD9A"
         tools:layout_editor_absoluteX="52dp"
@@ -38,13 +39,14 @@
 
     <EditText
         android:id="@+id/inputPW"
+        android:layout_marginHorizontal="10dp"
         android:layout_width="241dp"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="12dp"
         android:paddingTop="10dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/edittext"
         android:hint="@string/edittext_hint_pw"
         android:inputType="textPassword"
         android:textColorHint="#95AD9A"

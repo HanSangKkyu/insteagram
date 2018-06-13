@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/login2"
     tools:context=".JoinActivity">
 
     <TextView
@@ -19,11 +18,13 @@
         android:textColor="#334036" />
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="280dp"
+        android:layout_width="241dp"
         android:layout_height="36dp"
         android:layout_marginTop="25dp"
-        android:paddingLeft="25dp"
+        android:layout_marginHorizontal="35dp"
+        android:paddingLeft="5dp"
         android:orientation="horizontal"
+        android:background="@drawable/edittext"
         >
 
 
@@ -31,10 +32,9 @@
             android:id="@+id/inputID"
             android:layout_gravity="center"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="5"
             android:layout_marginLeft="18dp"
-            android:paddingTop="15dp"
             android:background="@android:color/transparent"
             android:hint="@string/edittext_hint_id"
             android:textColorHint="#95AD9A" />
@@ -53,14 +53,14 @@
 
     <EditText
         android:id="@+id/inputPW"
-        android:layout_width="316dp"
-        android:layout_height="wrap_content"
+        android:layout_width="241dp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="38dp"
         android:layout_marginBottom="20dp"
-        android:paddingLeft="6dp"
+        android:paddingLeft="20dp"
         android:paddingTop="5dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/edittext"
         android:hint="@string/edittext_hint_pw"
         android:inputType="textPassword"
         android:textColorHint="#95AD9A" />
@@ -80,7 +80,7 @@
         <Button
             android:id="@+id/flower"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -91,7 +91,7 @@
         <Button
             android:id="@+id/cat"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -102,7 +102,7 @@
         <Button
             android:id="@+id/dog"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -113,7 +113,7 @@
         <Button
             android:id="@+id/roofTop"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -124,7 +124,7 @@
         <Button
             android:id="@+id/character"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -135,7 +135,7 @@
         <Button
             android:id="@+id/cheap"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -146,7 +146,7 @@
         <Button
             android:id="@+id/fortune"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -157,7 +157,7 @@
         <Button
             android:id="@+id/book"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"
@@ -168,7 +168,7 @@
         <Button
             android:id="@+id/dessert"
             android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_margin="1dp"
             android:background="@drawable/btnselector"
             android:onClick="checkPreference"

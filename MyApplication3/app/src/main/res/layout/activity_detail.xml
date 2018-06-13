@@ -59,22 +59,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:onClick="showReview"
+                android:src="@drawable/speechbubble"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+            <RatingBar
+                android:id="@+id/averageRating"
+                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:isIndicator="true"/>
+
+        </LinearLayout>
+
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
             android:layout_height="200dp"
-            />
-
-
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:onClick="showReview"
-            android:src="@drawable/speechbubble"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
-
-
+            android:layout_marginTop="20dp" />
 
         <ListView
             android:layout_marginTop="10dp"

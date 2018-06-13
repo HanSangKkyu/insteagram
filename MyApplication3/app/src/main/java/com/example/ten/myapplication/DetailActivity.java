@@ -67,6 +67,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
     List<Address> result;
     LatLng latLng;
 
+    RatingBar averageRating;
+
     private final String CLIENT_ID = "LTOf8bZlUUyhsOXNjX43";// 애플리케이션 클라이언트 아이디 값
     private final String TAG = "MainActivity";
 
@@ -286,12 +288,18 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reviews.clear();
+                float ratingSum = 0;
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ReviewData data = snapshot.getValue(ReviewData.class);
+                    ratingSum += data.getRating();
                     reviews.add(data);
                 }
                 reviewAdapter.notifyDataSetChanged();
+
+                // 평점 평균 계산
+                float average = ratingSum / reviews.size();
+                averageRating.setRating(average);
             }
 
             @Override
@@ -311,6 +319,8 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
         });
 
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+        averageRating = (RatingBar) findViewById(R.id.averageRating);
     }
 
     @Override

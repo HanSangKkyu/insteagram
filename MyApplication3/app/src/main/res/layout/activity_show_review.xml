@@ -13,11 +13,13 @@
         android:layout_marginTop="25dp"
         android:orientation="vertical"
         android:layout_marginHorizontal="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
 
         <ImageView
             android:src="@drawable/arrow2"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:onClick="goBack"/>
@@ -26,7 +28,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/reviewList"
             android:layout_width="wrap_content"
-            android:layout_height="350dp">
+            android:layout_height="500dp">
 
         </ListView>
 
@@ -38,12 +40,12 @@
             android:layout_marginTop="20dp"
             android:numStars="5"
             android:stepSize="0.5"
-            android:isIndicator="false"/>
+            android:isIndicator="false" />
 
         <LinearLayout
             android:background="@drawable/edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
             <EditText
@@ -52,7 +54,8 @@
                 android:layout_marginLeft="15dp"
                 android:cursorVisible="false"
                 android:id="@+id/editReview"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="wrap_content" />
 
             <Button

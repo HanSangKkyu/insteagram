@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -131,10 +130,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.e(LOG_TAG, "Google Places API connection failed with error code: "
                 + connectionResult.getErrorCode());
 
-        Toast.makeText(this,
-                "Google Places API connection failed with error code:" +
-                        connectionResult.getErrorCode(),
-                Toast.LENGTH_LONG).show();
+//        // Toast.makeText(this,
+//                "Google Places API connection failed with error code:" +
+//                        connectionResult.getErrorCode(),
+//                Toast.LENGTH_LONG).show();
     }
 
     @Override

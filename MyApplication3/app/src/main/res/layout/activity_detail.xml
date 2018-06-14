@@ -41,7 +41,7 @@
                 android:id="@+id/cafeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\n카페이름"
+                android:text="장소 정보를 찾을 수 없습니다."
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
         </LinearLayout>
 
@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/cafeFood"
-                android:text="메뉴정보\n아메리카노 2000\n라떼 2500\nddd 3000\nssss 3000"
+                android:text="태그를 통해 장소를 찾을 수 없습니다."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -285,8 +285,16 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
                             for (int i = 0; i < menuList.size(); i++) {
                                 resultString += menuList.get(i) + "  " + priceList.get(i) + "\n";
                             }
-                            cafeName.setText(nearCafeName);
-                            cafeFood.setText(resultString);
+
+                            if(nearCafeName.length() == 0 ) {
+                                cafeName.setText("장소 정보를 찾을 수 없습니다.");
+                                cafeFood.setText("태그로 장소 정보를 찾는 데 실패했습니다.");
+                            } else {
+                                cafeName.setText(nearCafeName);
+                                cafeFood.setText(resultString);
+                            }
+//                            cafeName.setText(nearCafeName);
+//                            cafeFood.setText(resultString);
                             Log.v("resultT", resultString);
                         }
                     });
@@ -301,7 +309,13 @@ public class DetailActivity extends NMapActivity implements NMapView.OnMapStateC
             // 카페이름 텍스트뷰 설정
             nearCafeName = intent.getStringExtra("cafename");
             cafeName = (TextView) findViewById(R.id.cafeName);
-            cafeName.setText(nearCafeName);
+
+            if(nearCafeName.length() == 0) {
+                cafeName.setText("장소 정보를 찾을 수 없습니다.");
+            }
+            else {
+                cafeName.setText(nearCafeName);
+            }
 
             // 지도 마커 찍기
             instaCafeAddress = intent.getStringExtra("Address");

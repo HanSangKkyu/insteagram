@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.gson.JsonArray;
@@ -157,7 +156,7 @@ public class Adapter extends ArrayAdapter<Data> {
                 intent.putExtra("url", mData.get(position).getDisplay_url());
                 intent.putExtra("cafename", mData.get(position).getName());
                 intent.putExtra("Address", mData.get(position).getAddress());
-                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
         });
@@ -358,6 +357,9 @@ public class Adapter extends ArrayAdapter<Data> {
     }
 
     public void setInfo(String str, int position) {
+        if (mData.get(position).getAddress().length() > 0) {
+            return;
+        }
         Log.v("태그들기모찌", str + " " + position);
         String[] temp = str.split("#");
         mData.get(position).setAddress(temp[0]);

@@ -594,7 +594,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
                                 intent.putExtra("cafename", nearCafeDataList.get(position).getName());
                                 intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
-                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
                         });
@@ -827,7 +827,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                         if (gps.isGetLocation()) {
 
-                            Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
+                            // Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
                         } else {
                             // GPS 를 사용할수 없으므로
                             gps.showSettingsAlert();
@@ -942,7 +942,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
                                 intent.putExtra("cafename", nearCafeDataList.get(position).getName());
                                 intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
-                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
                         });
@@ -1031,7 +1031,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                             Intent intent = new Intent(getContext(), DetailActivity.class);
                             intent.putExtra("user", m_user);
                             intent.putExtra("url", imgUrlList.get(position));
-                            Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                           //  Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                         }
                     });
@@ -1343,7 +1343,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
 
                         if (gps.isGetLocation()) {
 
-                            Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
+                           // Toast.makeText(getContext(), "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude, Toast.LENGTH_LONG).show();
                         } else {
                             // GPS 를 사용할수 없으므로
                             gps.showSettingsAlert();
@@ -1458,7 +1458,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                                 intent.putExtra("url", nearCafeDataList.get(position).getImg());
                                 intent.putExtra("cafename", nearCafeDataList.get(position).getName());
                                 intent.putExtra("cafeid", nearCafeDataList.get(position).getId());
-                                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                             }
                         });
@@ -1640,7 +1640,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 0:
                         return m_data[0];
                     case 1:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             } else if (m_prefSize == 2) {
                 switch (position) {
@@ -1649,7 +1649,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 1:
                         return m_data[1];
                     case 2:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             } else if (m_prefSize == 3) {
                 switch (position) {
@@ -1660,7 +1660,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 2:
                         return m_data[2];
                     case 3:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             }
             return null;

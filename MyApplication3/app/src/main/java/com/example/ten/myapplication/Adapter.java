@@ -41,7 +41,7 @@ public class Adapter extends ArrayAdapter<Data> {
     int GlobalPosition;
     String jsontag = "";  //json으로 불용어를 제거한 다음에 실질적으로 검색에 쓰여질 변수
     public static final int TYPE_CAFE = 15;
-
+    static AutocompleteFilter typeFilter;
     Adapter mAdapter;
 
     public Adapter(@NonNull Context context, int resource, @NonNull List<Data> objects, String search) {
@@ -50,7 +50,9 @@ public class Adapter extends ArrayAdapter<Data> {
         this.context = context;
         this.search = search;
         mAdapter = this;
-
+        typeFilter = new AutocompleteFilter.Builder()
+                .setTypeFilter(TYPE_CAFE)
+                .build();
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -196,7 +198,7 @@ public class Adapter extends ArrayAdapter<Data> {
 
 
             PlaceArrayAdapter sPlaceArrayAdapter = new PlaceArrayAdapter(getContext(), android.R.layout.simple_list_item_1,
-                    Main2Activity.BOUNDS_MOUNTAIN_VIEW, Main2Activity.typeFilter);
+                    Main2Activity.BOUNDS_MOUNTAIN_VIEW, typeFilter);
             //mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
             sPlaceArrayAdapter.mGoogleApiClient = Main2Activity.mGoogleApiClient;
 

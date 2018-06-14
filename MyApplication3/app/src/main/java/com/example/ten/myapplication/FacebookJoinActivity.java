@@ -36,7 +36,7 @@ public class FacebookJoinActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         facebook_id = intent.getStringExtra("user");
-        Toast.makeText(this, facebook_id, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, facebook_id, Toast.LENGTH_SHORT).show();
 
         for(int i=0; i<check.length; i++)
             check[i] = false; // false로 초기화, 선택되면 true

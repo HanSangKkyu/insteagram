@@ -52,7 +52,7 @@ public class ChangePrefActivity extends AppCompatActivity {
 
 
     public void join(View view) {
-        Toast.makeText(this, pref, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, pref, Toast.LENGTH_SHORT).show();
         databaseReference.child(user.getId().toString()).child("preferences").setValue(pref);
 
         if (flag) {

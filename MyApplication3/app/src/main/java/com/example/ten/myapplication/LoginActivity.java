@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
         inputID = editID.getText().toString();
         inputPW = editPW.getText().toString();
 
-        Toast.makeText(this, inputID + ", " + inputPW, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, inputID + ", " + inputPW, Toast.LENGTH_SHORT).show();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

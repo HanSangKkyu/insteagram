@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -23,7 +21,6 @@ import com.koushikdutta.async.util.Charsets;
 import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -32,7 +29,6 @@ import java.util.TimerTask;
 import static com.example.ten.myapplication.Main2Activity.filtering1;
 import static com.example.ten.myapplication.Main2Activity.hashes;
 import static com.example.ten.myapplication.Main2Activity.locationes;
-import static com.example.ten.myapplication.Main2Activity.mPlaceArrayAdapter;
 import static com.example.ten.myapplication.Main2Activity.m_user;
 import static com.example.ten.myapplication.Main2Activity.reality;
 
@@ -157,7 +153,7 @@ public class Adapter extends ArrayAdapter<Data> {
                 intent.putExtra("url", mData.get(position).getDisplay_url());
                 intent.putExtra("cafename", mData.get(position).getName());
                 intent.putExtra("Address", mData.get(position).getAddress());
-                Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getContext(), "ㅎㅎ", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
             }
         });

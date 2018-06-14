@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.util.Charsets;
@@ -61,10 +60,10 @@ public class NearCafe extends AppCompatActivity {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
 
-            Toast.makeText(
-                    getApplicationContext(),
-                    "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(
+//                    getApplicationContext(),
+//                    "당신의 위치 - \n위도: " + latitude + "\n경도: " + longitude,
+//                    Toast.LENGTH_LONG).show();
         } else {
             // GPS 를 사용할수 없으므로
             gps.showSettingsAlert();

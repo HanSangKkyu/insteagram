@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -1641,7 +1640,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 0:
                         return m_data[0];
                     case 1:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             } else if (m_prefSize == 2) {
                 switch (position) {
@@ -1650,7 +1649,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 1:
                         return m_data[1];
                     case 2:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             } else if (m_prefSize == 3) {
                 switch (position) {
@@ -1661,7 +1660,7 @@ public class Main2Activity extends AppCompatActivity implements GoogleApiClient.
                     case 2:
                         return m_data[2];
                     case 3:
-                        return "집 앞 카페";
+                        return "내 주변 카페";
                 }
             }
             return null;

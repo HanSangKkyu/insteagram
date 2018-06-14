@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Toast.makeText(LoginActivity.this, facebook_id, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(LoginActivity.this, facebook_id, Toast.LENGTH_SHORT).show();
 
 
                             // Firebase에 저장된 아이디 (이메일)인지 확인한다
